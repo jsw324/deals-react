@@ -32,7 +32,7 @@ class Event extends React.Component {
             )
           }
         };
-
+      //TODO: push obj to state and upstead to parent 'Events' component
     return (
       <tr>
         <td>event id</td>
