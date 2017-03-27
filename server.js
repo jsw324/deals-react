@@ -63,7 +63,7 @@ app.get('/fights/:id', (req, res) => {
       for (var key in fights) {
         var obj = fights[key];
         }
-      console.log('fighter1', obj[0].fighter1_first_name);
+      res.status(200).send(obj);
     }
   }).catch(function (err) {
     console.log('err in fights', err);

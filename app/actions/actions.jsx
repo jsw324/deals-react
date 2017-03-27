@@ -18,7 +18,6 @@ export var getEvents = () => {
       dispatch(startGetEvents());
 
       axios.get('http://localhost:3500/fights').then(function (data) {
-        console.log('res', data.data);
         dispatch(completeGetEvents(data.data));
       });
     }
@@ -42,8 +41,7 @@ export var getFights = () => {
     dispatch(startGetFights());
 
     axios.get('http://localhost:3500/fights/617917').then(function (data) {
-      console.log('fights', data);
-      dispatch(completeGetFights(data));
+      dispatch(completeGetFights(data.data));
     });
   }
 };

@@ -27,11 +27,12 @@ module.exports = {
       applicationStyles: 'app/styles/app.scss',
       AllFights: 'app/components/AllFights.jsx',
       GetFights: 'app/api/GetFights.jsx',
-      Event: 'app/components/Event.jsx',
+      Events: 'app/components/Events.jsx',
       FightList: 'app/components/FightList.jsx',
       actions: 'app/actions/actions.jsx',
       reducers: 'app/reducers/fightr.jsx',
-      configureStore: 'app/store/configureStore.jsx'
+      configureStore: 'app/store/configureStore.jsx',
+      Event: 'app/components/Event.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

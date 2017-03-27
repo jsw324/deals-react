@@ -3,7 +3,7 @@ const axios = require('axios');
 const moment = require('moment')
 const {Link} = require('react-router');
 
-const Event = require('Event');
+
 const FightList = require('FightList');
 
 class AllFights extends React.Component {
@@ -34,7 +34,7 @@ class AllFights extends React.Component {
   };
 
   render() {
-    
+
     var {fights} = this.state;
 
     return <div>

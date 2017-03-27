@@ -2,6 +2,7 @@ const React = require('react');
 const Nav = require('Nav');
 
 const AllFights = require('AllFights');
+import Events from 'Events';
 
 var Main = (props) => {
   return (
@@ -10,7 +11,7 @@ var Main = (props) => {
       <div>
         <div>
           <p>Main.jsx Rendered</p>
-          {props.children}
+          <Events/>
         </div>
       </div>
     </div>

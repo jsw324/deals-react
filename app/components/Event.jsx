@@ -1,18 +1,49 @@
 const React = require('react');
+const {connect} = require('react-redux');
+const actions = require('actions');
 
-const Event = React.createClass({
-  componentDidMount: function () {
-    var receivedID = this.props.location.state.id;
-    console.log('id',receivedID);
-  },
-  render: function() {
+class Event extends React.Component {
+  constructor(props) {
+    super (props);
+  }
+  render () {
+    const {events} = this.props;
+    console.log('events from event', events);
+
+      var getEventItems = () => {
+        if (events.isFetching == false) {
+            console.log('is event fetching', events.data[0].id);
+
+            var obj;
+            for (var key in events) {
+              obj = events[key];
+            }
+            return (
+              <div>
+                <p>{obj[0].id}</p>
+                <p>{obj[0].title_tag}</p>
+              </div>
+            )
+          } else {
+            return (
+              <div>
+                <p>Loading...</p>
+              </div>
+            )
+          }
+        };
+
     return (
-      <div>
-        <p>Event Component</p>
-        <p>id</p>
-      </div>
+      <tr>
+        <td>event id</td>
+        <td>{getEventItems()}</td>
+      </tr>
     )
   }
-});
+};
 
-module.exports = Event;
+export default connect(
+  (state) => {
+    return state;
+  }
+)(Event);
