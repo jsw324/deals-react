@@ -25,14 +25,14 @@ module.exports = {
       Main: 'app/components/Main.jsx',
       Nav: 'app/components/Nav.jsx',
       applicationStyles: 'app/styles/app.scss',
-      AllFights: 'app/components/AllFights.jsx',
       GetFights: 'app/api/GetFights.jsx',
       Events: 'app/components/Events.jsx',
-      FightList: 'app/components/FightList.jsx',
       actions: 'app/actions/actions.jsx',
       reducers: 'app/reducers/fightr.jsx',
       configureStore: 'app/store/configureStore.jsx',
-      Event: 'app/components/Event.jsx'
+      Event: 'app/components/Event.jsx',
+      FightList: 'app/components/FightList.jsx',
+      Fight: 'app/components/Fight.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

@@ -21,7 +21,7 @@ export var getEvents = () => {
     return (dispatch, getState) => {
       dispatch(startGetEvents());
       console.log('port from action', process.env.PORT);
-      if (process.env.PORT) {
+      if (!process.env.PORT) {
         axios.get('http://localhost:3500/fights').then(function (data) {
 
           dispatch(completeGetEvents(data.data));
@@ -48,11 +48,11 @@ export var completeGetFights = (data) => {
   }
 };
 
-export var getFights = () => {
+export var getFights = (id) => {
   return (dispatch, getState) => {
     dispatch(startGetFights());
 
-    axios.get('http://localhost:3500/fights/617917').then(function (data) {
+    axios.get(`http://localhost:3500/fights/${id}`).then(function (data) {
       dispatch(completeGetFights(data.data));
     });
   }

@@ -1,41 +1,46 @@
-  const React = require('react');
+const React = require('react');
+const {connect} = require('react-redux');
+const actions = require('actions');
+const moment = require('moment');
 
-  const FightList = React.createClass({
-    componentDidMount: function () {
-      var items = this.getFightsNow();
-      console.log('items', items);
-    },
-    getFightsNow: function () {
-      return (
-          this.props.fights.reverse().map((item) => {
-           console.log('item', item.date);
-            <div className="row" key={item.id}>
-             <div className="column small-centered medium-6 large-6">
-             <div className="card align-center" style={{width:500}}>
-               <div className="card-divider">
-                 <h4 className="text-center">{item.title_tag}</h4>
-                 <p className="text-center">{item.title}</p>
-               </div>
-               <button><img className="align-center" src={item.img}/></button>
-               <div className="card-section">
-                 <p>{moment.utc(item.date).format('dddd, MMMM Do YYYY')}</p>
-               </div>
-             </div>
-           </div>
-         </div>
-       })
-      )
-    },
-    render: function () {
-      var {fights} = this.props;
+import Events from 'events';
+import Fight from 'Fight';
 
-      console.log('fightlist', fights);
-      return (
-        <div>
-          <p>{fights}</p>
-        </div>
-      )
+const store = require('./../store/configureStore').configure();
+
+class FightList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount () {
+    var fightId = this.props.params;
+    var {dispatch} = this.props;
+    console.log('FIGHTS', fightId.id);
+    dispatch(actions.getFights(fightId.id));
+  }
+
+  render() {
+    var {fights} = this.props;
+    var renderFight = () => {
+      if (fights.data != undefined) {
+        return fights.data.map((fight) => {
+          return <Fight key={fight.id} fights={fight}/>;
+        });
+      }
+      return <p>Loading...</p>
     }
-  });
 
-  module.exports = FightList;
+    return (
+      <div>
+        <h1 className="text-center">Fight</h1>
+        {renderFight()}
+      </div>
+    )
+  }
+};
+
+export default connect(
+  (state) => {
+    return state;
+  }
+)(FightList);

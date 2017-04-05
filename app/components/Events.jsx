@@ -12,17 +12,12 @@ class Events extends React.Component {
   }
   componentDidMount () {
     var {events} = this.props;
-    console.log('events', events);
   }
 
   render() {
     var {events} = this.props;
      var renderEvents = () => {
-       console.log('props', this.props);
-       console.log('events', events.data);
        if (events.data != undefined) {
-         console.log('inside if');
-         console.log('EVENTS length', events.data[0].title_tag);
          return events.data.reverse().map((event) => {
            return <Event key={event.id} events={event}/>;
          });

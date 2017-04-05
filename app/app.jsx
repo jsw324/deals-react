@@ -2,9 +2,10 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const {Provider} = require('react-redux');
 const {Route, Router, IndexRoute, hashHistory} = require('react-router');
-const Main = require('Main');
-const AllFights = require('AllFights');
-const Events = require('Events');
+
+import Main from 'Main';
+import Events from 'Events';
+import FightList from 'FightList';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -25,7 +26,12 @@ require('style!css!sass!applicationStyles');
 
   ReactDOM.render(
     <Provider store={store}>
-      <Main/>
+      <Router history={hashHistory}>
+        <Route path="/" component={Main}>
+          <IndexRoute component={Events} />
+          <Route path="/FightList/:id" component={FightList}/>
+        </Route>
+      </Router>
     </Provider>,
     document.getElementById('app')
   );

@@ -1,15 +1,15 @@
 const React = require('react');
 const Nav = require('Nav');
 
-const AllFights = require('AllFights');
 import Events from 'Events';
+import FightList from 'FightList';
 
 var Main = (props) => {
   return (
     <div>
       <Nav/>
         <div>
-          <Events/>
+          {props.children}
         </div>
     </div>
   )

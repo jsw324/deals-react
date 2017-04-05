@@ -1,10 +1,13 @@
 const React = require('react');
+import ReactDOM from 'react-dom';
 const {connect} = require('react-redux');
 const actions = require('actions');
 const moment = require('moment');
+import { Link } from 'react-router';
 
 var Event = React.createClass({
   render: function () {
+    var {dispatch} = this.props;
     var {id, title, title_tag, date, img} = this.props.events;
     console.log('event props', id);
     var renderOne = () => {
@@ -18,7 +21,7 @@ var Event = React.createClass({
                 <p className="text-center">{title}</p>
                 <p>{moment.utc(date).format('dddd, MMMM Do YYYY')}</p>
               </div>
-              <button><img className="align-center" src={img} style={{width: 500}}/></button>
+              <Link to={`/FightList/${id}`}><img className="align-center" src={img} style={{width: 500}}/></Link>
               <div className="card-section">
                 <p>{moment.utc(date).format('dddd, MMMM Do YYYY')}</p>
               </div>
