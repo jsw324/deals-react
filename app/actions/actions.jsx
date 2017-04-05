@@ -21,17 +21,17 @@ export var getEvents = () => {
     return (dispatch, getState) => {
       dispatch(startGetEvents());
       console.log('port from action', process.env.PORT);
-      if (1 == 4) {
-        axios.get('http://localhost:3500/fights').then(function (data) {
-
-          dispatch(completeGetEvents(data.data));
-        });
-      } else {
+      // if (1 == 4) {
+      //   axios.get('http://localhost:3500/fights').then(function (data) {
+      //
+      //     dispatch(completeGetEvents(data.data));
+      //   });
+      // } else {
         axios.get('http://thawing-escarpment-66044.herokuapp.com/fights').then(function (data) {
 
           dispatch(completeGetEvents(data.data));
         });
-      }
+      //}
     };
   };
 
