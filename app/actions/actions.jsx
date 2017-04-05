@@ -27,7 +27,7 @@ export var getEvents = () => {
           dispatch(completeGetEvents(data.data));
         });
       } else {
-        axios.get('https://thawing-escarpment-66044.herokuapp.com/fights').then(function (data) {
+        axios.get('http://thawing-escarpment-66044.herokuapp.com/fights').then(function (data) {
 
           dispatch(completeGetEvents(data.data));
         });
