@@ -20,13 +20,20 @@ export var completeGetEvents = (data) => {
 export var getEvents = () => {
     return (dispatch, getState) => {
       dispatch(startGetEvents());
+      console.log('port from action', process.env.PORT);
+      if (process.env.PORT) {
+        axios.get('http://localhost:3500/fights').then(function (data) {
 
-      axios.get('http://localhost:3500/fights').then(function (data) {
+          dispatch(completeGetEvents(data.data));
+        });
+      } else {
+        axios.get('https://thawing-escarpment-66044.herokuapp.com/fights').then(function (data) {
 
-        dispatch(completeGetEvents(data.data));
-      });
-    }
-};
+          dispatch(completeGetEvents(data.data));
+        });
+      }
+    };
+  };
 
 export var startGetFights = () => {
   return {
