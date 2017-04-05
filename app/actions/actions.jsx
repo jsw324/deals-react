@@ -7,9 +7,13 @@ export var startGetEvents = () => {
 };
 
 export var completeGetEvents = (data) => {
+  var eventArray = [];
+  Object.keys(data).forEach((event) => {
+    eventArray.push(data[event]);
+  });
   return {
     type: 'COMPLETE_GET_EVENTS',
-    data
+    data: eventArray
   }
 };
 
@@ -18,6 +22,7 @@ export var getEvents = () => {
       dispatch(startGetEvents());
 
       axios.get('http://localhost:3500/fights').then(function (data) {
+
         dispatch(completeGetEvents(data.data));
       });
     }

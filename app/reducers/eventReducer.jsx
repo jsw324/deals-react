@@ -7,8 +7,8 @@ export var eventReducer = (state = {isFetching: false, data: undefined}, action)
       };
     case 'COMPLETE_GET_EVENTS':
       return {
-        isFetching: false,
-        data: action.data
+        data: action.data,
+        isFetching: false
       };
     default:
       return state;

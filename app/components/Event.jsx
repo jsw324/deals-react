@@ -1,49 +1,40 @@
 const React = require('react');
 const {connect} = require('react-redux');
 const actions = require('actions');
+const moment = require('moment');
 
-class Event extends React.Component {
-  constructor(props) {
-    super (props);
-  }
-  render () {
-    const {events} = this.props;
-    console.log('events from event', events);
+var Event = React.createClass({
+  render: function () {
+    var {id, title, title_tag, date, img} = this.props.events;
+    console.log('event props', id);
+    var renderOne = () => {
+      if (id) {
+        return (
 
-      var getEventItems = () => {
-        if (events.isFetching == false) {
-            console.log('is event fetching', events.data[0].id);
-
-            var obj;
-            for (var key in events) {
-              obj = events[key];
-            }
-            return (
-              <div>
-                <p>{obj[0].id}</p>
-                <p>{obj[0].title_tag}</p>
+          <div className="column small-centered medium-6 large-6">
+            <div className="card align-center" style={{width: 500}}>
+              <div className="card-divider">
+                <h4 className="text-center">{title_tag}</h4>
+                <p className="text-center">{title}</p>
+                <p>{moment.utc(date).format('dddd, MMMM Do YYYY')}</p>
               </div>
-            )
-          } else {
-            return (
-              <div>
-                <p>Loading...</p>
+              <button><img className="align-center" src={img} style={{width: 500}}/></button>
+              <div className="card-section">
+                <p>{moment.utc(date).format('dddd, MMMM Do YYYY')}</p>
               </div>
-            )
-          }
-        };
-      //TODO: push obj to state and upstead to parent 'Events' component
+            </div>
+          </div>
+        )
+      } else {
+        return <p>Error Loading information.</p>
+      }
+    };
     return (
-      <tr>
-        <td>event id</td>
-        <td>{getEventItems()}</td>
-      </tr>
+      <div>
+        {renderOne()}
+      </div>
     )
   }
-};
+});
 
-export default connect(
-  (state) => {
-    return state;
-  }
-)(Event);
+export default connect()(Event);

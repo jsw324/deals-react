@@ -29,21 +29,21 @@ app.get('/fights', (req, res) => {
       today = moment.utc(today).format();
       //console.log(today + ' ' + 'event_dategmt ' + data[i].event_dategmt);
       var obj;
-      for (var key in data) {
+      for (var key in data.data[433]) {
         var obj = data[key];
         }
-      for (var i = 0; i < obj.length; i++) {
-        if (today <= obj[i].event_dategmt) {
+        console.log('length', data.data.length);
+      for (var i = 0; i < data.data.length; i++) {
+        if (today <= data.data[i].event_dategmt) {
            fights.push({
-             id: obj[i].id,
-             date: obj[i].event_dategmt,
-             title: obj[i].base_title,
-             title_tag: obj[i].title_tag_line,
-             img: obj[i].feature_image
+             id: data.data[i].id,
+             date: data.data[i].event_dategmt,
+             title: data.data[i].base_title,
+             title_tag: data.data[i].title_tag_line,
+             img: data.data[i].feature_image
            })
          }
        }
-       console.log('fight title from server***',fights[0].title);
        res.status(200).send(fights);
      }
    }).catch(function (err) {

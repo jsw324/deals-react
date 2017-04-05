@@ -16,10 +16,23 @@ class Events extends React.Component {
   }
 
   render() {
+    var {events} = this.props;
+     var renderEvents = () => {
+       console.log('props', this.props);
+       console.log('events', events.data);
+       if (events.data != undefined) {
+         console.log('inside if');
+         console.log('EVENTS length', events.data[0].title_tag);
+         return events.data.reverse().map((event) => {
+           return <Event key={event.id} events={event}/>;
+         });
+       }
+      return <p>Loading...</p>;
+     };
     return (
       <div>
-        <p>Events Component</p>
-        <Event/>
+        <h1 className="text-center">Upcoming Events</h1>
+        {renderEvents()}
       </div>
     )
   }

@@ -8,12 +8,9 @@ var Main = (props) => {
   return (
     <div>
       <Nav/>
-      <div>
         <div>
-          <p>Main.jsx Rendered</p>
           <Events/>
         </div>
-      </div>
     </div>
   )
 };
