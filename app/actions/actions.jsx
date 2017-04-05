@@ -52,7 +52,7 @@ export var getFights = (id) => {
   return (dispatch, getState) => {
     dispatch(startGetFights());
 
-    axios.get(`http://localhost:3500/fights/${id}`).then(function (data) {
+    axios.get(`http://thawing-escarpment-66044.herokuapp.com/fights/${id}`).then(function (data) {
       dispatch(completeGetFights(data.data));
     });
   }
