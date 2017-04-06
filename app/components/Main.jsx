@@ -1,6 +1,6 @@
 const React = require('react');
-const Nav = require('Nav');
 
+import Nav from 'Nav';
 import Events from 'Events';
 import FightList from 'FightList';
 

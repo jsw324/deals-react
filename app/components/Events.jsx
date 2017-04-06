@@ -26,7 +26,7 @@ class Events extends React.Component {
      };
     return (
       <div>
-        <h1 className="text-center">Upcoming Events</h1>
+        <h2 className="center-align">UFC Schedule</h2>
         {renderEvents()}
       </div>
     )

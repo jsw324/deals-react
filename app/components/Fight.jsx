@@ -12,8 +12,8 @@ var Fight = React.createClass({
       if (id) {
         return (
         <div>
-          <div className="column small-centered medium-6 large-6">
-            <div className="card align-center">
+          <div className="col s6 l6 m6">
+            <div className="center-align">
               <div className="card-divider">
                 <h4 className="text-center">{fighter1_first_name} {fighter1_last_name} vs. {fighter2_first_name} {fighter2_last_name}</h4>
                 <p className="text-center">{fighter1_weight_class}</p>
@@ -24,6 +24,7 @@ var Fight = React.createClass({
               </div>
             </div>
           </div>
+
         )
       } else {
         return <p>Error Loading information.</p>
