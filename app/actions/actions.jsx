@@ -20,18 +20,9 @@ export var completeGetEvents = (data) => {
 export var getEvents = () => {
     return (dispatch, getState) => {
       dispatch(startGetEvents());
-      console.log('port from action', process.env.PORT);
-      if (process.env.PORT !== undefined) {
-        axios.get('http://localhost:3500/fights').then(function (data) {
-
-          dispatch(completeGetEvents(data.data));
-        });
-      } else {
         axios.get('http://thawing-escarpment-66044.herokuapp.com/fights').then(function (data) {
-
           dispatch(completeGetEvents(data.data));
         });
-      }
     };
   };
 
@@ -51,15 +42,11 @@ export var completeGetFights = (data) => {
 export var getFights = (id) => {
   return (dispatch, getState) => {
     dispatch(startGetFights());
-    if (process.env.PORT !== undefined) {
-      axios.get(`http://localhost:3500/fights/${id}`).then(function (data) {
-        dispatch(completeGetFights(data.data));
-      });
-    } else {
+
       axios.get(`http://thawing-escarpment-66044.herokuapp.com/fights/${id}`).then(function (data) {
         dispatch(completeGetFights(data.data));
       });
-    }
+
 
   }
 };

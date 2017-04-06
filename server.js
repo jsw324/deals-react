@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const moment = require('moment');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3500;
 
@@ -16,6 +17,7 @@ app.use(function (req, res, next) {
   }
 });
 
+app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
