@@ -13,14 +13,26 @@ const styles = {
   },
 };
 
-var Nav = () => (
-    <MuiThemeProvider>
-      <AppBar
-        className="red"
-        title={<span style={styles.title}>Fight Camps</span>}
-        onTitleTouchTap={() => alert('help')} />
-    </MuiThemeProvider>
+class Nav extends React.Component{
+  constructor (props) {
+    super(props);
+    this.homePageClick = this.homePageClick.bind(this);
+  }
 
-);
+  homePageClick() {
+    window.location.href = "/"
+  }
+
+  render () {
+    return (
+        <MuiThemeProvider>
+          <AppBar
+            className="red"
+            title={<span style={styles.title}>Fight Camps</span>}
+            onClick={this.homePageClick} />
+        </MuiThemeProvider>
+      )
+  }
+};
 
 export default Nav;

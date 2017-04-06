@@ -16,7 +16,6 @@ class Event extends React.Component{
   }
 
   handleImageClick() {
-
       console.log('click', this.props.events.id);
       window.location.href = `/#/FightList/${this.props.events.id}`
   }
@@ -38,10 +37,10 @@ class Event extends React.Component{
                 />
                 <CardMedia
                   overlay={<CardTitle className="center-align" title={title_tag} subtitle={moment.utc(date).format('dddd, MMMM Do YYYY')} />}
+                  onClick={this.handleImageClick}
                   >
                   <img src={img} alt="Event Poster"/>
                   </CardMedia>
-                <button onClick={this.handleImageClick}>Click Me</button>
               </Card>
             </MuiThemeProvider>
           </div>
