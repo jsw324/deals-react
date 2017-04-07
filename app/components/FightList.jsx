@@ -32,7 +32,7 @@ class FightList extends React.Component {
 
     return (
       <div>
-        <h1 className="center-align">Fight</h1>
+        <h3 className="center-align">Fight Schedule</h3>
         {renderFight()}
       </div>
     )

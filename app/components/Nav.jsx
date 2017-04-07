@@ -7,12 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
-const styles = {
-  title: {
-    cursor: 'pointer',
-  },
-};
-
 class Nav extends React.Component{
   constructor (props) {
     super(props);
@@ -27,8 +21,8 @@ class Nav extends React.Component{
     return (
         <MuiThemeProvider>
           <AppBar
-            className="red"
-            title={<span style={styles.title}>Fight Camps</span>}
+            className="black navbar__top"
+            title={<span style={{cursor:'pointer'}}>Fight Camps</span>}
             onClick={this.homePageClick} />
         </MuiThemeProvider>
       )

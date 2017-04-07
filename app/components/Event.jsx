@@ -21,7 +21,7 @@ class Event extends React.Component{
   }
 
   render () {
-    var {dispatch} = this.props;
+    var {dispatch} = this.props;  
     var {id, title, title_tag, date, img} = this.props.events;
     console.log('event props', id);
 
@@ -36,6 +36,7 @@ class Event extends React.Component{
                   subtitle={title_tag}
                 />
                 <CardMedia
+                  style={{cursor: 'pointer'}}
                   overlay={<CardTitle className="center-align" title={title_tag} subtitle={moment.utc(date).format('dddd, MMMM Do YYYY')} />}
                   onClick={this.handleImageClick}
                   >
