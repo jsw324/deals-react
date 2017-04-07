@@ -7,8 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from 'Main';
-import Events from 'Events';
-import FightList from 'FightList';
+import Login from 'Login';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -36,8 +35,7 @@ require('style!css!sass!applicationStyles');
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Main}>
-          <IndexRoute component={Events} />
-          <Route path="/FightList/:id" component={FightList}/>
+          <IndexRoute component={Login} />
         </Route>
       </Router>
     </Provider>,

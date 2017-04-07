@@ -2,7 +2,6 @@ const React = require('react');
 
 import Nav from 'Nav';
 import Events from 'Events';
-import FightList from 'FightList';
 
 var Main = (props) => {
   return (
