@@ -1,11 +1,11 @@
-export var fightReducer = (state = {isFetching: false, data: undefined}, action) => {
+export var loginReducer = (state = {isFetching: false, data: undefined}, action) => {
   switch (action.type) {
-    case 'START_GET_FIGHTS':
+    case 'START_LOGIN':
       return {
         isFetching: true,
         data: undefined
       };
-    case 'COMPLETE_GET_FIGHTS':
+    case 'COMPLETE_LOGIN':
       return {
         isFetching: false,
         data: action.data

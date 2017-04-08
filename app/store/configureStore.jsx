@@ -1,13 +1,11 @@
 const redux = require('redux');
 const thunk = require('redux-thunk').default;
 
-const {fightReducer} = require('./../reducers/fightReducer');
-const {eventReducer} = require('./../reducers/eventReducer');
+const {signUpReducer} = require('./../reducers/signUpReducer');
 
 export var configure = () => {
   var reducer = redux.combineReducers({
-    events: eventReducer,
-    fights: fightReducer
+    login: signUpReducer
   });
 
   var store = redux.createStore(reducer, redux.compose(

@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from 'Main';
 import Login from 'Login';
+import SignUp from 'SignUp';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -21,7 +22,6 @@ store.subscribe(() => {
   console.log('new state', state);
 });
 
-store.dispatch(actions.getEvents());
 
 // Load foundation
 // require('style!css!foundation-sites/dist/css/foundation.min.css');
@@ -35,7 +35,8 @@ require('style!css!sass!applicationStyles');
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Main}>
-          <IndexRoute component={Login} />
+          <IndexRoute component={SignUp} />
+          <Route path="/login" component={Login}/>
         </Route>
       </Router>
     </Provider>,

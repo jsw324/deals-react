@@ -5,7 +5,7 @@ const actions = require('actions');
 import Paper from 'material-ui/Paper';
 
 
-class Login extends React.Component {
+class SignUp extends React.Component {
 	constructor (props) {
 		super(props);
 		console.log('props from constructor', props);
@@ -17,13 +17,13 @@ class Login extends React.Component {
 		console.log('e', e);
 		console.log('props', this.refs.email);
 		console.log('refs pw', this.refs.password.value);
-		dispatch(actions.getLogin(this.refs.email.value, this.refs.password.value));
+		dispatch(actions.postSignUp(this.refs.email.value, this.refs.password.value));
 	}
 	render () {
 		return (
 			
   <div className="row">
-		<h1 className="center-align">Login</h1>
+		<h1 className="center-align">Sign Up</h1>
 		<form onSubmit={this.handleSubmit} className="col s12">
       <div className="row">
         <div className="input-field inline col s8 offset-s2">
@@ -50,4 +50,4 @@ class Login extends React.Component {
 	}
 };
 
-export default connect()(Login);
+export default connect()(SignUp);
