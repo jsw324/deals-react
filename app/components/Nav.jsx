@@ -19,12 +19,18 @@ class Nav extends React.Component{
 
   render () {
     return (
-        <MuiThemeProvider>
-          <AppBar
-            className="black navbar__top"
-            title={<span style={{cursor:'pointer'}}>Fight Camps</span>}
-            onClick={this.homePageClick} />
-        </MuiThemeProvider>
+      <div>
+        <nav className="white">
+          <div className="nav-wrapper">
+            <a href="#" className="brand-logo left"><img style={{width:'50%',marginTop:'5px'}} src="https://assets.dice.com/external/images/empLogos/96125052f271581796a3f2a16c78d549.gif"/></a>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><Link className="black" to="/login">Login</Link></li>
+              <li><a href="badges.html">Components</a></li>
+              <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
       )
   }
 };

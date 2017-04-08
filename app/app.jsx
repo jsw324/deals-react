@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Main from 'Main';
 import Login from 'Login';
 import SignUp from 'SignUp';
+import AddDeal from 'AddDeal';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -31,12 +32,14 @@ store.subscribe(() => {
 //App css
 require('style!css!sass!applicationStyles');
 
+
   ReactDOM.render(
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Main}>
           <IndexRoute component={SignUp} />
           <Route path="/login" component={Login}/>
+          <Route path="/new-deal" component={AddDeal}/>
         </Route>
       </Router>
     </Provider>,
