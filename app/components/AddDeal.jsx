@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+const actions = require('actions');
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 
@@ -10,6 +12,7 @@ class AddDeal extends React.Component {
 	};
 	submitDeal(e) {
 		e.preventDefault();
+		var {dispatch} = this.props;
 		var { name, email, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
 		var data = {
 			name: name.value,
@@ -17,10 +20,11 @@ class AddDeal extends React.Component {
 			client: client.value,
 			billRate: billRate.value,
 			hourly: hourly.value,
-			startDate: startDate.value,
+			startDate: parseInt(startDate.value),
 			recruiter: recruiter.value,
 			sales: sales.value
 		};
+		dispatch(actions.postDeal(data));
 		console.log('data', data);
 	};
 	render () {
@@ -32,7 +36,8 @@ class AddDeal extends React.Component {
   			display: 'inline-block',
 		}
 		return (
-			<div>
+	
+		<div>
 			<MuiThemeProvider>
 				<Paper style={style} z-depth={3}>
 					<h3 className="center-align">Enter Deal details</h3>
