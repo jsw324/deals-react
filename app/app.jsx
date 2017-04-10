@@ -9,7 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Main from 'Main';
 import Login from 'Login';
 import SignUp from 'SignUp';
-import AddDeal from 'AddDeal';
+import AddContractor from 'AddContractor';
+import AddPerm from 'AddPerm';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -39,7 +40,8 @@ require('style!css!sass!applicationStyles');
         <Route path="/" component={Main}>
           <IndexRoute component={SignUp} />
           <Route path="/login" component={Login}/>
-          <Route path="/new-deal" component={AddDeal}/>
+          <Route path="/new-contractor" component={AddContractor}/>
+          <Route path="/new-perm" component={AddPerm}/>
         </Route>
       </Router>
     </Provider>,

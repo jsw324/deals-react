@@ -1,26 +1,30 @@
 const axios = require('axios');
 
-export var startPostDeal = () => {
+//////////////////////////////////
+//----CONTRACT DEALS-------///
+//////////////////////////////////
+
+export var startPostContract = () => {
   return {
-    type: 'START_POST_DEAL'
+    type: 'START_POST_CONTRACT'
   }
 };
 
-export var completePostDeal = (data) => {
+export var completePostContract = (data) => {
   return {
-    type: 'COMPLETE_POST_DEAL',
+    type: 'COMPLETE_POST_CONTRACT',
     data
   }
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGU5MGFjMTlmMjIyMTVkYmQxMmQ4ZGYiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxNzczMTA0fQ.R-qx2woxQghIseZ6WDoXRUd6ugWAq_VNOP8B-rkk_EI'}
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViOTI0NjAzZDUxN2JmYmY5NzgxMTciLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODQ4MjA4fQ.AB8fpW2iWm09zOb-L8L_aCf_jrUAd3TiHjhLjffq1gg'}
 };
 
-export var postDeal = (data) => {
+export var postContract = (data) => {
   return (dispatch, getState) => {
-    dispatch(startPostDeal());
-    axios.post('http://localhost:4000/deals', {
+    dispatch(startPostContract());
+    axios.post('http://localhost:4000/contractDeal', {
       name: data.name,
       client: data.client,
       isPerm: 'false',
@@ -31,13 +35,57 @@ export var postDeal = (data) => {
       billRate: data.billRate,
       startDate: data.startDate,
       isActive: 'true',
-      _creator: 123
+      _creator: '58eb924603d517bfbf978117'
     }, config).then((data) => {
       console.log('data from axios action', data);
-      dispatch(completePostDeal(data));
+      dispatch(completePostContract(data));
     });
   };
 };
+//////////////////////////////////
+//----PERM DEALS-------///
+//////////////////////////////////
+
+export var startPostPerm = () => {
+  return {
+    type: 'START_POST_PERM'
+  }
+};
+
+export var completePostPerm = (data) => {
+  return {
+    type: 'COMPLETE_POST_PERM',
+    data
+  }
+};
+
+var config = {
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViZTYwOTAxZDJiMmY3ZGU2M2RiMzAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODU0ODc2fQ.TfppkHx1GXQfDVnssBgvNTggp5Ylc-QHOnMzSI05kbM'}
+};
+
+export var postPerm = (data) => {
+  return (dispatch, getState) => {
+    dispatch(startPostPerm());
+    axios.post('http://localhost:4000/permDeal', {
+      name: data.name,
+      client: data.client,
+      recruiter: data.recruiter,
+      salary: data.salary,
+      sales: data.sales,
+      fee: data.fee,
+      startDate: data.startDate,
+      isActive: 'true',
+      _creator: '58ebe60901d2b2f7de63db30'
+    }, config).then((data) => {
+      console.log('data from axios action', data);
+      dispatch(completePostPerm(data));
+    });
+  };
+};
+
+//////////////////////////////////
+//----USER ACTIONS-------///
+//////////////////////////////////
 
 export var startLogin = () => {
   return {
@@ -60,7 +108,6 @@ export var getLogin = (email, password) => {
       password
     }).then(function(data) {
       console.log('logged in', data);
-      console.log('logged in headers', data.headers);
       dispatch(completeLogin(data));
     });
   };

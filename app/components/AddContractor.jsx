@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 const actions = require('actions');
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,7 +25,7 @@ class AddDeal extends React.Component {
 			recruiter: recruiter.value,
 			sales: sales.value
 		};
-		dispatch(actions.postDeal(data));
+		dispatch(actions.postContract(data));
 		console.log('data', data);
 	};
 	render () {
@@ -36,18 +37,24 @@ class AddDeal extends React.Component {
   			display: 'inline-block',
 		}
 		return (
-	
+
 		<div>
 			<MuiThemeProvider>
 				<Paper style={style} z-depth={3}>
-					<h3 className="center-align">Enter Deal details</h3>
+
+					<ul className="tabs">
+						<li className="tab col s3"><Link className="active" to="/new-contractor">Contract</Link></li>
+						<li className="tab col s3"><Link to="/new-perm">Perm</Link></li>
+					</ul>
+
+					<h3 className="center-align">Contract  Details</h3>
 						<form onSubmit={this.submitDeal}>
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<input id="name" ref="name" type="text" className="validate"/>
 									<label for="name">Name</label>
 								</div>
-							
+
 								<div className="input-field col s4 offest-s2">
 									<input id="email" ref="email" type="email" className="validate"/>
 									<label for="email">Email</label>
@@ -59,7 +66,7 @@ class AddDeal extends React.Component {
 									<input id="recruiter" ref="recruiter" type="text" className="validate"/>
 									<label for="recruiter">Recruiter</label>
 								</div>
-							
+
 								<div className="input-field col s4 offest-s2">
 									<input id="sales" ref="sales" type="text" className="validate"/>
 									<label for="sales">Sales</label>
@@ -71,7 +78,7 @@ class AddDeal extends React.Component {
 									<input id="hourly" ref="hourly" type="text" className="validate"/>
 									<label for="hourly">Pay Rate</label>
 								</div>
-							
+
 								<div className="input-field col s4 offest-s2">
 									<input id="billRate" ref="billRate" type="text" className="validate"/>
 									<label for="bill-rate">Bill Rate</label>
@@ -83,7 +90,7 @@ class AddDeal extends React.Component {
 									<input id="startDate" ref="startDate" type="date" className="validate"/>
 									<label for="startDate">Start Date</label>
 								</div>
-							
+
 								<div className="input-field col s4 offest-s2">
 									<input id="client" ref="client" type="text" className="validate"/>
 									<label for="client">Client</label>
