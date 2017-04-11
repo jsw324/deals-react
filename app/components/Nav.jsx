@@ -27,7 +27,7 @@ class Nav extends React.Component{
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link style={{color:'black'}} to="/login">Login</Link></li>
               <li><Link style={{color:'black'}} to="/new-contractor">New Deal</Link></li>
-              <li><a href="collapsible.html">JavaScript</a></li>
+              <li><Link style={{color:'black'}} to="/get-perm">Perm Deals</Link></li>
             </ul>
           </div>
         </nav>

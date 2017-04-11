@@ -11,6 +11,8 @@ import Login from 'Login';
 import SignUp from 'SignUp';
 import AddContractor from 'AddContractor';
 import AddPerm from 'AddPerm';
+import GetPerm from 'GetPerm';
+import Perm from 'Perm';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -42,6 +44,7 @@ require('style!css!sass!applicationStyles');
           <Route path="/login" component={Login}/>
           <Route path="/new-contractor" component={AddContractor}/>
           <Route path="/new-perm" component={AddPerm}/>
+          <route path="/get-perm" component={GetPerm}/>
         </Route>
       </Router>
     </Provider>,

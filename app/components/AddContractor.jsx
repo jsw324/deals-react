@@ -15,18 +15,24 @@ class AddDeal extends React.Component {
 		e.preventDefault();
 		var {dispatch} = this.props;
 		var { name, email, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
-		var data = {
-			name: name.value,
-			email: email.value,
-			client: client.value,
-			billRate: billRate.value,
-			hourly: hourly.value,
-			startDate: parseInt(startDate.value),
-			recruiter: recruiter.value,
-			sales: sales.value
-		};
-		dispatch(actions.postContract(data));
-		console.log('data', data);
+		console.log('name', name);
+	if (name.value == '' || email.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '') {
+		console.log('error');
+		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
+	} else {
+			var data = {
+				name: name.value,
+				email: email.value,
+				client: client.value,
+				billRate: billRate.value,
+				hourly: hourly.value,
+				startDate: parseInt(startDate.value),
+				recruiter: recruiter.value,
+				sales: sales.value
+			};
+			dispatch(actions.postContract(data));
+			console.log('data', data);
+		}
 	};
 	render () {
 		const style = {
@@ -96,6 +102,8 @@ class AddDeal extends React.Component {
 									<label for="client">Client</label>
 								</div>
       				</div>
+							<div id="error" style={{color:'red'}}></div>
+							<br/>
 							<button className="btn">Submit</button>
 						</form>
 					</Paper>

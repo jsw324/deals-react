@@ -84,6 +84,38 @@ export var postPerm = (data) => {
 };
 
 //////////////////////////////////
+//----GET PERM DEALS-------///
+//////////////////////////////////
+
+export var startGetPerm = () => {
+  return {
+    type: 'START_GET_PERM'
+  }
+};
+
+export var completeGetPerm = (data) => {
+  return {
+    type: 'COMPLETE_GET_PERM',
+    data: data.data
+  }
+};
+
+var config = {
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViZTYwOTAxZDJiMmY3ZGU2M2RiMzAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODU0ODc2fQ.TfppkHx1GXQfDVnssBgvNTggp5Ylc-QHOnMzSI05kbM'}
+};
+
+export var getPerm = (data) => {
+  return (dispatch, getState) => {
+    dispatch(startGetPerm());
+    axios.get('http://localhost:4000/getPermDeals', config).then((data) => {
+      console.log('data from axios action', data);
+      dispatch(completeGetPerm(data));
+    });
+  };
+};
+
+
+//////////////////////////////////
 //----USER ACTIONS-------///
 //////////////////////////////////
 
@@ -107,8 +139,8 @@ export var getLogin = (email, password) => {
       email,
       password
     }).then(function(data) {
-      console.log('logged in', data);
-      dispatch(completeLogin(data));
+      console.log('logged in', data.data);
+      dispatch(completeLogin(data.data));
     });
   };
 };
