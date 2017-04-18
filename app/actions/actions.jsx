@@ -25,7 +25,7 @@ var config = {
 export var postContract = (data) => {
   return (dispatch, getState) => {
     dispatch(startPostContract());
-    axios.post('http://localhost:4000/contractDeal', {
+    axios.post('https://shielded-inlet-46414.herokuapp.com/contractDeal', {
       name: data.name,
       client: data.client,
       isPerm: 'false',
@@ -36,7 +36,7 @@ export var postContract = (data) => {
       billRate: data.billRate,
       startDate: data.startDate,
       isActive: 'true',
-      _creator: '58f6517ca93b8b4a8cdbc3bd'
+      _creator: '58f669d5017e400011465218'
     }, config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completePostContract(data));
@@ -68,7 +68,7 @@ export var postPerm = (data) => {
   return (dispatch, getState) => {
     console.log('getstate from actions', store.getState());
     dispatch(startPostPerm());
-    axios.post('http://localhost:4000/permDeal', {
+    axios.post('https://shielded-inlet-46414.herokuapp.com/permDeal', {
       name: data.name,
       client: data.client,
       recruiter: data.recruiter,
@@ -77,7 +77,7 @@ export var postPerm = (data) => {
       fee: data.fee,
       startDate: data.startDate,
       isActive: 'true',
-      _creator: '58f6517ca93b8b4a8cdbc3bd'
+      _creator: '58f669d5017e400011465218'
     }, config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completePostPerm(data));
@@ -109,7 +109,7 @@ var config = {
 export var getPerm = (data) => {
   return (dispatch, getState) => {
     dispatch(startGetPerm());
-    axios.get('http://localhost:4000/getPermDeals', config).then((data) => {
+    axios.get('https://shielded-inlet-46414.herokuapp.com/getPermDeals', config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completeGetPerm(data));
     });
@@ -137,7 +137,7 @@ export var completeLogin = (data) => {
 export var getLogin = (email, password) => {
   return (dispatch, getState) => {
     dispatch(startLogin());
-    axios.post('http://localhost:4000/users/login', {
+    axios.post('https://shielded-inlet-46414.herokuapp.com/users/login', {
       email,
       password
     }).then(function(data) {
@@ -164,7 +164,7 @@ export var postSignUp = (email, password) => {
   return (dispatch, getState) => {
     dispatch(startPostSignUp());
     console.log('email', email, password);
-    axios.post('http://localhost:4000/users', {
+    axios.post('https://shielded-inlet-46414.herokuapp.com/users', {
       email,
       password,
       isAdmin: 'false'
