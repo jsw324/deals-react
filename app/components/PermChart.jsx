@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+const moment = require('moment');
 var BarChart = require('react-chartjs').Bar;
 
 
-
+var getMonth = (month) => {
+  var mom = moment(month, 'MM/DD/YYYY');
+  return  mom.month();
+}
 
 class PermChart extends React.Component {
   constructor (props) {
@@ -14,12 +18,36 @@ class PermChart extends React.Component {
       var {deals} = this.props;
       console.log('chart props', deals.deals);
       var obj = [];
+      var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
       deals.deals.map((val) => {
-        obj.push(
-          val.salary * (val.fee/100)
-        )
+        var month = getMonth(val.startDate);
+        var fee = val.fee/100 * val.salary;
+        console.log(fee);
+        switch (month) {
+          case 0:
+            jan += fee;
+            console.log('jan', jan);
+            break;
+          case 1:
+            feb += fee;
+            console.log('feb', feb);
+            break;
+          case 2:
+            march += fee;
+            break;
+          case 3:
+            april += fee;
+            break;
+          case 4:
+            may += fee;
+            break;
+          case 5: 
+            jun += fee;
+            break;
+        };
       });
-      console.log('chart obj', obj);
+      obj.push(jan, feb, march, april, may, jun);
+      console.log('chart sum', obj);
 
     var chartData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -35,7 +63,7 @@ class PermChart extends React.Component {
         },
         {
           label: 'Spread',
-          fillColor: 'rgba(100, 149, 237, 0.5)',
+          fillColor: 'rgba(218, 165, 32, 0.5)',
           strokeColor: 'rgba(218, 165, 32, 0.5)',
           highlightStroke: '#F7464A',
           highlightFill: '#DAA520',

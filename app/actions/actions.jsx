@@ -19,7 +19,7 @@ export var completePostContract = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
+  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
 };
 
 export var postContract = (data) => {
@@ -61,12 +61,11 @@ export var completePostPerm = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
+  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
 };
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {
-    console.log('getstate from actions', store.getState());
     dispatch(startPostPerm());
     axios.post('https://shielded-inlet-46414.herokuapp.com/permDeal', {
       name: data.name,
@@ -103,7 +102,7 @@ export var completeGetPerm = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
+  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
 };
 
 export var getPerm = (data) => {
