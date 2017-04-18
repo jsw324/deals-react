@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const moment = require('moment');
-var BarChart = require('react-chartjs').Bar;
+var LineChart = require('react-chartjs').Line;
 
 
 var getMonth = (month) => {
@@ -80,7 +80,7 @@ var chartOptions = {
 
     return (
       <div className="row">
-        <BarChart className="col s12 m10 offset-m1" data={chartData} options={chartOptions} width="800" height="400" />
+        <LineChart className="col s12 m10 offset-m1" data={chartData} options={chartOptions} width="800" height="400" />
       </div>
     )
   }

@@ -59,7 +59,9 @@ class GetPerm extends React.Component {
       for (var i = 0; i < getPerm.data.deals.length; i++) {
         var mom = moment(getPerm.data.deals[i].startDate);
         getPerm.data.deals[i].startDate = moment.unix(getPerm.data.deals[i].startDate).format('MM/DD/YYYY');
+        getPerm.data.deals[i].feeAmount = getPerm.data.deals[i].salary * (getPerm.data.deals[i].fee/100);
       }
+
       return (
         <div>
           <h1 className="center-align">Perm Placements</h1>
