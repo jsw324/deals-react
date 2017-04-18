@@ -12,7 +12,6 @@ import SignUp from 'SignUp';
 import AddContractor from 'AddContractor';
 import AddPerm from 'AddPerm';
 import GetPerm from 'GetPerm';
-import Perm from 'Perm';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -21,9 +20,11 @@ const store = require('configureStore').configure();
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+var isLoggedIn = {};
 store.subscribe(() => {
   var state = store.getState();
   console.log('new state', state);
+  isLoggedIn = store.getState().login;
 });
 
 
@@ -40,8 +41,9 @@ require('style!css!sass!applicationStyles');
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Main}>
-          <IndexRoute component={SignUp} />
+          <IndexRoute component={Login} />
           <Route path="/login" component={Login}/>
+          <Route path="/signup" component={SignUp}/>
           <Route path="/new-contractor" component={AddContractor}/>
           <Route path="/new-perm" component={AddPerm}/>
           <route path="/get-perm" component={GetPerm}/>

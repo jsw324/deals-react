@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
 
+import moment from 'moment';
 import ReactTable from 'react-table';
+import PermChart from 'PermChart';
 
-import Perm from 'Perm';
 
 class GetPerm extends React.Component {
   constructor (props) {
@@ -19,8 +20,7 @@ class GetPerm extends React.Component {
 
   renderPerm () {
     console.log('props', this.props);
-    var {perm} = this.props;
-    console.log('perm', perm);
+    var {getPerm} = this.props;
 
     const columns = [{
     header: 'Name',
@@ -43,18 +43,30 @@ class GetPerm extends React.Component {
     accessor: 'salary',
     id: 'salary'
   }, {
-    header: 'Fee',
+    header: 'Fee %',
     accessor: 'fee',
     id: 'fee'
+  }, {
+    header: 'Fee',
+    accessor: 'feeAmount',
+    id: 'feeAmount'
   }]
-
-    if (perm.data !== undefined){
-      console.log('we here now', perm.data);
+  
+    if (getPerm.data !== undefined){
+      console.log('we here now', getPerm.data);
+     // var feeDollars = (perm.data.deals[0].fee/100) * perm.data.deals[0].salary;
+      //console.log('fee is', feeDollars);
+      for (var i = 0; i < getPerm.data.deals.length; i++) {
+        var mom = moment(getPerm.data.deals[i].startDate);
+        getPerm.data.deals[i].startDate = moment.unix(getPerm.data.deals[i].startDate).format('MM/DD/YYYY');
+      }
       return (
         <div>
           <h1 className="center-align">Perm Placements</h1>
+          <PermChart deals={getPerm.data}/>
+          <h4 className="center-align">Placements</h4>
           <ReactTable
-            data={perm.data.deals}
+            data={getPerm.data.deals}
             columns={columns}
             />
         </div>

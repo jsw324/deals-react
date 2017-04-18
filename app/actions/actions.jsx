@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+
 //////////////////////////////////
 //----CONTRACT DEALS-------///
 //////////////////////////////////
@@ -18,7 +19,7 @@ export var completePostContract = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViOTI0NjAzZDUxN2JmYmY5NzgxMTciLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODQ4MjA4fQ.AB8fpW2iWm09zOb-L8L_aCf_jrUAd3TiHjhLjffq1gg'}
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
 };
 
 export var postContract = (data) => {
@@ -35,7 +36,7 @@ export var postContract = (data) => {
       billRate: data.billRate,
       startDate: data.startDate,
       isActive: 'true',
-      _creator: '58eb924603d517bfbf978117'
+      _creator: '58f6517ca93b8b4a8cdbc3bd'
     }, config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completePostContract(data));
@@ -60,11 +61,12 @@ export var completePostPerm = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViZTYwOTAxZDJiMmY3ZGU2M2RiMzAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODU0ODc2fQ.TfppkHx1GXQfDVnssBgvNTggp5Ylc-QHOnMzSI05kbM'}
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
 };
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {
+    console.log('getstate from actions', store.getState());
     dispatch(startPostPerm());
     axios.post('http://localhost:4000/permDeal', {
       name: data.name,
@@ -75,7 +77,7 @@ export var postPerm = (data) => {
       fee: data.fee,
       startDate: data.startDate,
       isActive: 'true',
-      _creator: '58ebe60901d2b2f7de63db30'
+      _creator: '58f6517ca93b8b4a8cdbc3bd'
     }, config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completePostPerm(data));
@@ -101,7 +103,7 @@ export var completeGetPerm = (data) => {
 };
 
 var config = {
-  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGViZTYwOTAxZDJiMmY3ZGU2M2RiMzAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkxODU0ODc2fQ.TfppkHx1GXQfDVnssBgvNTggp5Ylc-QHOnMzSI05kbM'}
+  'headers': {'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NTE3Y2E5M2I4YjRhOGNkYmMzYmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTM5NjY2fQ.MRmk__TTTN3smPYwghpchlr6pfwC3VLUFuH0zJyJuWA'}
 };
 
 export var getPerm = (data) => {

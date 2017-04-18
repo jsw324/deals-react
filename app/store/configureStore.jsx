@@ -10,8 +10,8 @@ export var configure = () => {
   var reducer = redux.combineReducers({
     login: loginReducer,
     signup: signUpReducer,
-    deal: dealReducer,
-    perm: getPermReducer
+    postPerm: dealReducer,
+    getPerm: getPermReducer
   });
 
   var store = redux.createStore(reducer, redux.compose(

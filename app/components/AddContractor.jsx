@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 const actions = require('actions');
+const store = require('configureStore').configure();
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
@@ -9,8 +10,16 @@ import Paper from 'material-ui/Paper';
 class AddDeal extends React.Component {
   	constructor (props) {
   	super(props);
+	
 		this.submitDeal = this.submitDeal.bind(this);
+
 	};
+
+	componentWillMount() {
+	
+		//console.log('will state', store.getState());
+	};
+
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;

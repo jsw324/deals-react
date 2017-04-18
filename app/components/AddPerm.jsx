@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 const actions = require('actions');
+const moment = require('moment');
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
@@ -9,24 +10,25 @@ import Paper from 'material-ui/Paper';
 class AddPerm extends React.Component {
   	constructor (props) {
   	super(props);
+		console.log('store', this.props);
 		this.submitDeal = this.submitDeal.bind(this);
 	};
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
 		var { name, email, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
+		var day = moment(startDate.value, "YYYY-MM-DD").unix();
 		var data = {
 			name: name.value,
 			email: email.value,
 			client: client.value,
 			salary: salary.value,
 			fee: fee.value,
-			startDate: parseInt(startDate.value),
+			startDate: day,
 			recruiter: recruiter.value,
 			sales: sales.value
 		};
 		dispatch(actions.postPerm(data));
-		console.log('data', data);
 	};
 	render () {
 		const style = {

@@ -1,11 +1,11 @@
 export var dealReducer = (state = {isFetching: false, data: undefined}, action) => {
   switch (action.type) {
-    case 'START_POST_DEAL':
+    case 'START_POST_PERM':
       return {
         isFetching: true,
         data: undefined
       };
-    case 'COMPLETE_POST_DEAL':
+    case 'COMPLETE_POST_PERM':
       return {
         isFetching: false,
         data: action.data

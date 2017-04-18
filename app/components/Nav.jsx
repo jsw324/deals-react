@@ -24,7 +24,7 @@ class Nav extends React.Component{
         <nav className="white">
           <div className="nav-wrapper">
             <a href="#" className="brand-logo left"><img style={{width:'50%',marginTop:'5px'}} src="https://assets.dice.com/external/images/empLogos/96125052f271581796a3f2a16c78d549.gif"/></a>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <ul id="nav-mobile" className="right">
               <li><Link style={{color:'black'}} to="/login">Login</Link></li>
               <li><Link style={{color:'black'}} to="/new-contractor">New Deal</Link></li>
               <li><Link style={{color:'black'}} to="/get-perm">Perm Deals</Link></li>
