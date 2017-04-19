@@ -13,37 +13,19 @@ class Login extends React.Component {
 	}
 	handleSubmit(e) {
 		var {dispatch} = this.props;
-		e.preventDefault();
-		dispatch(actions.getLogin(this.refs.email.value, this.refs.password.value));
-		window.location.href = '/#/get-perm'
+		dispatch(actions.startLogin());
 	}
 	render () {
 		return (
-			
-  <div className="row">
-		<h1 className="center-align">Login</h1>
-		<form onSubmit={this.handleSubmit} className="col s12">
-      <div className="row">
-        <div className="input-field inline col s8 offset-s2">
-          <input id="email" ref="email" type="text" className="validate" />
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div className="row">
-        <div className="input-field inline col s8 offset-s2">
-          <input id="password" ref="password" type="password" className="validate"/>
-          <label for="password">Password</label>
-        </div>
-      </div>
-			<div className="row">
-				<div className="col s8 offset-s2">
-					<button className="btn">Submit</button>
+			<div>
+				<h1 className="center-align">Login</h1>
+				<div className="row">
+					<div className="col s10 offset-s2 m6 offset-m4 l4 offset-l4 ">
+						<p>Login with Google account below.</p>
+						<button className="btn" onClick={this.handleSubmit}>Login with Google</button>
+					</div>
 				</div>
 			</div>
-    	</form>
- 	 </div>
-        
-
 		)
 	}
 };

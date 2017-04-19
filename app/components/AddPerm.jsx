@@ -20,7 +20,6 @@ class AddPerm extends React.Component {
 		var day = moment(startDate.value, "YYYY-MM-DD").unix();
 		var data = {
 			name: name.value,
-			email: email.value,
 			client: client.value,
 			salary: salary.value,
 			fee: fee.value,
@@ -52,15 +51,12 @@ class AddPerm extends React.Component {
 					<h3 className="center-align">Placement Details</h3>
 						<form onSubmit={this.submitDeal}>
 							<div className="row">
-								<div className="input-field col s4 offset-s2">
+								<div className="input-field col s6 offset-s3">
 									<input id="name" ref="name" type="text" className="validate"/>
 									<label for="name">Name</label>
 								</div>
 
-								<div className="input-field col s4 offest-s2">
-									<input id="email" ref="email" type="email" className="validate"/>
-									<label for="email">Email</label>
-								</div>
+							
       				</div>
 
 							<div className="row">

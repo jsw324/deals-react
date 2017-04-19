@@ -1,3 +1,4 @@
+import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
 const axios = require('axios');
 
 
@@ -60,27 +61,44 @@ export var completePostPerm = (data) => {
   }
 };
 
-
+//firebase add perm start 
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {
-    dispatch(startPostPerm());
-    axios.post('https://shielded-inlet-46414.herokuapp.com/permDeal', {
-      name: data.name,
-      client: data.client,
-      recruiter: data.recruiter,
-      salary: data.salary,
-      sales: data.sales,
-      fee: data.fee,
-      startDate: data.startDate,
-      isActive: 'true',
-      _creator: '58f669d5017e400011465218'
-    }, config).then((data) => {
-      console.log('data from axios action', data);
-      dispatch(completePostPerm(data));
+    console.log('firebase perm data', data);
+    var uid = getState().auth.uid;
+    var permRef = firebaseRef.child(`users/${uid}`).push(data);
+
+    return permRef.then(() => {
+      dispatch(completePostPerm({
+        ...data,
+        id: permRef.key
+      }));
     });
   };
 };
+
+
+
+// export var postPerm = (data) => {
+//   return (dispatch, getState) => {
+//     dispatch(startPostPerm());
+//     axios.post('https://shielded-inlet-46414.herokuapp.com/permDeal', {
+//       name: data.name,
+//       client: data.client,
+//       recruiter: data.recruiter,
+//       salary: data.salary,
+//       sales: data.sales,
+//       fee: data.fee,
+//       startDate: data.startDate,
+//       isActive: 'true',
+//       _creator: '58f669d5017e400011465218'
+//     }, config).then((data) => {
+//       console.log('data from axios action', data);
+//       dispatch(completePostPerm(data));
+//     });
+//   };
+// };
 
 //////////////////////////////////
 //----GET PERM DEALS-------///
@@ -145,58 +163,83 @@ export var getContract = (data) => {
 //----USER ACTIONS-------///
 //////////////////////////////////
 
+export var login = (user) => {
+  return {
+    type: 'LOGIN',
+    uid: user.uid,
+    photo: user.photoURL,
+    name: user.displayName
+  };
+};
+
 export var startLogin = () => {
-  return {
-    type: 'START_LOGIN'
-  }
-};
-
-export var completeLogin = (data) => {
-  return {
-    type: 'COMPLETE_LOGIN',
-    data
-  }
-};
-
-export var getLogin = (email, password) => {
   return (dispatch, getState) => {
-    dispatch(startLogin());
-    axios.post('https://shielded-inlet-46414.herokuapp.com/users/login', {
-      email,
-      password
-    }).then(function(data) {
-      console.log('logged in', data.data);
-      dispatch(completeLogin(data.data));
+    return firebase.auth().signInWithPopup(googleProvider).then((result) => {
+      console.log('Auth worked', result);
+      dispatch(login(result.user))
+    }, (error) => {
+      console.log('Unable to auth', error);
     });
   };
 };
 
-export var startPostSignUp = () => {
-  return {
-    type: 'START_POST_SIGNUP'
-  }
-};
 
-export var completePostSignUp = (data) => {
-  return {
-    type: 'COMPLETE_POST_SIGNUP',
-    data
-  }
-};
 
-export var postSignUp = (email, password) => {
-  return (dispatch, getState) => {
-    dispatch(startPostSignUp());
-    console.log('email', email, password);
-    axios.post('https://shielded-inlet-46414.herokuapp.com/users', {
-      email,
-      password,
-      isAdmin: 'false'
-    }).then(function(data) {
-      console.log('user data', data);
-      dispatch(completePostSignUp(data));
-    });
-  };
-};
+
+
+
+// export var startLogin = () => {
+//   return {
+//     type: 'START_LOGIN'
+//   }
+// };
+
+// export var completeLogin = (data) => {
+//   return {
+//     type: 'COMPLETE_LOGIN',
+//     data
+//   }
+// };
+
+// export var getLogin = (email, password) => {
+//   return (dispatch, getState) => {
+//     dispatch(startLogin());
+//     axios.post('https://shielded-inlet-46414.herokuapp.com/users/login', {
+//       email,
+//       password
+//     }).then(function(data) {
+//       console.log('logged in', data.data);
+//       dispatch(completeLogin(data.data));
+//     });
+//   };
+// };
+
+// export var startPostSignUp = () => {
+//   return {
+//     type: 'START_POST_SIGNUP'
+//   }
+// };
+
+// export var completePostSignUp = (data) => {
+//   return {
+//     type: 'COMPLETE_POST_SIGNUP',
+//     data
+//   }
+// };
+
+// export var postSignUp = (email, password) => {
+//   return (dispatch, getState) => {
+//     dispatch(startPostSignUp());
+//     console.log('email', email, password);
+//     axios.post('https://shielded-inlet-46414.herokuapp.com/users', {
+//       email,
+//       password,
+//       isAdmin: 'false'
+//     }).then(function(data) {
+//       console.log('user data', data);
+//       dispatch(completePostSignUp(data));
+//     });
+//   };
+// };
 
 
