@@ -14,9 +14,6 @@ class SignUp extends React.Component {
 	handleSubmit(e) {
 		var {dispatch} = this.props;
 		e.preventDefault();
-		console.log('e', e);
-		console.log('props', this.refs.email);
-		console.log('refs pw', this.refs.password.value);
 		dispatch(actions.postSignUp(this.refs.email.value, this.refs.password.value));
 	}
 	render () {

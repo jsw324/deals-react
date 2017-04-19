@@ -60,9 +60,7 @@ export var completePostPerm = (data) => {
   }
 };
 
-var config = {
-  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
-};
+
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {
@@ -111,6 +109,33 @@ export var getPerm = (data) => {
     axios.get('https://shielded-inlet-46414.herokuapp.com/getPermDeals', config).then((data) => {
       console.log('data from axios action', data);
       dispatch(completeGetPerm(data));
+    });
+  };
+};
+
+//////////////////////////////////
+//----GET CONTRACT DEALS-------///
+//////////////////////////////////
+
+export var startGetContract = () => {
+  return {
+    type: 'START_GET_CONTRACT'
+  }
+};
+
+export var completeGetContract = (data) => {
+  return {
+    type: 'COMPLETE_GET_CONTRACT',
+    data: data.data
+  }
+};
+
+export var getContract = (data) => {
+  return (dispatch, getState) => {
+    dispatch(startGetContract());
+    axios.get('https://shielded-inlet-46414.herokuapp.com/getContractDeals', config).then((data) => {
+      console.log('contractors', data);
+      dispatch(completeGetContract(data));
     });
   };
 };

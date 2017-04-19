@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const moment = require('moment');
-var LineChart = require('react-chartjs').Line;
+var BarChart = require('react-chartjs').Bar;
 
 
 var getMonth = (month) => {
@@ -16,13 +16,13 @@ class PermChart extends React.Component {
     }
   render () {
       var {deals} = this.props;
-      console.log('chart props', deals.deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
+      console.log("CHART", deals.deals);
       deals.deals.map((val) => {
         var month = getMonth(val.startDate);
         var fee = val.fee/100 * val.salary;
-        console.log(fee);
+        console.log('salary', typeof val.salary);
         switch (month) {
           case 0:
             jan += fee;
@@ -47,10 +47,9 @@ class PermChart extends React.Component {
         };
       });
       obj.push(jan, feb, march, april, may, jun);
-      console.log('chart sum', obj);
 
     var chartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
         {
             label: "Perm",
@@ -60,28 +59,30 @@ class PermChart extends React.Component {
             highlightFill: '#DAA520',
             borderWidth: 1,
             data: obj,
-        },
-        {
-          label: 'Spread',
-          fillColor: 'rgba(218, 165, 32, 0.5)',
-          strokeColor: 'rgba(218, 165, 32, 0.5)',
-          highlightStroke: '#F7464A',
-          highlightFill: '#DAA520',
-          borderWidth: 1,
-          data: [10550, 9850, 11658, 12655, 13500, 14250, 16075],
-      }
+        }
     ]
 };
 
 var chartOptions = {
-   scaleLabel:
-    function(label){return  '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
+   scaleOverride: true,
+  scaleSteps: 6,
+  scaleStepWidth: 25000,
+  scaleStartValue: 0,
+  scaleLineColor: 'rgba(0, 0, 0, 0.1)',
+  scaleLineWidth: 1,
+  scaleShowLabels: true,
+  scaleLabel:
+    function(label){return  '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");},
+   multiTooltipTemplate: 
+    function(label){return  '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");},
+   tooltipTemplate: 
+    function(label){return  '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");},
+    responsive: true
 }
 
     return (
-      <div className="row">
-        <LineChart className="col s12 m10 offset-m1" data={chartData} options={chartOptions} width="800" height="400" />
-      </div>
+      <BarChart data={chartData} options={chartOptions} />
+ 
     )
   }
 }
