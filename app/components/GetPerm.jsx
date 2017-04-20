@@ -68,16 +68,21 @@ class GetPerm extends React.Component {
       // console.log('start date', getPerm.data[0].startDate);
       // console.log('feeAmount', getPerm.data[0].feeAmount);
       return (
-        <div className="charts__body">
+        <div className="dashboard__body">
           <div className="row">
             <h2 className="center-align">Dashboard</h2>
             <div className="col s10 offset-s1 l6">
-              <h5 className="center-align">Perm</h5>
-              <PermChart deals={getPerm.data}/>
+              <div className="perm__chart z-depth-3">
+                <h5 className="center-align">Perm</h5>
+                <PermChart deals={getPerm.data}/>
+              </div>
             </div>
+           
             <div className="col s10 offset-s1 l6">
-              <h5 className="center-align">Contract</h5>
-              <ContractChart deals={getPerm.data}/>
+              <div className="contract__chart z-depth-3">
+                <h5 className="center-align">Contract</h5>
+                <ContractChart deals={getPerm.data}/>
+              </div>
             </div>
         </div>
         <div className="row">

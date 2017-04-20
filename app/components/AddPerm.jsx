@@ -7,6 +7,8 @@ const moment = require('moment');
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 
+//const $ = require('jquery');
+
 class AddPerm extends React.Component {
   	constructor (props) {
   	super(props);
@@ -36,7 +38,15 @@ class AddPerm extends React.Component {
 			};
 			dispatch(actions.postPerm(data));
 		}
-	};
+	}
+
+	componentDidMount() {
+			$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15 // Creates a dropdown of 15 years to control year
+		});
+	}
+
 	render () {
 		const style = {
 			height: 'auto',
@@ -48,9 +58,7 @@ class AddPerm extends React.Component {
 		return (
 
 		<div>
-			<MuiThemeProvider>
-				<Paper style={style} z-depth={3}>
-
+		
 					<ul className="tabs">
 						<li className="tab col s3"><Link to="/new-contractor">Contract</Link></li>
 						<li className="tab col s3"><Link className="active" to="/new-perm">Perm</Link></li>
@@ -94,19 +102,17 @@ class AddPerm extends React.Component {
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<input id="startDate" ref="startDate" type="date" className="validate"/>
-									<label for="startDate">Start Date</label>
+							
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<input id="client" ref="client" type="text" className="validate"/>
+									<input id="client" ref="client" type="text" className="datepicker"/>
 									<label for="client">Client</label>
 								</div>
       				</div>
 							<label id='errorLabel' className="center-align"></label>
 							<button className="btn">Submit</button>
 						</form>
-					</Paper>
-			</MuiThemeProvider>
 			</div>
 		)
 	}

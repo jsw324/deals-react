@@ -2,18 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 const actions = require('actions');
-const store = require('configureStore').configure();
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
 
 class AddDeal extends React.Component {
   	constructor (props) {
   	super(props);
-	
 		this.submitDeal = this.submitDeal.bind(this);
-
-	};
+	}
 
 
 	submitDeal(e) {
@@ -50,9 +44,8 @@ class AddDeal extends React.Component {
 		return (
 
 		<div>
-			<MuiThemeProvider>
-				<Paper style={style} z-depth={3}>
-
+		<div className="row">
+			<div className="col s10 offset-s1 add__contractor">
 					<ul className="tabs">
 						<li className="tab col s3"><Link className="active" to="/new-contractor">Contract</Link></li>
 						<li className="tab col s3"><Link to="/new-perm">Perm</Link></li>
@@ -111,8 +104,8 @@ class AddDeal extends React.Component {
 							<br/>
 							<button className="btn">Submit</button>
 						</form>
-					</Paper>
-			</MuiThemeProvider>
+					</div>
+					</div>
 			</div>
 		)
 	}

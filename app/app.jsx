@@ -4,9 +4,6 @@ const {Provider} = require('react-redux');
 const {Route, Router, IndexRoute, hashHistory} = require('react-router');
 import firebase from 'app/firebase/';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import Main from 'Main';
 import Login from 'Login';
 import SignUp from 'SignUp';
@@ -16,10 +13,6 @@ import GetPerm from 'GetPerm';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 store.subscribe(() => {
   var state = store.getState();
@@ -33,6 +26,7 @@ store.subscribe(() => {
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
+    store.dispatch(actions.login(user));
     hashHistory.push('/get-perm');
   } else {
     store.dispatch(actions.logout());
@@ -45,6 +39,7 @@ firebase.auth().onAuthStateChanged((user) => {
 require('style!css!sass!applicationStyles');
 
 var requireLogin = (nextState, replace, next) => {
+  console.log("AUTH", firebase.auth().currentUser);
   if (!firebase.auth().currentUser) { 
     replace('/');
   }
@@ -53,7 +48,7 @@ var requireLogin = (nextState, replace, next) => {
 
 var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
-    replace('/getPerm');
+    replace('/get-perm');
   }
   next();
 };

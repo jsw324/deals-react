@@ -12,10 +12,34 @@ h6 {
     font-weight: 300;
 }
 
-.charts__body {
-    padding: 10 10 10 10;
+.perm__chart {
+    height: 100%;
+    width: 100%;
+    border: 1px;
+    border-radius: .5rem;
+    border-style: solid;
+    border-color: #ffffff;
+    padding: 5px 5px 5px 5px;
+}
+
+.contract__chart {
+    height: 100%;
+    width: 100%;
+    border: 1px;
+    border-radius: .5rem;
+    border-color: #ffffff;
+    border-style: solid;
+    padding: 5px 5px 5px 5px
+}
+
+.dashboard__body {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.add__contractor {
+    border: 1px;
+    margin: 20px 20px 20px 20px;
 }
 
 .ReactTable {
