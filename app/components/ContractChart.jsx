@@ -6,7 +6,7 @@ var LineChart = require('react-chartjs').Line;
 
 
 var getMonth = (month) => {
-  var mom = moment(month, 'MM/DD/YYYY');
+  var mom = moment.unix(month);
   return  mom.month();
 }
 
@@ -16,9 +16,10 @@ class ContractChart extends React.Component {
     }
   render () {
       var {deals} = this.props;
+      console.log("CONTRACT DEALS", deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
-      deals.deals.map((val) => {
+      deals.map((val) => {
         var month = getMonth(val.startDate);
         var fee = val.fee/100 * val.salary;
         switch (month) {

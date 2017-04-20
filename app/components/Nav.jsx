@@ -2,8 +2,8 @@ const React = require('react');
 import ReactDOM from 'react-dom';
 var {Link, IndexLink} = require('react-router');
 
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import $ from 'jquery';
 
@@ -14,9 +14,11 @@ class Nav extends React.Component{
     this.homePageClick = this.homePageClick.bind(this);
   }
 
+
   homePageClick() {
     window.location.href = "/"
   }
+
 
   render () {
     return (

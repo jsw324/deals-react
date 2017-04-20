@@ -10,7 +10,10 @@ export var startPostContract = () => {
   return {
     type: 'START_POST_CONTRACT'
   }
-};
+};import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
 
 export var completePostContract = (data) => {
   return {
@@ -67,7 +70,7 @@ export var postPerm = (data) => {
   return (dispatch, getState) => {
     console.log('firebase perm data', data);
     var uid = getState().auth.uid;
-    var permRef = firebaseRef.child(`users/${uid}`).push(data);
+    var permRef = firebaseRef.child(`users/${uid}/perm`).push(data);
 
     return permRef.then(() => {
       dispatch(completePostPerm({
@@ -113,23 +116,32 @@ export var startGetPerm = () => {
 export var completeGetPerm = (data) => {
   return {
     type: 'COMPLETE_GET_PERM',
-    data: data.data
+    data: data
   }
 };
 
-var config = {
-  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
-};
+//firebase getPerm
 
-export var getPerm = (data) => {
+export var getPerm = () => {
   return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var permRef = firebaseRef.child(`users/${uid}/perm`)
     dispatch(startGetPerm());
-    axios.get('https://shielded-inlet-46414.herokuapp.com/getPermDeals', config).then((data) => {
-      console.log('data from axios action', data);
-      dispatch(completeGetPerm(data));
-    });
-  };
-};
+    return permRef.once('value').then((snapshot) => {
+      var permDeals = snapshot.val() || {};
+      var parsedDeals = [];
+
+      Object.keys(permDeals).forEach((deal) => {
+        parsedDeals.push({
+          id: deal,
+          ...permDeals[deal]
+        });
+      });
+      dispatch(completeGetPerm(parsedDeals));
+    })
+  }
+}
+
 
 //////////////////////////////////
 //----GET CONTRACT DEALS-------///
@@ -183,63 +195,18 @@ export var startLogin = () => {
   };
 };
 
+export var startLogout = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signOut().then(() => {
+      console.log('Logged out');
+    });
+  };
+};
 
-
-
-
-
-// export var startLogin = () => {
-//   return {
-//     type: 'START_LOGIN'
-//   }
-// };
-
-// export var completeLogin = (data) => {
-//   return {
-//     type: 'COMPLETE_LOGIN',
-//     data
-//   }
-// };
-
-// export var getLogin = (email, password) => {
-//   return (dispatch, getState) => {
-//     dispatch(startLogin());
-//     axios.post('https://shielded-inlet-46414.herokuapp.com/users/login', {
-//       email,
-//       password
-//     }).then(function(data) {
-//       console.log('logged in', data.data);
-//       dispatch(completeLogin(data.data));
-//     });
-//   };
-// };
-
-// export var startPostSignUp = () => {
-//   return {
-//     type: 'START_POST_SIGNUP'
-//   }
-// };
-
-// export var completePostSignUp = (data) => {
-//   return {
-//     type: 'COMPLETE_POST_SIGNUP',
-//     data
-//   }
-// };
-
-// export var postSignUp = (email, password) => {
-//   return (dispatch, getState) => {
-//     dispatch(startPostSignUp());
-//     console.log('email', email, password);
-//     axios.post('https://shielded-inlet-46414.herokuapp.com/users', {
-//       email,
-//       password,
-//       isAdmin: 'false'
-//     }).then(function(data) {
-//       console.log('user data', data);
-//       dispatch(completePostSignUp(data));
-//     });
-//   };
-// };
+export var logout = () => {
+  return {
+    type: 'LOGOUT'
+  };
+};
 
 

@@ -19,11 +19,10 @@ class GetPerm extends React.Component {
   componentWillMount () {
     var { dispatch } = this.props;
     dispatch(actions.getPerm());
-    dispatch(actions.getContract());
+   // dispatch(actions.getContract());
   }
 
   renderPerm () {
-    console.log('props', this.props);
     var {getPerm} = this.props;
 
     const columns = [{
@@ -55,29 +54,19 @@ class GetPerm extends React.Component {
     accessor: 'feeAmount',
     id: 'feeAmount'
   }]
-
-  var chartConfigs = {
-  type: "Column2D",
-  className: 'fc-column2d', 
-  dataFormat: 'JSON',
-  dataSource: {
-    chart: {},
-  data: getPerm.data
-  }
-};
-
   
     if (getPerm.data !== undefined){
-      for (var i = 0; i < getPerm.data.deals.length; i++) {
-        getPerm.data.deals[i].startDate = moment.unix(getPerm.data.deals[i].startDate).format('MM/DD/YYYY');
-        var feeAmount = getPerm.data.deals[i].salary * getPerm.data.deals[i].fee/100;
-        getPerm.data.deals[i].feeAmount = format({prefix: '$' })(feeAmount);
+      for (var i = 0; i < getPerm.length; i++) {
+        getPerm.data[i].startDate = moment.unix(getPerm.data[i].startDate).format('MM/DD/YYYY');
+        var feeAmount = getPerm.data[i].salary * (getPerm.data[i].fee/100);
+       // getPerm.data[i].feeAmount = format({prefix: '$' })(feeAmount);
         // format library changes salary to a string and causes issues when passed to CHART component. Need to create an entirely new object
         // specifically for the table in order to manipulate currency formatting.
         //TODO: above.
         //getPerm.data.deals[i].salary = format({prefix: '$'})(getPerm.data.deals[i].salary);    
       }
-      console.log("GETPERM", getPerm.data);
+      // console.log('start date', getPerm.data[0].startDate);
+      // console.log('feeAmount', getPerm.data[0].feeAmount);
       return (
         <div className="charts__body">
           <div className="row">
@@ -94,7 +83,7 @@ class GetPerm extends React.Component {
         <div className="row">
             <h4 className="center-align">Placements</h4>
             <ReactTable
-              data={getPerm.data.deals}
+              data={getPerm.data}
               columns={columns}
               />
           </div>
@@ -109,8 +98,6 @@ class GetPerm extends React.Component {
 
   render () {
    var {perm} = this.props;
-   console.log('perm');
-  
     return (
       <div>
         {this.renderPerm()}

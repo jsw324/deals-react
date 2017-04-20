@@ -15,7 +15,7 @@ export var configure = () => {
     postPerm: dealReducer,
     getPerm: getPermReducer,
     getContract: getContractReducer,
-    auth: authReducer
+    auth: authReducer,
   });
 
   var store = redux.createStore(reducer, redux.compose(

@@ -15,10 +15,6 @@ class AddDeal extends React.Component {
 
 	};
 
-	componentWillMount() {
-	
-		//console.log('will state', store.getState());
-	};
 
 	submitDeal(e) {
 		e.preventDefault();

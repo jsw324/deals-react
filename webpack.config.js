@@ -58,13 +58,25 @@ module.exports = {
     },
     module: {
         loaders: [{
-            loader: 'babel-loader',
-            query: {
-                presets: ['react', 'es2015', 'stage-0']
+                loader: 'babel-loader',
+                query: {
+                    presets: ['react', 'es2015', 'stage-0']
+                },
+                test: /\.jsx?$/,
+                exclude: /(node_modules|bower_components)/
+            }, {
+                test: /\.css$/,
+                loaders: [
+                    'style',
+                    'css?importLoaders=1',
+
+                ]
             },
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/
-        }]
+            {
+                test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                loader: 'file-loader?name=fonts/[name].[ext]'
+            }
+        ]
     },
     devtool: 'cheap-module-eval-source-map'
 };

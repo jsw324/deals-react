@@ -16,18 +16,26 @@ class AddPerm extends React.Component {
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
-		var { name, email, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
-		var day = moment(startDate.value, "YYYY-MM-DD").unix();
-		var data = {
-			name: name.value,
-			client: client.value,
-			salary: salary.value,
-			fee: fee.value,
-			startDate: day,
-			recruiter: recruiter.value,
-			sales: sales.value
-		};
-		dispatch(actions.postPerm(data));
+		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
+		console.log('refs', this.refs);
+		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '') {
+			console.log('error');
+			document.getElementById('errorLabel').innerHTML = 'Error';
+		} else {
+			console.log("FEE TYPE", typeof fee.value);
+			var day = moment(startDate.value, "YYYY-MM-DD").unix();
+			console.log("DAY", startDate.value);
+			var data = {
+				name: name.value,
+				client: client.value,
+				salary: parseInt(salary.value),
+				fee: parseInt(fee.value),
+				startDate: day,
+				recruiter: recruiter.value,
+				sales: sales.value
+			};
+			dispatch(actions.postPerm(data));
+		}
 	};
 	render () {
 		const style = {
@@ -94,6 +102,7 @@ class AddPerm extends React.Component {
 									<label for="client">Client</label>
 								</div>
       				</div>
+							<label id='errorLabel' className="center-align"></label>
 							<button className="btn">Submit</button>
 						</form>
 					</Paper>
