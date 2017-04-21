@@ -11,7 +11,7 @@ var Main = (props) => {
   return (
       <div>
         <Nav/>
-          <div>
+          <div clasName="main">
             {props.children}
           </div>
       </div>

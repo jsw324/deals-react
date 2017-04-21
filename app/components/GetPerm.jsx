@@ -14,7 +14,14 @@ class GetPerm extends React.Component {
   constructor (props) {
     super(props);
     this.renderPerm = this.renderPerm.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
+
+  onLogout(e) {
+		e.preventDefault();
+		var {dispatch} = this.props;
+		dispatch(actions.startLogout());
+	}
 
   componentWillMount () {
     var { dispatch } = this.props;
@@ -70,6 +77,7 @@ class GetPerm extends React.Component {
       return (
         <div className="dashboard__body">
           <div className="row">
+            <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>
             <h2 className="center-align">Dashboard</h2>
             <div className="col s10 offset-s1 l6">
               <div className="perm__chart z-depth-3">
