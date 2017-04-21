@@ -6,6 +6,7 @@ import moment from 'moment';
 import ReactTable from 'react-table';
 import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
+import Nav from 'Nav';
 
 var format = require('format-number');
 
@@ -75,6 +76,8 @@ class GetPerm extends React.Component {
       // console.log('start date', getPerm.data[0].startDate);
       // console.log('feeAmount', getPerm.data[0].feeAmount);
       return (
+       <div>
+        <Nav/>
         <div className="dashboard__body">
           <div className="row">
             <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>
@@ -93,6 +96,11 @@ class GetPerm extends React.Component {
               </div>
             </div>
         </div>
+        <div className="fixed-action-btn">
+          <a className="btn-floating btn-large red">
+            <i className="large material-icons" onClick={this.openNewContractModal}>add</i>
+          </a>
+        </div>
         <div className="row">
             <h4 className="center-align">Placements</h4>
             <ReactTable
@@ -100,6 +108,7 @@ class GetPerm extends React.Component {
               columns={columns}
               />
           </div>
+        </div>
         </div>
       )
     } else {

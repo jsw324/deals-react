@@ -1,3 +1,6 @@
+/* TALLIENCE BLUE: rgba(8, 33, 144, 0.4)
+   TALLIENCE YELLOW: rgba(255, 186, 0, 0.4) #FFBA00  */
+
 p {
     color: black;
 }
@@ -52,11 +55,7 @@ h6 {
     height: 50%;
     transform: translate(-50%, -50%);
     font-size: 18px;
-    background-color: #fff;
-    opacity: 0.4;
-    border: 1px;
-    border-color: #cccccc;
-    border-style: solid;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
 }
 
@@ -65,6 +64,7 @@ h6 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
 .dashboard__body {
@@ -80,6 +80,18 @@ h6 {
 
 /* The side navigation menu */
 
+.account__container {
+    padding: 20px 20px 20px 20px;
+    background-image: url('/wallpaper.png');
+    background-size: 100%;
+}
+
+.account__image {
+    padding: 0px 20px 0px 20px;
+    max-width: 80%;
+    border-radius: 50%;
+}
+
 .sidenav {
     height: 100%;
     /* 100% Full-height */
@@ -91,7 +103,7 @@ h6 {
     /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #000;
     /* Black*/
     overflow-x: hidden;
     /* Disable horizontal scroll */
@@ -107,10 +119,14 @@ h6 {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 18px;
     color: #818181;
     display: block;
     transition: 0.3s
+}
+
+.name__text {
+    padding-left: 10px;
 }
 
 
@@ -118,7 +134,7 @@ h6 {
 
 .sidenav a:hover,
 .offcanvas a:focus {
-    color: #f1f1f1;
+    color: #fff;
 }
 
 

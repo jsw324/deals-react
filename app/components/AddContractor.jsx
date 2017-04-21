@@ -8,7 +8,10 @@ class AddDeal extends React.Component {
   	super(props);
 		this.submitDeal = this.submitDeal.bind(this);
 	}
-
+	
+	componentDidMount() {
+		$('#modal1').modal('open');
+	}
 
 	submitDeal(e) {
 		e.preventDefault();
@@ -42,8 +45,20 @@ class AddDeal extends React.Component {
   			display: 'inline-block',
 		}
 		return (
+			<div>
 
-		<div>
+		<div className="modal modal-fixed-footer" id="modal1">
+			<div className="modal-content">
+				<h4>Modal Header</h4>
+				<p>text</p>
+			</div>
+			<div className="modal-footer">
+				<a href="#" className="modal-action modal-close waves-effect btn-flat">Agree</a>
+			</div>
+		</div>
+
+		<a className="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>
+
 		<div className="row">
 			<div className="col s10 offset-s1 add__contractor">
 					<ul className="tabs">

@@ -6,14 +6,12 @@ import 'materialize-css/dist/css/materialize.min.css';
 
 import Nav from 'Nav';
 
-
 var Main = (props) => {
   return (
       <div>
-        <Nav/>
-          <div clasName="main">
-            {props.children}
-          </div>
+        <div className="main">
+          {props.children}
+        </div>
       </div>
   )
 };
