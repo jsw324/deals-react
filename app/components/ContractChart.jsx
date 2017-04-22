@@ -15,31 +15,33 @@ class ContractChart extends React.Component {
       super(props);
     }
   render () {
-      var {deals} = this.props;
-      console.log("CONTRACT DEALS", deals);
+      var {spread} = this.props;
+      console.log("SPREAD", spread);
+      console.log('spread type', typeof spread);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
-      deals.map((val) => {
+      spread.map((val) => {
         var month = getMonth(val.startDate);
-        var fee = val.fee/100 * val.salary;
+      var margin = Math.floor((val.billRate - (val.hourly * 1.15)) * 160);
         switch (month) {
           case 0:
-            jan += fee;
+            jan += margin;
             break;
           case 1:
-            feb += fee;
+            feb += margin;
             break;
           case 2:
-            march += fee;
+            march += margin;
             break;
           case 3:
-            april += fee;
+            april += margin;
             break;
           case 4:
-            may += fee;
+            may += margin;
+            console.log('margin', margin);
             break;
           case 5: 
-            jun += fee;
+            jun += margin;
             break;
         };
       });

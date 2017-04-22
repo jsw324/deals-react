@@ -22,31 +22,23 @@ export var completePostContract = (data) => {
   }
 };
 
-var config = {
-  'headers': {'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGY2NjlkNTAxN2U0MDAwMTE0NjUyMTgiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNDkyNTQzOTU3fQ.781Em7eVaYcOT0zb0C-VkQS3oad_vFL07njtwMK-9-k"}
-};
-
 export var postContract = (data) => {
   return (dispatch, getState) => {
-    dispatch(startPostContract());
-    axios.post('https://shielded-inlet-46414.herokuapp.com/contractDeal', {
-      name: data.name,
-      client: data.client,
-      isPerm: 'false',
-      recruiter: data.recruiter,
-      salary: 0,
-      sales: data.sales,
-      payRate: data.hourly,
-      billRate: data.billRate,
-      startDate: data.startDate,
-      isActive: 'true',
-      _creator: '58f669d5017e400011465218'
-    }, config).then((data) => {
-      console.log('data from axios action', data);
-      dispatch(completePostContract(data));
+    console.log('firebase contract data', data);
+    var uid = getState().auth.uid;
+    var contractRef = firebaseRef.child(`users/contract/${uid}`).push(data);
+
+    return contractRef.then(() => {
+      dispatch(completePostContract({
+        ...data,
+        id: contractRef.key
+      }));
     });
   };
 };
+
+
+
 //////////////////////////////////
 //----PERM DEALS-------///
 //////////////////////////////////
@@ -70,7 +62,7 @@ export var postPerm = (data) => {
   return (dispatch, getState) => {
     console.log('firebase perm data', data);
     var uid = getState().auth.uid;
-    var permRef = firebaseRef.child(`users/${uid}/perm`).push(data);
+    var permRef = firebaseRef.child(`users/perm/${uid}`).push(data);
 
     return permRef.then(() => {
       dispatch(completePostPerm({
@@ -80,28 +72,6 @@ export var postPerm = (data) => {
     });
   };
 };
-
-
-
-// export var postPerm = (data) => {
-//   return (dispatch, getState) => {
-//     dispatch(startPostPerm());
-//     axios.post('https://shielded-inlet-46414.herokuapp.com/permDeal', {
-//       name: data.name,
-//       client: data.client,
-//       recruiter: data.recruiter,
-//       salary: data.salary,
-//       sales: data.sales,
-//       fee: data.fee,
-//       startDate: data.startDate,
-//       isActive: 'true',
-//       _creator: '58f669d5017e400011465218'
-//     }, config).then((data) => {
-//       console.log('data from axios action', data);
-//       dispatch(completePostPerm(data));
-//     });
-//   };
-// };
 
 //////////////////////////////////
 //----GET PERM DEALS-------///
@@ -125,12 +95,12 @@ export var completeGetPerm = (data) => {
 export var getPerm = () => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var permRef = firebaseRef.child(`users/${uid}/perm`)
+    var permRef = firebaseRef.child(`users/perm/${uid}`)
     dispatch(startGetPerm());
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
       var parsedDeals = [];
-
+      console.log('perm deals', permDeals);
       Object.keys(permDeals).forEach((deal) => {
         parsedDeals.push({
           id: deal,
@@ -156,19 +126,29 @@ export var startGetContract = () => {
 export var completeGetContract = (data) => {
   return {
     type: 'COMPLETE_GET_CONTRACT',
-    data: data.data
+    data: data
   }
 };
 
-export var getContract = (data) => {
+export var getContract = () => {
   return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var contractRef = firebaseRef.child(`users/contract/${uid}`)
     dispatch(startGetContract());
-    axios.get('https://shielded-inlet-46414.herokuapp.com/getContractDeals', config).then((data) => {
-      console.log('contractors', data);
-      dispatch(completeGetContract(data));
-    });
-  };
-};
+    return contractRef.once('value').then((snapshot) => {
+      var contractDeals = snapshot.val() || {};
+      var parsedDeals = [];
+  
+      Object.keys(contractDeals).forEach((deal) => {
+        parsedDeals.push({
+          id: deal,
+          ...contractDeals[deal]
+        });
+      });
+      dispatch(completeGetContract(parsedDeals));
+    })
+  }
+}
 
 
 //////////////////////////////////
@@ -180,14 +160,18 @@ export var login = (user) => {
     type: 'LOGIN',
     uid: user.uid,
     photo: user.photoURL,
-    name: user.displayName
+    name: user.displayName,
+    isAdmin: user.isAdmin
   };
 };
 
 export var startLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(googleProvider).then((result) => {
-      console.log('Auth worked', result);
+      if (result.user.displayName === 'Jason Walkow') {
+        result.user.isAdmin = true;
+      }
+      console.log('Auth worked', result.user);
       dispatch(login(result.user))
     }, (error) => {
       console.log('Unable to auth', error);

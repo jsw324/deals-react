@@ -101,12 +101,12 @@ class AddPerm extends React.Component {
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<input id="startDate" ref="startDate" type="date" className="validate"/>
+									<input id="startDate" ref="startDate" type="date" className=""/>
 							
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<input id="client" ref="client" type="text" className="datepicker"/>
+									<input id="client" ref="client" type="text" className="#"/>
 									<label for="client">Client</label>
 								</div>
       				</div>

@@ -27,11 +27,12 @@ class GetPerm extends React.Component {
   componentWillMount () {
     var { dispatch } = this.props;
     dispatch(actions.getPerm());
-   // dispatch(actions.getContract());
+    dispatch(actions.getContract());
   }
 
   renderPerm () {
-    var {getPerm} = this.props;
+    var {getPerm, getContract} = this.props;
+    console.log('props', this.props);
 
     const columns = [{
     header: 'Name',
@@ -63,7 +64,7 @@ class GetPerm extends React.Component {
     id: 'feeAmount'
   }]
   
-    if (getPerm.data !== undefined){
+    if (getPerm.data !== undefined && getContract.data !== undefined){
       for (var i = 0; i < getPerm.length; i++) {
         getPerm.data[i].startDate = moment.unix(getPerm.data[i].startDate).format('MM/DD/YYYY');
         var feeAmount = getPerm.data[i].salary * (getPerm.data[i].fee/100);
@@ -92,7 +93,7 @@ class GetPerm extends React.Component {
             <div className="col s10 offset-s1 l6">
               <div className="contract__chart z-depth-3">
                 <h5 className="center-align">Contract</h5>
-                <ContractChart deals={getPerm.data}/>
+                <ContractChart spread={getContract.data}/>
               </div>
             </div>
         </div>

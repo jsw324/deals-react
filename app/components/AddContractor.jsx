@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 const actions = require('actions');
+const moment = require('moment');
 
 class AddDeal extends React.Component {
   	constructor (props) {
@@ -22,18 +23,19 @@ class AddDeal extends React.Component {
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
 	} else {
+		var day = moment(startDate.value, "YYYY-MM-DD").unix();
+		console.log("DAY", startDate.value);
 			var data = {
 				name: name.value,
 				email: email.value,
 				client: client.value,
 				billRate: billRate.value,
 				hourly: hourly.value,
-				startDate: parseInt(startDate.value),
+				startDate: day,
 				recruiter: recruiter.value,
 				sales: sales.value
 			};
 			dispatch(actions.postContract(data));
-			console.log('data', data);
 		}
 	};
 	render () {

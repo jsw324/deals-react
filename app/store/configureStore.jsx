@@ -12,7 +12,7 @@ export var configure = () => {
   var reducer = redux.combineReducers({
     login: loginReducer,
     signup: signUpReducer,
-    postPerm: dealReducer,
+    postDeal: dealReducer,
     getPerm: getPermReducer,
     getContract: getContractReducer,
     auth: authReducer,
