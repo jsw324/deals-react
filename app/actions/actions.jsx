@@ -145,6 +145,7 @@ export var getContract = () => {
           ...contractDeals[deal]
         });
       });
+      console.log('parsed deals', parsedDeals);
       dispatch(completeGetContract(parsedDeals));
     })
   }

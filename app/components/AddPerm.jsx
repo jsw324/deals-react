@@ -6,6 +6,7 @@ const moment = require('moment');
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
+import AddContractor from 'AddContractor';
 
 //const $ = require('jquery');
 
@@ -14,18 +15,23 @@ class AddPerm extends React.Component {
   	super(props);
 		console.log('store', this.props);
 		this.submitDeal = this.submitDeal.bind(this);
+		this.state = { showModal: true };
+		this.renderPermSheet = this.renderPermSheet.bind(this);
 	};
+
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
 		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
 		console.log('refs', this.refs);
+		console.log('start date', startDate.value);
 		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '') {
 			console.log('error');
 			document.getElementById('errorLabel').innerHTML = 'Error';
 		} else {
+			
 			console.log("FEE TYPE", typeof fee.value);
-			var day = moment(startDate.value, "YYYY-MM-DD").unix();
+			var day = moment(startDate.value, "DD MMM, YYYY").unix();
 			console.log("DAY", startDate.value);
 			var data = {
 				name: name.value,
@@ -36,7 +42,16 @@ class AddPerm extends React.Component {
 				recruiter: recruiter.value,
 				sales: sales.value
 			};
+		
+			this.setState({ showPermModal: false });
 			dispatch(actions.postPerm(data));
+			this.refs.name.value = '';
+			this.refs.client.value = '';
+			this.refs.salary.value = '';
+			this.refs.fee.value = '';
+			this.refs.startDate.value = '';
+			this.refs.recruiter.value = '';
+			this.refs.sales.value = '';
 		}
 	}
 
@@ -46,76 +61,75 @@ class AddPerm extends React.Component {
 			selectYears: 15 // Creates a dropdown of 15 years to control year
 		});
 	}
+		renderPermSheet() {
+				return (
+					<div>
+						
+						<h3 className="center-align">Full-Time Placement Details</h3>
+							<form onSubmit={this.submitDeal}>
+								<div className="row">
+									<div className="input-field col s6 offset-s3">
+										<input id="name" ref="name" type="text" className="validate"/>
+										<label for="name">Name</label>
+									</div>
+
+								
+								</div>
+
+								<div className="row">
+									<div className="input-field col s4 offset-s2">
+										<input id="recruiter" ref="recruiter" type="text" className="validate"/>
+										<label for="recruiter">Recruiter</label>
+									</div>
+
+									<div className="input-field col s4 offest-s2">
+										<input id="sales" ref="sales" type="text" className="validate"/>
+										<label for="sales">Sales</label>
+									</div>
+								</div>
+
+								<div className="row">
+									<div className="input-field col s4 offset-s2">
+										<input id="salary" ref="salary" type="text" className="validate"/>
+										<label for="salary">Salary</label>
+									</div>
+
+									<div className="input-field col s4 offest-s2">
+										<input id="fee" ref="fee" type="text" className="validate"/>
+										<label for="fee">Fee</label>
+									</div>
+								</div>
+
+								<div className="row">
+									<div className="input-field col s4 offset-s2">
+										<input id="startDate" ref="startDate" type="date" className="datepicker" placeholder="Start Date"/>
+										
+									</div>
+
+									<div className="input-field col s4">
+										<input id="client" ref="client" type="text" className="#"/>
+										<label for="client">Client</label>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col s4 offset-s2">
+										<label id='errorLabel' className="center-align"></label>
+										<button className="btn">Submit</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					)	
+			
+			};
 
 	render () {
-		const style = {
-			height: 'auto',
-			width: '95%',
-			margin: 20,
-			textAlign: 'center',
-  			display: 'inline-block',
-		}
 		return (
-
-		<div>
-		
-					<ul className="tabs">
-						<li className="tab col s3"><Link to="/new-contractor">Contract</Link></li>
-						<li className="tab col s3"><Link className="active" to="/new-perm">Perm</Link></li>
-					</ul>
-
-					<h3 className="center-align">Placement Details</h3>
-						<form onSubmit={this.submitDeal}>
-							<div className="row">
-								<div className="input-field col s6 offset-s3">
-									<input id="name" ref="name" type="text" className="validate"/>
-									<label for="name">Name</label>
-								</div>
-
-							
-      				</div>
-
-							<div className="row">
-								<div className="input-field col s4 offset-s2">
-									<input id="recruiter" ref="recruiter" type="text" className="validate"/>
-									<label for="recruiter">Recruiter</label>
-								</div>
-
-								<div className="input-field col s4 offest-s2">
-									<input id="sales" ref="sales" type="text" className="validate"/>
-									<label for="sales">Sales</label>
-								</div>
-      				</div>
-
-							<div className="row">
-								<div className="input-field col s4 offset-s2">
-									<input id="salary" ref="salary" type="text" className="validate"/>
-									<label for="salary">Salary</label>
-								</div>
-
-								<div className="input-field col s4 offest-s2">
-									<input id="fee" ref="fee" type="text" className="validate"/>
-									<label for="fee">Fee</label>
-								</div>
-      				</div>
-
-							<div className="row">
-								<div className="input-field col s4 offset-s2">
-									<input id="startDate" ref="startDate" type="date" className=""/>
-							
-								</div>
-
-								<div className="input-field col s4 offest-s2">
-									<input id="client" ref="client" type="text" className="#"/>
-									<label for="client">Client</label>
-								</div>
-      				</div>
-							<label id='errorLabel' className="center-align"></label>
-							<button className="btn">Submit</button>
-						</form>
+			<div>
+				{this.renderPermSheet()}
 			</div>
 		)
 	}
-};
+}
 
 export default connect()(AddPerm);

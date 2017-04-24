@@ -64,8 +64,8 @@ class ContractChart extends React.Component {
 
 var chartOptions = {
    scaleOverride: true,
-  scaleSteps: 6,
-  scaleStepWidth: 25000,
+  scaleSteps: 8,
+  scaleStepWidth: 2500,
   scaleStartValue: 0,
   scaleLineColor: 'rgba(0, 0, 0, 0.1)',
   scaleLineWidth: 1,

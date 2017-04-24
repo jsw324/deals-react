@@ -7,6 +7,9 @@ import ReactTable from 'react-table';
 import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
 import Nav from 'Nav';
+import AddPerm from 'AddPerm';
+import AddContractor from 'AddContractor';
+var Modal = require('react-modal');
 
 var format = require('format-number');
 
@@ -16,6 +19,11 @@ class GetPerm extends React.Component {
     super(props);
     this.renderPerm = this.renderPerm.bind(this);
     this.onLogout = this.onLogout.bind(this);
+
+    this.state = { showPermModal: false, showContractModal: false };
+    this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
+    this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   onLogout(e) {
@@ -30,9 +38,23 @@ class GetPerm extends React.Component {
     dispatch(actions.getContract());
   }
 
+  handleOpenPermModal () {
+    console.log('modal open');
+    this.setState({ showPermModal: true });
+  }
+
+  handleOpenContractModal () {
+    console.log('contract modal');
+    this.setState({ showContractModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showPermModal: false, showContractModal: false });
+  }
+ 
+
   renderPerm () {
     var {getPerm, getContract} = this.props;
-    console.log('props', this.props);
 
     const columns = [{
     header: 'Name',
@@ -99,9 +121,34 @@ class GetPerm extends React.Component {
         </div>
         <div className="fixed-action-btn">
           <a className="btn-floating btn-large red">
-            <i className="large material-icons" onClick={this.openNewContractModal}>add</i>
+            <i className="large material-icons">add</i>
           </a>
+          <ul>
+            <li><a onClick={this.handleOpenPermModal} className="btn-floating blue">P</a></li>
+            <li><a onClick={this.handleOpenContractModal} className="btn-floating green">C</a></li>
+          </ul>
         </div>
+        <Modal
+          isOpen={this.state.showPermModal}
+          contentLabel="Add Full-Time"
+          shouldCloseOnOverlayClick={true}
+          >
+          <AddPerm/>
+          <div className="row">
+            <div className="col s4 offset-s6">
+              <button className="btn blue" onClick={this.handleCloseModal}>Close Modal</button>
+            </div>
+          </div>
+          </Modal>
+
+          <Modal
+          isOpen={this.state.showContractModal}
+          contentLabel="Add Contractor"
+          shouldCloseOnOverlayClick={true}
+          >
+          <AddContractor/>
+          <button onClick={this.handleCloseModal}>Close Modal</button>
+          </Modal>
         <div className="row">
             <h4 className="center-align">Placements</h4>
             <ReactTable

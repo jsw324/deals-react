@@ -11,7 +11,11 @@ class AddDeal extends React.Component {
 	}
 	
 	componentDidMount() {
-		$('#modal1').modal('open');
+			$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15 // Creates a dropdown of 15 years to control year
+		});
+		$('select').material_select();
 	}
 
 	submitDeal(e) {
@@ -49,25 +53,8 @@ class AddDeal extends React.Component {
 		return (
 			<div>
 
-		<div className="modal modal-fixed-footer" id="modal1">
-			<div className="modal-content">
-				<h4>Modal Header</h4>
-				<p>text</p>
-			</div>
-			<div className="modal-footer">
-				<a href="#" className="modal-action modal-close waves-effect btn-flat">Agree</a>
-			</div>
-		</div>
-
-		<a className="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>
-
 		<div className="row">
 			<div className="col s10 offset-s1 add__contractor">
-					<ul className="tabs">
-						<li className="tab col s3"><Link className="active" to="/new-contractor">Contract</Link></li>
-						<li className="tab col s3"><Link to="/new-perm">Perm</Link></li>
-					</ul>
-
 					<h3 className="center-align">Contract  Details</h3>
 						<form onSubmit={this.submitDeal}>
 							<div className="row">
@@ -77,8 +64,11 @@ class AddDeal extends React.Component {
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<input id="email" ref="email" type="email" className="validate"/>
-									<label for="email">Email</label>
+									<select id="isW2" ref="isW2">
+										<option value="" disabled selected>Employment Type</option>
+										<option value="w2">W2</option>
+										<option value="1099">1099</option>
+									</select>
 								</div>
       				</div>
 
@@ -108,8 +98,7 @@ class AddDeal extends React.Component {
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<input id="startDate" ref="startDate" type="date" className="validate"/>
-									<label for="startDate">Start Date</label>
+									<input id="startDate" ref="startDate" type="date" className="datepicker" placeholder="Start date"/>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
@@ -117,9 +106,13 @@ class AddDeal extends React.Component {
 									<label for="client">Client</label>
 								</div>
       				</div>
-							<div id="error" style={{color:'red'}}></div>
-							<br/>
-							<button className="btn">Submit</button>
+							<div className="row">
+								<div className="col s4 offset-s2">
+									<div id="error" style={{color:'red'}}></div>
+									<br/>
+									<button className="btn">Submit</button>
+								</div>
+							</div>
 						</form>
 					</div>
 					</div>

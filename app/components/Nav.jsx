@@ -16,6 +16,12 @@ class Nav extends React.Component{
     this.onLogout = this.onLogout.bind(this);
   }
 
+  componentDidMount() {
+    $('body').click(function(e) {
+      document.getElementById("mySidenav").style.width = "0";
+    })
+  }
+
   onLogout(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
@@ -47,7 +53,6 @@ class Nav extends React.Component{
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
             <Link to="/get-perm">My Dashboard</Link>
-            <Link to="/new-contractor">New Contractor</Link>
             <a href="#">My Commission</a>
             <a href="#">PTO Requests</a>
             <a onClick={this.onLogout}>Logout</a>
