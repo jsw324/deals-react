@@ -29,7 +29,6 @@ class AddPerm extends React.Component {
 			console.log('error');
 			document.getElementById('errorLabel').innerHTML = 'Error';
 		} else {
-			
 			console.log("FEE TYPE", typeof fee.value);
 			var day = moment(startDate.value, "DD MMM, YYYY").unix();
 			console.log("DAY", startDate.value);

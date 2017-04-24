@@ -21,17 +21,17 @@ class AddDeal extends React.Component {
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
-		var { name, email, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
-		console.log('name', name);
-	if (name.value == '' || email.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '') {
+		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
+		console.log('name', name.value);
+	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '') {
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
 	} else {
-		var day = moment(startDate.value, "YYYY-MM-DD").unix();
+		var day = moment(startDate.value, "DD MMM, YYYY").unix();
 		console.log("DAY", startDate.value);
 			var data = {
 				name: name.value,
-				email: email.value,
+				isW2: isW2.value,
 				client: client.value,
 				billRate: billRate.value,
 				hourly: hourly.value,
