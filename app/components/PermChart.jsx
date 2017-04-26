@@ -6,7 +6,7 @@ var BarChart = require('react-chartjs').Bar;
 
 
 var getMonth = (month) => {
-  var mom = moment.unix(month);
+  var mom = moment(month, 'MM/DD/YYYY');
   return  mom.month();
 }
 
@@ -16,11 +16,9 @@ class PermChart extends React.Component {
     }
   render () {
       var {deals} = this.props;
-      var dealsArr = Array.from(deals);
-
+      console.log('deals', deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
-      console.log('salary', typeof deals);
         deals.map((val) => {
           var month = getMonth(val.startDate);
           var fee = val.fee/100 * val.salary;
@@ -28,11 +26,9 @@ class PermChart extends React.Component {
           switch (month) {
             case 0:
               jan += fee;
-              console.log('jan', jan);
               break;
             case 1:
               feb += fee;
-              console.log('feb', feb);
               break;
             case 2:
               march += fee;

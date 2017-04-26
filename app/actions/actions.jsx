@@ -10,10 +10,7 @@ export var startPostContract = () => {
   return {
     type: 'START_POST_CONTRACT'
   }
-};import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import 'materialize-css';
-import 'materialize-css/dist/css/materialize.min.css';
+};
 
 export var completePostContract = (data) => {
   return {
@@ -24,7 +21,6 @@ export var completePostContract = (data) => {
 
 export var postContract = (data) => {
   return (dispatch, getState) => {
-    console.log('firebase contract data', data);
     var uid = getState().auth.uid;
     var contractRef = firebaseRef.child(`users/contract/${uid}`).push(data);
 
@@ -60,7 +56,6 @@ export var completePostPerm = (data) => {
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {
-    console.log('firebase perm data', data);
     var uid = getState().auth.uid;
     var permRef = firebaseRef.child(`users/perm/${uid}`).push(data);
 
@@ -100,7 +95,6 @@ export var getPerm = () => {
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
       var parsedDeals = [];
-      console.log('perm deals', permDeals);
       Object.keys(permDeals).forEach((deal) => {
         parsedDeals.push({
           id: deal,

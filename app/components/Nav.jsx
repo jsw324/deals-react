@@ -10,7 +10,6 @@ const actions = require('actions');
 class Nav extends React.Component{
   constructor (props) {
     super(props);
-    console.log('prosp from nav', this.props);
     this.homePageClick = this.homePageClick.bind(this);
     this.getPhoto = this.getPhoto.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -42,10 +41,8 @@ class Nav extends React.Component{
   }
 
   getPhoto() {
-    console.log('GET PHOTO');
     if (firebase.auth().currentUser) {
       var photoURL = firebase.auth().currentUser.photoURL;
-      console.log('PHOTOURL', photoURL);
       return (
         <div>
           <div className="account__container valign-wrapper"><img src={photoURL} className="account__image responsive-img"/></div>
@@ -60,7 +57,6 @@ class Nav extends React.Component{
         </div>
       )
     } else {
-      console.log('NO USER');
       return (
         <ul>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>

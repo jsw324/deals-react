@@ -39,7 +39,6 @@ firebase.auth().onAuthStateChanged((user) => {
 require('style!css!sass!applicationStyles');
 
 var requireLogin = (nextState, replace, next) => {
-  console.log("AUTH", firebase.auth().currentUser);
   if (!firebase.auth().currentUser) { 
     replace('/');
   }
