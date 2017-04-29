@@ -55,7 +55,6 @@ class GetPerm extends React.Component {
 
   renderPerm () {
     var {getPerm, getContract} = this.props;
-    console.log('PERMPREOPS', getPerm);
     const columns = [{
     header: 'Name',
     accessor: 'name' // String-based value accessors! 
@@ -86,10 +85,11 @@ class GetPerm extends React.Component {
     id: 'feeAmount'
   }]
   
-    if (getPerm.length > 0 && getContract.data !== undefined){
+    if (1 == 1 ){
       for (var i = 0; i < getPerm.length; i++) {
         getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
         var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
+        getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
        // getPerm.data[i].feeAmount = format({prefix: '$' })(feeAmount);
         // format library changes salary to a string and causes issues when passed to CHART component. Need to create an entirely new object
         // specifically for the table in order to manipulate currency formatting.
@@ -105,7 +105,8 @@ class GetPerm extends React.Component {
           <div className="row">
             <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>
             <h2 className="center-align">Dashboard</h2>
-            <div className="col s10 offset-s1 l6">
+            
+            <div className="col s10 offset-s1 l6 contract__box">
               <div className="perm__chart z-depth-3">
                 <h5 className="center-align">Perm</h5>
                 <PermChart deals={getPerm}/>
@@ -115,7 +116,7 @@ class GetPerm extends React.Component {
             <div className="col s10 offset-s1 l6">
               <div className="contract__chart z-depth-3">
                 <h5 className="center-align">Contract</h5>
-                <ContractChart spread={getContract.data}/>
+                <ContractChart spread={getContract}/>
               </div>
             </div>
         </div>

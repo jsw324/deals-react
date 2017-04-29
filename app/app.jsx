@@ -6,9 +6,6 @@ import firebase from 'app/firebase/';
 
 import Main from 'Main';
 import Login from 'Login';
-import SignUp from 'SignUp';
-import AddContractor from 'AddContractor';
-import AddPerm from 'AddPerm';
 import GetPerm from 'GetPerm';
 
 const actions = require('actions');
@@ -59,9 +56,6 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
         <Route path="/" component={Main}>
           <IndexRoute component={Login} onEnter={redirectIfLoggedIn} />
           <Route path="/login" component={Login}/>
-          <Route path="/signup" component={SignUp}/>
-          <Route path="/new-contractor" component={AddContractor} onEnter={requireLogin}/>
-          <Route path="/new-perm" component={AddPerm}/>
           <route path="/get-perm" component={GetPerm} onEnter={requireLogin}/>
         </Route>
       </Router>

@@ -37,7 +37,8 @@ class AddDeal extends React.Component {
 				hourly: hourly.value,
 				startDate: day,
 				recruiter: recruiter.value,
-				sales: sales.value
+				sales: sales.value,
+				completedDate: ""
 			};
 			dispatch(actions.postContract(data));
 		}

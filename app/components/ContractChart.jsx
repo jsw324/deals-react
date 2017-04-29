@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const moment = require('moment');
-var LineChart = require('react-chartjs').Line;
-
+//var LineChart = require('react-chartjs').Line;
+import {Line} from 'react-chartjs-2';
 
 var getMonth = (month) => {
   var mom = moment.unix(month);
@@ -16,46 +16,46 @@ class ContractChart extends React.Component {
     }
   render () {
       var {spread} = this.props;
-      console.log("SPREAD", spread);
-      console.log('spread type', typeof spread);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
+      if (spread.length > 0) {
       spread.map((val) => {
         var month = getMonth(val.startDate);
-      var margin = Math.floor((val.billRate - (val.hourly * 1.15)) * 160);
-        switch (month) {
-          case 0:
-            jan += margin;
-            break;
-          case 1:
-            feb += margin;
-            break;
-          case 2:
-            march += margin;
-            break;
-          case 3:
-            april += margin;
-            break;
-          case 4:
-            may += margin;
-            console.log('margin', margin);
-            break;
-          case 5: 
-            jun += margin;
-            break;
-        };
-      });
-      obj.push(jan, feb, march, april, may, jun);
-
+        var margin = Math.floor((val.billRate - (val.hourly * 1.15)) * 160);
+          switch (month) {
+            case 0:
+              jan += margin;
+              break;
+            case 1:
+              feb += margin;
+              break;
+            case 2:
+              march += margin;
+              break;
+            case 3:
+              april += margin;
+              break;
+            case 4:
+              may += margin;
+              break;
+            case 5: 
+              jun += margin;
+              break;
+          };
+        });
+        obj.push(jan, feb, march, april, may, jun);
+      }
+      
+   
     var chartData = {
     labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
         {
-            label: "Perm",
-            fillColor: 'rgba(100, 149, 237, 0.5)',
-            strokeColor: 'rgba(218, 165, 32, 0.5)',
-            highlightStroke: '#F7464A',
-            highlightFill: '#DAA520',
+            label: "CONTRACT",
+            backgroundColor: 'rgba(100, 149, 237, 0.5)',
+            borderColor: 'rgba(218, 165, 32, 0.5)',
+            hoverBackgroundColor: '#F7464A',
+            hoverBorderColor: '#DAA520',
             borderWidth: 1,
             data: obj,
         }
@@ -80,7 +80,7 @@ var chartOptions = {
 }
 
     return (
-      <LineChart data={chartData} options={chartOptions} />
+      <Line data={chartData} options={chartOptions} />
     )
   }
 }

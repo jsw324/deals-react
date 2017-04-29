@@ -20,6 +20,7 @@ export var completePostContract = (data) => {
 };
 
 export var postContract = (data) => {
+  console.log('CONTRACT DATA', data);
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var contractRef = firebaseRef.child(`users/contract/${uid}`).push(data);
