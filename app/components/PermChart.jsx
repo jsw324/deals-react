@@ -7,7 +7,9 @@ import {Bar} from 'react-chartjs-2';
 
 
 var getMonth = (month) => {
+  console.log('getMonth input', month);
   var mom = moment(month, 'MM/DD/YYYY');
+  console.log('month', mom.month());
   return  mom.month();
 }
 
@@ -17,10 +19,11 @@ class PermChart extends React.Component {
     }
   render () {
       var {deals} = this.props;
-      
+      console.log('PERM Chart', deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
         deals.map((val) => {
+          console.log('val', val);
           var month = getMonth(val.startDate);
           var fee = val.fee/100 * val.salary;
           
@@ -47,6 +50,7 @@ class PermChart extends React.Component {
         });
     
       obj.push(jan, feb, march, april, may, jun);
+      console.log('OBJ', obj);
 
     var chartData = {
     labels: ["January", "February", "March", "April", "May", "June"],

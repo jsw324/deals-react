@@ -55,6 +55,10 @@ class GetPerm extends React.Component {
 
   renderPerm () {
     var {getPerm, getContract} = this.props;
+    if (getPerm.length > 0) {
+     console.log('PERM', getPerm[0].startDate);
+    }
+    console.log('CONTRACT', getContract);
     const columns = [{
     header: 'Name',
     accessor: 'name' // String-based value accessors! 
@@ -87,17 +91,16 @@ class GetPerm extends React.Component {
   
     if (1 == 1 ){
       for (var i = 0; i < getPerm.length; i++) {
-        getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
+        console.log('start date TYPE', typeof getPerm[i].startDate);
+        console.log('start data', getPerm[i].startDate);
+        if (typeof getPerm[i].startDate === 'number') {
+          getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
+        }
         var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
         getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
-       // getPerm.data[i].feeAmount = format({prefix: '$' })(feeAmount);
-        // format library changes salary to a string and causes issues when passed to CHART component. Need to create an entirely new object
-        // specifically for the table in order to manipulate currency formatting.
-        //TODO: above.
-        //getPerm.data.deals[i].salary = format({prefix: '$'})(getPerm.data.deals[i].salary);    
+       
       }
-      // console.log('start date', getPerm.data[0].startDate);
-      // console.log('feeAmount', getPerm.data[0].feeAmount);
+     
       return (
        <div>
         <Nav/>
