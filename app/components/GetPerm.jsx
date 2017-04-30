@@ -4,11 +4,14 @@ const actions = require('actions');
 
 import moment from 'moment';
 import ReactTable from 'react-table';
+
 import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
 import Nav from 'Nav';
 import AddPerm from 'AddPerm';
 import AddContractor from 'AddContractor';
+import ContractList from 'ContractList';
+
 var Modal = require('react-modal');
 
 var format = require('format-number');
@@ -24,6 +27,7 @@ class GetPerm extends React.Component {
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.renderContractList = this.renderContractList.bind(this);
   }
 
   onLogout(e) {
@@ -50,6 +54,19 @@ class GetPerm extends React.Component {
 
   handleCloseModal() {
     this.setState({ showPermModal: false, showContractModal: false });
+  }
+
+  renderContractList() {
+    var {getContract} = this.props;
+    if (getContract.length > 0) {
+      return (
+        getContract.map((contractor) => {
+          return (
+            <ContractList key={contractor.id} contractor={contractor}/>
+          )
+        })
+      );
+    }
   }
  
 
@@ -89,7 +106,7 @@ class GetPerm extends React.Component {
     id: 'feeAmount'
   }]
   
-    if (1 == 1 ){
+    if (getContract.length > 0){
       for (var i = 0; i < getPerm.length; i++) {
         console.log('start date TYPE', typeof getPerm[i].startDate);
         console.log('start data', getPerm[i].startDate);
@@ -154,7 +171,11 @@ class GetPerm extends React.Component {
           <button onClick={this.handleCloseModal}>Close Modal</button>
           </Modal>
         <div className="row">
-            <h4 className="center-align">Placements</h4>
+            
+            <h5 className="center-align">Contractors</h5>
+            <ContractList contractors={getContract}/>
+            {this.renderContractList()}
+            <h5 className="center-align">Perm Placements</h5>
             <ReactTable
               data={getPerm}
               columns={columns}

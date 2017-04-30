@@ -1,10 +1,7 @@
 export var getContractReducer = (state = {isFetching: false, data: undefined}, action) => {
   switch (action.type) {
      case 'START_POST_CONTRACT':
-      return {
-        isFetching: true,
-        data: undefined
-      };
+      return [];
     case 'COMPLETE_POST_CONTRACT':
       return [
         ...state, 
@@ -13,10 +10,7 @@ export var getContractReducer = (state = {isFetching: false, data: undefined}, a
         }
       ];
      case 'START_GET_CONTRACT':
-      return {
-        isFetching: true,
-        data: undefined
-      };
+      return [];
     case 'COMPLETE_GET_CONTRACT':
       return [
         ...action.data
