@@ -1,6 +1,11 @@
 import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
 const axios = require('axios');
 
+export var toggleModal = () => {
+  return {
+    type: 'TOGGLE_MODAL'
+  }
+}
 
 //////////////////////////////////
 //----CONTRACT DEALS-------///
@@ -106,6 +111,16 @@ export var getPerm = () => {
       console.log('ACTION PARSED', permDeals);
       dispatch(completeGetPerm(parsedDeals));
     })
+  }
+}
+
+export var adminPerm = () => { 
+  return (dispatch, getState) => {
+    var permRef = firebaseRef.child('users/perm/');
+    return permRef.once('value').then((snapshot) => {
+      var permDeals = snapshot.val() || {};
+      console.log("ADMIN PERM", permDeals);
+    });
   }
 }
 

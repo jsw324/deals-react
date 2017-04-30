@@ -43,10 +43,11 @@ class Nav extends React.Component{
   getPhoto() {
     if (firebase.auth().currentUser) {
       var photoURL = firebase.auth().currentUser.photoURL;
+      var userName = firebase.auth().currentUser.displayName;
       return (
         <div>
           <div className="account__container valign-wrapper"><img src={photoURL} className="account__image responsive-img"/></div>
-          <label className="name__text">Welcome, Jason Walkow</label>
+          <label className="name__text">Welcome, {userName}</label>
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
             <Link to="/get-perm">My Dashboard</Link>

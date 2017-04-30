@@ -21,7 +21,7 @@ class AddPerm extends React.Component {
 
 	submitDeal(e) {
 		e.preventDefault();
-		var {dispatch} = this.props;
+		var { dispatch } = this.props;
 		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
 		console.log('refs', this.refs);
 		console.log('start date', startDate.value);
@@ -42,8 +42,8 @@ class AddPerm extends React.Component {
 				sales: sales.value
 			};
 		
-			this.setState({ showPermModal: false });
 			dispatch(actions.postPerm(data));
+			dispatch(actions.toggleModal());
 			this.refs.name.value = '';
 			this.refs.client.value = '';
 			this.refs.salary.value = '';

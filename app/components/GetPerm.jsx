@@ -4,6 +4,7 @@ const actions = require('actions');
 
 import moment from 'moment';
 import ReactTable from 'react-table';
+import 'react-table/react-table.css'
 
 import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
@@ -40,11 +41,13 @@ class GetPerm extends React.Component {
     var { dispatch } = this.props;
     dispatch(actions.getPerm());
     dispatch(actions.getContract());
+    dispatch(actions.adminPerm());
   }
 
   handleOpenPermModal () {
+    var { dispatch, modal } = this.props;
     console.log('modal open');
-    this.setState({ showPermModal: true });
+    dispatch(actions.toggleModal());
   }
 
   handleOpenContractModal () {
@@ -60,18 +63,15 @@ class GetPerm extends React.Component {
     var {getContract} = this.props;
     if (getContract.length > 0) {
       return (
-        getContract.map((contractor) => {
-          return (
-            <ContractList key={contractor.id} contractor={contractor}/>
-          )
-        })
+        <ContractList allContractors={getContract}/>
       );
     }
   }
  
 
   renderPerm () {
-    var {getPerm, getContract} = this.props;
+    var {getPerm, getContract, modal} = this.props;
+    console.log('props', this.props);
     if (getPerm.length > 0) {
      console.log('PERM', getPerm[0].startDate);
     }
@@ -106,7 +106,7 @@ class GetPerm extends React.Component {
     id: 'feeAmount'
   }]
   
-    if (getContract.length > 0){
+    if (getContract.length >= 0){
       for (var i = 0; i < getPerm.length; i++) {
         console.log('start date TYPE', typeof getPerm[i].startDate);
         console.log('start data', getPerm[i].startDate);
@@ -150,7 +150,7 @@ class GetPerm extends React.Component {
           </ul>
         </div>
         <Modal
-          isOpen={this.state.showPermModal}
+          isOpen={modal}
           contentLabel="Add Full-Time"
           shouldCloseOnOverlayClick={true}
           >
@@ -173,12 +173,16 @@ class GetPerm extends React.Component {
         <div className="row">
             
             <h5 className="center-align">Contractors</h5>
-            <ContractList contractors={getContract}/>
-            {this.renderContractList()}
+            <table className="bordered centered responsive-table">
+            
+             {this.renderContractList()}
+            </table>
             <h5 className="center-align">Perm Placements</h5>
             <ReactTable
               data={getPerm}
               columns={columns}
+              resizable="true"
+              defaultPageSize="10"
               />
           </div>
         </div>

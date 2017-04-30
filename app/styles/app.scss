@@ -39,6 +39,23 @@ h6 {
     padding: 10px 5px 5px 5px
 }
 
+.contractor__list {
+    border: 1px;
+    border-style: solid;
+    border-color: blue;
+    border-radius: .2rem;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 5px;
+}
+
+.contractor__table {
+    display: inline-block;
+}
+
+i.icon__color {
+    color: red;
+}
+
 .logout__link {
     float: right;
 }

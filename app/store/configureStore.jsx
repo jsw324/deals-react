@@ -4,12 +4,14 @@ const thunk = require('redux-thunk').default;
 const {dealReducer} = require('./../reducers/dealReducer');
 const {getContractReducer} = require('./../reducers/getContractReducer');
 const {authReducer} = require('./../reducers/authReducer');
+const {toggleModalReducer} = require('./../reducers/toggleModalReducer');
 
 export var configure = () => {
   var reducer = redux.combineReducers({
     getPerm: dealReducer,
     getContract: getContractReducer,
     auth: authReducer,
+    modal: toggleModalReducer
   });
 
   var store = redux.createStore(reducer, redux.compose(
