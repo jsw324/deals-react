@@ -62,6 +62,7 @@ class GetPerm extends React.Component {
   renderContractList() {
     var {getContract} = this.props;
     if (getContract.length > 0) {
+      console.log('getContract', getContract);
       return (
         <ContractList allContractors={getContract}/>
       );
@@ -71,11 +72,11 @@ class GetPerm extends React.Component {
 
   renderPerm () {
     var {getPerm, getContract, modal} = this.props;
-    console.log('props', this.props);
+
     if (getPerm.length > 0) {
-     console.log('PERM', getPerm[0].startDate);
+
     }
-    console.log('CONTRACT', getContract);
+
     const columns = [{
     header: 'Name',
     accessor: 'name' // String-based value accessors! 
@@ -108,15 +109,20 @@ class GetPerm extends React.Component {
   
     if (getContract.length >= 0){
       for (var i = 0; i < getPerm.length; i++) {
-        console.log('start date TYPE', typeof getPerm[i].startDate);
-        console.log('start data', getPerm[i].startDate);
         if (typeof getPerm[i].startDate === 'number') {
           getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
         }
         var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
         getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
-       
       }
+      
+      for (var i = 0; i < getContract.length; i++) {
+        if (typeof getContract[i].startDate === 'number') {
+          getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
+          console.log('val', getContract[i].startDate);
+      }
+      }
+     
      
       return (
        <div>

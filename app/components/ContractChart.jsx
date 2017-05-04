@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+var format = require('format-number');
 const moment = require('moment');
-//var LineChart = require('react-chartjs').Line;
 import {Line} from 'react-chartjs-2';
 
 var getMonth = (month) => {
@@ -16,48 +16,56 @@ class ContractChart extends React.Component {
     }
   render () {
       var {spread} = this.props;
-      var obj = [];
-      var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
-      if (spread.length > 0) {
-      spread.map((val) => {
-        var month = getMonth(val.startDate);
-        var margin = Math.floor((val.billRate - (val.hourly * 1.15)) * 160);
-          switch (month) {
-            case 0:
-              jan += margin;
-              break;
-            case 1:
-              feb += margin;
-              break;
-            case 2:
-              march += margin;
-              break;
-            case 3:
-              april += margin;
-              break;
-            case 4:
-              may += margin;
-              break;
-            case 5: 
-              jun += margin;
-              break;
-          };
-        });
-        obj.push(jan, feb, march, april, may, jun);
+      console.log('SPREAD', spread);
+
+      // get 6 months of week ending dates
+      var dates = [];
+      var startDateVar = moment().set({'year': 2017, 'month': 0, 'day': 7});
+      console.log('moment', startDateVar.format('MM/DD/YYYY'));
+      for (var i = 0; i < 26; i++) {
+        dates.push(startDateVar.format("MM/DD/YYYY"));
+        startDateVar = startDateVar.add(7, 'days')
       }
+
+      var contractorSpread = [];
+      var weeklySpread;
+      var today = new Date();
+
+      spread.forEach((val) => {
+        if (val.isW2 === "1099") {
+          val.spread = Math.floor((val.billRate - (val.hourly * 1.05)) * 40);
+        } else {
+          val.spread = Math.floor((val.billRate - (val.hourly * 1.15)) * 40);
+        }
+      })
+      console.log('NEWs praed', spread);
+      if (dates.length > 0 && spread.length > 0) { 
+        for (var i = 0; i < dates.length; i++) {
+          for (var j = 0; j < spread.length; j++) {
+        
+            if (spread[j].completedDate == "" && spread[j].startDate < dates[i]) {
+              weeklySpread += spread[j].spread
+            } 
+          }
+            console.log('weekly spread', weeklySpread);
+            contractorSpread.push(weeklySpread);
+            weeklySpread = 0;
+          }
+        }
       
+      console.log('CONTRACTORSPREAD', contractorSpread);
    
     var chartData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: dates,
     datasets: [
         {
-            label: "CONTRACT",
+            label: "Contract",
             backgroundColor: 'rgba(100, 149, 237, 0.5)',
             borderColor: 'rgba(218, 165, 32, 0.5)',
             hoverBackgroundColor: '#F7464A',
             hoverBorderColor: '#DAA520',
             borderWidth: 1,
-            data: obj,
+            data: contractorSpread,
         }
     ]
 };

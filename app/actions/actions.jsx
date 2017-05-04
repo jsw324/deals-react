@@ -74,6 +74,48 @@ export var postPerm = (data) => {
   };
 };
 
+//post EMPLOYEE OR RECRUITER
+
+export var postRecruiter = (data) => {
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var recruiterRef = firebaseRef.child(`/recruiters`).push(data);
+
+    return recruiterRef.then(() => {
+      dispatch(completePostRecruiter({
+        ...data,
+        id: recruiterRef.key
+      }));
+    });
+  };
+};
+
+export var completePostRecruiter = (data) => {
+  return {
+    type: 'COMPLETE_POST_RECRUITER',
+    data
+  }
+};
+
+export var getRecruiters = () => {
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var recruiterRef = firebaseRef.child(`/recruiters`);
+    return recruiterRef.once('value').then((snapshot) => {
+      var recruiters = snapshot.val() || {};
+      console.log('recruiters', recruiters);
+      dispatch(completeGetRecruiters(recruiters));
+    })
+  }
+}
+
+export var completeGetRecruiters = (data) => {
+  return {
+    type: 'COMPLETE_GET_RECRUITERS',
+    data: data
+  }
+};
+
 //////////////////////////////////
 //----GET PERM DEALS-------///
 //////////////////////////////////
@@ -150,14 +192,13 @@ export var getContract = () => {
     return contractRef.once('value').then((snapshot) => {
       var contractDeals = snapshot.val() || {};
       var parsedDeals = [];
-  
       Object.keys(contractDeals).forEach((deal) => {
         parsedDeals.push({
           id: deal,
           ...contractDeals[deal]
+          
         });
       });
-      console.log('parsed deals', parsedDeals);
       dispatch(completeGetContract(parsedDeals));
     })
   }

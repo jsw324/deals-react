@@ -39,21 +39,13 @@
  class ContractList extends React.Component {
    constructor (props) {
      super(props);
-     var {contractor, allContractors} = this.props;
-     console.log('CONTRACTLIST', contractor);
-     var spread;
-     allContractors.forEach((contractor) => {
-       if (contractor.isW2 === "1099") {
-         contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.05)) * 40));
-       } else {
-         contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.15)) * 40)); 
-       }
-     })
-       
+    
    }
 
    renderContractor() {
-     var { contractor } = this.props;
+     var { contractor, allContractors } = this.props;
+     
+    
      if (contractor !== undefined) {
        if (typeof contractor.startDate === 'number') {
           contractor.startDate = moment.unix(contractor.startDate).format('MM/DD/YYYY');
@@ -76,11 +68,43 @@
    }
    
    render () {
-     var {contractor, allContractors} = this.props;
+     var { allContractors } = this.props;
+        console.log('allcontractors', allContractors);
+    //   allContractors.map((contractor) => {
+    //    if (contractor.isW2 === "1099") {
+    //      contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.05)) * 40));
+    //      return contractor;
+    //    } else {
+    //      contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.15)) * 40)); 
+    //      return contractor;
+    //    }
+    //  })
+    
+      var newSpread = allContractors.map((item) => {
+       var spreadAgain = 0;
+       if (item.isW2 === "1099") {
+         spreadAgain = format({prefix: '$'})(Math.floor((item.billRate - (item.hourly * 1.05)) * 40));
+       }  else {
+      spreadAgain = format({prefix: '$'})(Math.floor((item.billRate - (item.hourly * 1.15)) * 40));
+       }
+       return {
+         billRate: item.billRate,
+         client: item.client,
+         hourly: item.hourly,
+         name: item.name,
+         recruiter: item.recruiter,
+         sales: item.sales,
+         startDate: item.startDate,
+         spread: spreadAgain
+       }
+     })
+     
+     console.log('newSpread', newSpread);
+     console.log('allContractors', allContractors);
      return (
       <div>
       <ReactTable
-              data={allContractors}
+              data={newSpread}
               columns={columns}
               resizable="true"
               defaultPageSize="10"

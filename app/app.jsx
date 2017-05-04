@@ -7,6 +7,7 @@ import firebase from 'app/firebase/';
 import Main from 'Main';
 import Login from 'Login';
 import GetPerm from 'GetPerm';
+import Admin from 'Admin';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -57,6 +58,7 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
           <IndexRoute component={Login} onEnter={redirectIfLoggedIn} />
           <Route path="/login" component={Login}/>
           <route path="/get-perm" component={GetPerm} onEnter={requireLogin}/>
+          <route path="/admin" component={Admin} onEnter={requireLogin}/>
         </Route>
       </Router>
     </Provider>,
