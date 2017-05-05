@@ -15,6 +15,18 @@ h6 {
     font-weight: 300;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.login__input {
+    background-color: #fff;
+}
+
 .perm__chart {
     height: 100%;
     width: 100%;

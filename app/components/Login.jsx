@@ -35,8 +35,8 @@ class Login extends React.Component {
 						
 						<div className="input-field container">	
 							<form onSubmit={this.submitForm}>
-								<input id="email" type="text" ref="email" placeholder="username/email" />
-								<input id="email" type="password" ref="password" placeholder="password" />
+								<input className="login__input" id="email" type="text" ref="email" placeholder="username/email" />
+								<input className="login__input" id="email" type="password" ref="password" placeholder="password" />
 								<button className="btn">Submit</button>
 							</form>
 						</div>
