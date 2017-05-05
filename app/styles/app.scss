@@ -40,19 +40,19 @@ h6 {
 }
 
 .contractor__list {
-    border: 1px;
-    border-style: solid;
-    border-color: blue;
-    border-radius: .2rem;
-    padding: 5px 5px 5px 5px;
-    margin-bottom: 5px;
+    margin: .6rem 0rem .6rem;
+}
+
+.contractor__container {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .contractor__table {
     display: inline-block;
 }
 
-i.icon__color {
+i.icon__color:hover {
     color: red;
 }
 

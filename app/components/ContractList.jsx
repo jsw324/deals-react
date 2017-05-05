@@ -46,11 +46,11 @@
           allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
         }
        return (
-         <div className="row">
-          <div className="section">
+         <div className="contractor__container">
+          <div className="collection z-depth-2 contractor__list">
             <ul>
               <div className="col s2">
-                <li className="flow-text">{allContractors.name}</li>
+                <li className="flow-text collection-item">{allContractors.name}</li>
               </div>
 
               <div className="col s2">
@@ -74,11 +74,11 @@
               </div>
             
               <div className="col s1">
-                <li className="flow-text thumbs__down"><i onClick={() => this.endContract(allContractors)} className="small material-icons icon__color">thumb_down</i></li>
+                <li className="flow-text thumbs__down"><i onClick={() => this.endContract(allContractors)} className="small material-icons icon__color">not_interested</i></li>
               </div>
             </ul>
           </div>
-          <div className="divider"></div>
+          <div className=""></div>
           <Modal
             isOpen={this.state.showEndContractModal}
             contentLabel="End Date"
