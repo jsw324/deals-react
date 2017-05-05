@@ -182,17 +182,23 @@ class GetPerm extends React.Component {
           <button onClick={this.handleCloseModal}>Close Modal</button>
           </Modal>
         <div className="row">
-            
+          <div className="content__container">
             <h5 className="center-align">Active Contractors</h5> 
+            <div className="divider"></div>
+          </div>
              {this.renderContractList()}
-             
-            <h5 className="center-align">Perm Placements</h5>
-            <ReactTable
-              data={getPerm}
-              columns={columns}
-              resizable="true"
-              defaultPageSize="10"
-              />
+            <div className="content__container"> 
+              <h5 className="center-align">Perm Placements</h5>
+              <div className="divider"></div>
+              <div className="perm__table">
+                <ReactTable
+                  data={getPerm}
+                  columns={columns}
+                  resizable="true"
+                  defaultPageSize="10"
+                  />
+                </div>
+              </div>
           </div>
         </div>
         </div>
