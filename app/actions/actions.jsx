@@ -1,5 +1,6 @@
 import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
 const axios = require('axios');
+const moment = require('moment');
 
 export var toggleModal = () => {
   return {
@@ -204,6 +205,18 @@ export var getContract = () => {
   }
 }
 
+export var endContract = (contractors) => {
+  return (dispatch, getState) => {
+    console.log("ACTION", contractors);
+    var uid = getState().auth.uid;
+    firebaseRef.child(`users/contract/${uid}/${contractors.id}`).set({
+      ...contractors
+    })
+    dispatch(getContract());
+  };
+}
+
+
 
 //////////////////////////////////
 //----USER ACTIONS-------///
@@ -232,6 +245,23 @@ export var startLogin = () => {
     });
   };
 };
+
+export var startLoginWithEmailAndPassword = (email, password) => {
+  firebase.auth().signInWithEmailAndPassword(email, password).then((result) => {
+    //handle success
+    console.log('worked', result);
+  }).catch((error) => {
+    //handle error
+    console.log('error', error);
+  });
+  var user = firebase.auth().currentUser;
+  if (user) {
+    console.log('user signed in', user);
+  } else {
+    console.log('sign in failed');
+  }
+
+}
 
 export var startLogout = () => {
   return (dispatch, getState) => {

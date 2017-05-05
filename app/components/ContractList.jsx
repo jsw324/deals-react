@@ -1,117 +1,104 @@
  import React from 'react';
  import { connect } from 'react-redux';
 
+ import EndContract from 'EndContract';
+
  import moment from 'moment';
  var format = require('format-number');
  import ReactTable from 'react-table';
-
-// import Contactor from 'Contractor';
- const columns = [{
-    header: 'Name',
-    accessor: 'name' // String-based value accessors! 
-  }, {
-    header: 'Client',
-    accessor: 'client'
-  }, {
-    header: 'Recruiter',
-    accessor: 'recruiter'
-  }, {
-    header: 'Sales',
-    accessor: 'sales'
-  }, {
-    id: 'startDate', // Required because our accessor is not a string 
-    header: 'Start Date',
-    accessor: 'startDate'
-  }, {
-    header: 'Bill Rate',
-    accessor: 'billRate',
-    id: 'billRate'
-  }, {
-    header: 'Pay Rate',
-    accessor: 'hourly',
-    id: 'hourly'
-  }, {
-    header: 'Spread',
-    accessor: 'spread',
-    id: 'spread'
-  }]
+ const actions = require('actions'); 
+ var Modal = require('react-modal');
 
  class ContractList extends React.Component {
    constructor (props) {
      super(props);
-    
+     this.state = {
+       showEndContractModal: false
+     }
+     this.endContract = this.endContract.bind(this);
+     this.handleOpenModal = this.handleOpenModal.bind(this);
+   }
+
+   componentDidMount() {
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+      });
+   }
+
+   handleOpenModal () {
+    var { dispatch } = this.props;
+    console.log('modal open');
+    this.setState({ showEndContractModal: true });
+  }
+
+   endContract(contractors) {
+     var { dispatch, modal } = this.props;
+     console.log('END', contractors);
+     this.handleOpenModal();
+       //dispatch(actions.endContract(contractors));
    }
 
    renderContractor() {
-     var { contractor, allContractors } = this.props;
-     
-    
-     if (contractor !== undefined) {
-       if (typeof contractor.startDate === 'number') {
-          contractor.startDate = moment.unix(contractor.startDate).format('MM/DD/YYYY');
+     var { contractor, allContractors, modal } = this.props;
+     if (allContractors !== undefined) {
+       if (typeof allContractors.startDate === 'number') {
+          allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
         }
-       
        return (
-         <div className="row contractor__table">
-          <ul>
-          <li>{contractor.name}</li>
-          <li>{contractor.client}</li>
-          <li>{contractor.startDate}</li>
-          <li>{contractor.billRate}</li>
-          <li>{contractor.hourly}</li>
-          <li>{contractor.spread}</li>
-          <li><i className="small material-icons icon__color">thumb_down</i></li>   
-          </ul>
+         <div className="row">
+          <div className="section">
+            <ul>
+              <div className="col s2">
+                <li className="flow-text">{allContractors.name}</li>
+              </div>
+
+              <div className="col s2">
+                <li className="flow-text">{allContractors.client}</li>
+              </div>
+
+              <div className="col s2">
+                <li className="flow-text">{allContractors.startDate}</li>
+              </div>
+
+              <div className="col s2">
+                <li className="flow-text">{allContractors.billRate}</li>
+              </div>
+
+              <div className="col s2">
+                <li className="flow-text">{allContractors.hourly}</li>
+              </div>
+
+              <div className="col s1">
+                <li className="flow-text">{allContractors.spread}</li>
+              </div>
+            
+              <div className="col s1">
+                <li className="flow-text thumbs__down"><i onClick={() => this.endContract(allContractors)} className="small material-icons icon__color">thumb_down</i></li>
+              </div>
+            </ul>
           </div>
+          <div className="divider"></div>
+          <Modal
+            isOpen={this.state.showEndContractModal}
+            contentLabel="End Date"
+            shouldCloseOnOverlayClick={true}
+            >
+            <div className="container">
+             <EndContract contractor={allContractors} />
+            </div>
+          </Modal>
+        </div>
        )
      }
    }
    
-   render () {
-     var { allContractors } = this.props;
-        console.log('allcontractors', allContractors);
-    //   allContractors.map((contractor) => {
-    //    if (contractor.isW2 === "1099") {
-    //      contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.05)) * 40));
-    //      return contractor;
-    //    } else {
-    //      contractor.spread = format({prefix: '$'})(Math.floor((contractor.billRate - (contractor.hourly * 1.15)) * 40)); 
-    //      return contractor;
-    //    }
-    //  })
-    
-      var newSpread = allContractors.map((item) => {
-       var spreadAgain = 0;
-       if (item.isW2 === "1099") {
-         spreadAgain = format({prefix: '$'})(Math.floor((item.billRate - (item.hourly * 1.05)) * 40));
-       }  else {
-      spreadAgain = format({prefix: '$'})(Math.floor((item.billRate - (item.hourly * 1.15)) * 40));
-       }
-       return {
-         billRate: item.billRate,
-         client: item.client,
-         hourly: item.hourly,
-         name: item.name,
-         recruiter: item.recruiter,
-         sales: item.sales,
-         startDate: item.startDate,
-         spread: spreadAgain
-       }
-     })
-     
-     console.log('newSpread', newSpread);
-     console.log('allContractors', allContractors);
-     return (
+  render () {
+    return (
       <div>
-      <ReactTable
-              data={newSpread}
-              columns={columns}
-              resizable="true"
-              defaultPageSize="10"
-              />
         {this.renderContractor()}
       </div>
-     )
+    )
    }
  }
 

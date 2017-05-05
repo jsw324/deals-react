@@ -63,11 +63,16 @@ class GetPerm extends React.Component {
     var {getContract} = this.props;
     if (getContract.length > 0) {
       console.log('getContract', getContract);
-      return (
-        <ContractList allContractors={getContract}/>
-      );
-    }
-  }
+      var items = getContract.map((contractors) => {
+        if (contractors.completedDate === '') {
+          return (
+            <div><ContractList key={contractors.id} allContractors={contractors}/></div>
+          )
+        }
+      });
+      return <div>{items}</div>
+    };
+  };
  
 
   renderPerm () {
@@ -178,11 +183,9 @@ class GetPerm extends React.Component {
           </Modal>
         <div className="row">
             
-            <h5 className="center-align">Contractors</h5>
-            <table className="bordered centered responsive-table">
-            
+            <h5 className="center-align">Active Contractors</h5> 
              {this.renderContractList()}
-            </table>
+             
             <h5 className="center-align">Perm Placements</h5>
             <ReactTable
               data={getPerm}

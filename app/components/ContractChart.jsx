@@ -42,8 +42,8 @@ class ContractChart extends React.Component {
       if (dates.length > 0 && spread.length > 0) { 
         for (var i = 0; i < dates.length; i++) {
           for (var j = 0; j < spread.length; j++) {
-        
-            if (spread[j].completedDate == "" && spread[j].startDate < dates[i]) {
+            console.log('date', dates[i]);
+            if ((spread[j].completedDate == "" || spread[j].completedDate > dates[i]) && spread[j].startDate < dates[i]) {
               weeklySpread += spread[j].spread
             } 
           }
