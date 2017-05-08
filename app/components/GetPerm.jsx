@@ -21,6 +21,7 @@ var format = require('format-number');
 class GetPerm extends React.Component {
   constructor (props) {
     super(props);
+    var { auth } = this.props;
     this.renderPerm = this.renderPerm.bind(this);
     this.onLogout = this.onLogout.bind(this);
 
@@ -62,7 +63,6 @@ class GetPerm extends React.Component {
   renderContractList() {
     var {getContract} = this.props;
     if (getContract.length > 0) {
-      console.log('getContract', getContract);
       var items = getContract.map((contractors) => {
         if (contractors.completedDate === '') {
           return (
@@ -76,7 +76,7 @@ class GetPerm extends React.Component {
  
 
   renderPerm () {
-    var {getPerm, getContract, modal} = this.props;
+    var { getPerm, getContract, modal, auth } = this.props;
 
     if (getPerm.length > 0) {
 
@@ -124,14 +124,13 @@ class GetPerm extends React.Component {
       for (var i = 0; i < getContract.length; i++) {
         if (typeof getContract[i].startDate === 'number') {
           getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
-          console.log('val', getContract[i].startDate);
       }
       }
      
      
       return (
        <div>
-        <Nav/>
+        <Nav auth={auth} />
         <div className="dashboard__body">
           <div className="row">
             <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>

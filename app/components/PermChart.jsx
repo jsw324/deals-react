@@ -46,7 +46,6 @@ class PermChart extends React.Component {
         });
     
       obj.push(jan, feb, march, april, may, jun);
-      console.log('OBJ', obj);
 
     var chartData = {
     labels: ["January", "February", "March", "April", "May", "June"],

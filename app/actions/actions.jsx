@@ -143,7 +143,6 @@ export var getPerm = () => {
     dispatch(startGetPerm());
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
-      console.log('ACTIONS PERM', permDeals);
       var parsedDeals = [];
       Object.keys(permDeals).forEach((deal) => {
         parsedDeals.push({
@@ -151,7 +150,6 @@ export var getPerm = () => {
           ...permDeals[deal]
         });
       });
-      console.log('ACTION PARSED', permDeals);
       dispatch(completeGetPerm(parsedDeals));
     })
   }
@@ -162,7 +160,6 @@ export var adminPerm = () => {
     var permRef = firebaseRef.child('users/perm/');
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
-      console.log("ADMIN PERM", permDeals);
     });
   }
 }

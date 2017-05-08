@@ -16,12 +16,10 @@ class ContractChart extends React.Component {
     }
   render () {
       var {spread} = this.props;
-      console.log('SPREAD', spread);
 
       // get 6 months of week ending dates
       var dates = [];
       var startDateVar = moment().set({'year': 2017, 'month': 0, 'day': 7});
-      console.log('moment', startDateVar.format('MM/DD/YYYY'));
       for (var i = 0; i < 26; i++) {
         dates.push(startDateVar.format("MM/DD/YYYY"));
         startDateVar = startDateVar.add(7, 'days')
@@ -38,22 +36,18 @@ class ContractChart extends React.Component {
           val.spread = Math.floor((val.billRate - (val.hourly * 1.15)) * 40);
         }
       })
-      console.log('NEWs praed', spread);
       if (dates.length > 0 && spread.length > 0) { 
         for (var i = 0; i < dates.length; i++) {
           for (var j = 0; j < spread.length; j++) {
-            console.log('date', dates[i]);
             if ((spread[j].completedDate == "" || spread[j].completedDate > dates[i]) && spread[j].startDate < dates[i]) {
               weeklySpread += spread[j].spread
             } 
           }
-            console.log('weekly spread', weeklySpread);
             contractorSpread.push(weeklySpread);
             weeklySpread = 0;
           }
         }
       
-      console.log('CONTRACTORSPREAD', contractorSpread);
    
     var chartData = {
     labels: dates,

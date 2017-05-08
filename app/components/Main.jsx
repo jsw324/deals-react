@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import Nav from 'Nav';
 
 var Main = (props) => {
-  console.log('MAIN', props.children);
   return (
       <div>
        
