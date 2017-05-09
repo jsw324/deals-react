@@ -5,6 +5,7 @@ const {dealReducer} = require('./../reducers/dealReducer');
 const {getContractReducer} = require('./../reducers/getContractReducer');
 const {authReducer} = require('./../reducers/authReducer');
 const {toggleModalReducer} = require('./../reducers/toggleModalReducer');
+const {toggleContractModalReducer} = require('./../reducers/toggleContractModalReducer');
 const {recruiterReducer} = require('./../reducers/recruiterReducer');
 
 export var configure = () => {
@@ -12,7 +13,8 @@ export var configure = () => {
     getPerm: dealReducer,
     getContract: getContractReducer,
     auth: authReducer,
-    modal: toggleModalReducer,
+    permModal: toggleModalReducer,
+    contractModal: toggleContractModalReducer,
     recruiters: recruiterReducer
   });
 

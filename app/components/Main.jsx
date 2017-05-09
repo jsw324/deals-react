@@ -10,7 +10,6 @@ import Nav from 'Nav';
 var Main = (props) => {
   return (
       <div>
-       
         <div className="main">
           {props.children}
         </div>

@@ -28,7 +28,8 @@ class GetPerm extends React.Component {
     this.state = { showPermModal: false, showContractModal: false };
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleClosePermModal = this.handleClosePermModal.bind(this);
+    this.handleCloseContractModal = this.handleCloseContractModal.bind(this);
     this.renderContractList = this.renderContractList.bind(this);
   }
 
@@ -48,17 +49,27 @@ class GetPerm extends React.Component {
   handleOpenPermModal () {
     var { dispatch, modal } = this.props;
     console.log('modal open');
-    dispatch(actions.toggleModal());
+    dispatch(actions.getRecruiters());
+    dispatch(actions.togglePermModal());
   }
 
   handleOpenContractModal () {
+    var { dispatch } = this.props;
     console.log('contract modal');
-    this.setState({ showContractModal: true });
+
+    dispatch(actions.toggleContractModal());
   }
 
-  handleCloseModal() {
-    this.setState({ showPermModal: false, showContractModal: false });
+  handleClosePermModal() {
+    var { dispatch } = this.props;
+    dispatch(actions.togglePermModal());
   }
+
+  handleCloseContractModal() {
+    var { dispatch } = this.props;
+    dispatch(actions.toggleContractModal());
+  }
+
 
   renderContractList() {
     var {getContract} = this.props;
@@ -76,7 +87,7 @@ class GetPerm extends React.Component {
  
 
   renderPerm () {
-    var { getPerm, getContract, modal, auth } = this.props;
+    var { getPerm, getContract, recruiters, permModal, contractModal, auth } = this.props;
 
     if (getPerm.length > 0) {
 
@@ -160,25 +171,19 @@ class GetPerm extends React.Component {
           </ul>
         </div>
         <Modal
-          isOpen={modal}
+          isOpen={permModal}
           contentLabel="Add Full-Time"
           shouldCloseOnOverlayClick={true}
           >
-          <AddPerm/>
-          <div className="row">
-            <div className="col s4 offset-s6">
-              <button className="btn blue" onClick={this.handleCloseModal}>Close Modal</button>
-            </div>
-          </div>
+          <AddPerm recruiters={recruiters} />
           </Modal>
 
           <Modal
-          isOpen={this.state.showContractModal}
+          isOpen={contractModal}
           contentLabel="Add Contractor"
           shouldCloseOnOverlayClick={true}
           >
           <AddContractor/>
-          <button onClick={this.handleCloseModal}>Close Modal</button>
           </Modal>
         <div className="row">
           <div className="content__container">

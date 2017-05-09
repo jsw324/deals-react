@@ -51,6 +51,7 @@ class AddDeal extends React.Component {
 			textAlign: 'center',
   			display: 'inline-block',
 		}
+		var { dispatch } = this.props;
 		return (
 			<div>
 
@@ -111,7 +112,11 @@ class AddDeal extends React.Component {
 								<div className="col s4 offset-s2">
 									<div id="error" style={{color:'red'}}></div>
 									<br/>
-									<button className="btn">Submit</button>
+									<button className="btn blue">Submit</button>
+								</div>
+								<div className="col s4">
+									<br/>
+									<button onClick={() => dispatch(actions.toggleContractModal())} className="btn red">Cancel</button>
 								</div>
 							</div>
 						</form>

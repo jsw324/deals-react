@@ -2,9 +2,15 @@ import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
 const axios = require('axios');
 const moment = require('moment');
 
-export var toggleModal = () => {
+export var togglePermModal = () => {
   return {
-    type: 'TOGGLE_MODAL'
+    type: 'TOGGLE_PERM_MODAL'
+  }
+}
+
+export var toggleContractModal = () => {
+  return {
+    type: 'TOGGLE_CONTRACT_MODAL'
   }
 }
 
@@ -103,7 +109,14 @@ export var getRecruiters = () => {
     var uid = getState().auth.uid;
     var recruiterRef = firebaseRef.child(`/recruiters`);
     return recruiterRef.once('value').then((snapshot) => {
-      var recruiters = snapshot.val() || {};
+      var rawRecruiters = snapshot.val() || {};
+      var recruiters = [];
+      Object.keys(rawRecruiters).forEach((recruiter) => {
+        recruiters.push({
+          id: recruiter,
+          ...rawRecruiters[recruiter]
+        })
+      });
       console.log('recruiters', recruiters);
       dispatch(completeGetRecruiters(recruiters));
     })

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
 
+import Nav from 'Nav';
+
 class AddRecruiters extends React.Component { 
   constructor (props) {
     super(props);
@@ -32,6 +34,7 @@ class AddRecruiters extends React.Component {
   render () {
     return (
       <div>
+        <Nav/>
         <h3 className="center-align">Add Recruiter</h3>
         <div className="row">
           <div className="col s10 offset-s1">

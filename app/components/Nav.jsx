@@ -51,7 +51,7 @@ class Nav extends React.Component{
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
             <Link to="/get-perm">My Dashboard</Link>
-            <a href="#">My Commission</a>
+            <Link to="/admin">My Commission</Link>
             <a href="#">PTO Requests</a>
             <a onClick={this.onLogout}>Logout</a>
           </ul>

@@ -61,6 +61,7 @@ class AddPerm extends React.Component {
 		});
 	}
 		renderPermSheet() {
+			var { dispatch } = this.props;
 				return (
 					<div>
 						
@@ -113,7 +114,10 @@ class AddPerm extends React.Component {
 								<div className="row">
 									<div className="col s4 offset-s2">
 										<label id='errorLabel' className="center-align"></label>
-										<button className="btn">Submit</button>
+										<button className="btn blue">Submit</button>
+									</div>
+									<div className="col s4">
+										<button className="btn red" onClick={() => dispatch(actions.togglePermModal())}>Cancel</button>
 									</div>
 								</div>
 							</form>

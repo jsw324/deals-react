@@ -62,15 +62,15 @@
               </div>
 
               <div className="col s2">
-                <li className="flow-text">{allContractors.billRate}</li>
+                <li className="flow-text">${allContractors.billRate}</li>
               </div>
 
               <div className="col s2">
-                <li className="flow-text">{allContractors.hourly}</li>
+                <li className="flow-text">${allContractors.hourly}</li>
               </div>
 
               <div className="col s1">
-                <li className="flow-text">{allContractors.spread}</li>
+                <li className="flow-text">{format({prefix: '$' })(allContractors.spread)}</li>
               </div>
             
               <div className="col s1">
