@@ -54,10 +54,10 @@ class ContractChart extends React.Component {
     datasets: [
         {
             label: "Contract",
-            backgroundColor: 'rgba(100, 149, 237, 0.5)',
-            borderColor: 'rgba(218, 165, 32, 0.5)',
-            hoverBackgroundColor: '#F7464A',
-            hoverBorderColor: '#DAA520',
+            backgroundColor: 'rgba(253, 177, 2, 0.9)',
+            borderColor: 'rgba(15, 39, 131, 0.9)',
+            hoverBackgroundColor: 'rgb(253, 177, 2)',
+            hoverBorderColor: 'rgb(253, 177, 2)',
             borderWidth: 1,
             data: contractorSpread,
         }

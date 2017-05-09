@@ -51,11 +51,11 @@ class PermChart extends React.Component {
     labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
         {
-            label: "Perm",
-            backgroundColor: 'rgba(100, 149, 237, 0.5)',
-            borderColor: 'rgba(218, 165, 32, 0.5)',
-            hoverBackgroundColor: '#F7464A',
-            hoverBorderColor: '#DAA520',
+            label: "Full-Time",
+            backgroundColor: 'rgba(15, 39, 131, 0.9)',
+            borderColor: 'rgba(253, 177, 2, 0.9)',
+            hoverBackgroundColor: 'rgb(253, 177, 2)',
+            hoverBorderColor: 'rgb(253, 177, 2)',
             borderWidth: 1,
             data: obj
         }
