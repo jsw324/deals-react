@@ -32,8 +32,13 @@ class Nav extends React.Component{
   }
 
   openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
+    console.log('window size', window.innerWidth);
+    if (window.innerWidth <= 800) {
+      document.getElementById("mySidenav").style.width = "40%";
+    } else {
+    document.getElementById("mySidenav").style.width = "25%";
+    }
+  };
 
   /* Set the width of the side navigation to 0 */
   closeNav() {
@@ -50,10 +55,10 @@ class Nav extends React.Component{
           <label className="name__text">Welcome, {userName}</label>
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
-            <Link to="/get-perm">My Dashboard</Link>
-            <Link to="/admin">My Commission</Link>
-            <a href="#">PTO Requests</a>
-            <a onClick={this.onLogout}>Logout</a>
+            <Link className="flow-text" to="/get-perm">My Dashboard</Link>
+            <Link to="/admin" className="flow-text">My Commission</Link>
+            <a href="#" className="flow-text">PTO Requests</a>
+            <a onClick={this.onLogout} className="flow-text">Logout</a>
           </ul>
         </div>
       )

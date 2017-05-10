@@ -43,7 +43,7 @@ class AddPerm extends React.Component {
 			};
 		
 			dispatch(actions.postPerm(data));
-			dispatch(actions.toggleModal());
+			dispatch(actions.togglePermModal());
 			this.refs.name.value = '';
 			this.refs.client.value = '';
 			this.refs.salary.value = '';

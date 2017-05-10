@@ -41,6 +41,7 @@ class AddDeal extends React.Component {
 				completedDate: ""
 			};
 			dispatch(actions.postContract(data));
+			dispatch(actions.toggleContractModal());
 		}
 	};
 	render () {
