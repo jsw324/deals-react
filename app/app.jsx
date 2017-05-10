@@ -18,14 +18,22 @@ store.subscribe(() => {
 });
 
 
-// Load foundation
-// require('style!css!foundation-sites/dist/css/foundation.min.css');
-// $(document).foundation();
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    store.dispatch(actions.login(user));
-    hashHistory.push('/get-perm');
+    console.log('USER%', user);
+    if (user.displayName) {
+      store.dispatch(actions.login(user));
+      hashHistory.push('/get-perm');
+    } else {
+      var newUser = {
+        displayName: user.email,
+        photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
+        uid: user.uid
+      }
+      store.dispatch(actions.login(newUser));
+      hashHistory.push('/get-perm');
+    }
   } else {
     store.dispatch(actions.logout());
     hashHistory.push('/');

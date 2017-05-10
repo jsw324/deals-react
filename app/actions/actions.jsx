@@ -2,6 +2,11 @@ import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
 const axios = require('axios');
 const moment = require('moment');
 
+
+//////////////////////////////////
+//----MODAL-------///
+//////////////////////////////////
+
 export var togglePermModal = () => {
   return {
     type: 'TOGGLE_PERM_MODAL'
@@ -81,7 +86,10 @@ export var postPerm = (data) => {
   };
 };
 
-//post EMPLOYEE OR RECRUITER
+
+//////////////////////////////////
+//----ADD/GET EMPLOYEES-------///
+//////////////////////////////////
 
 export var postRecruiter = (data) => {
   return (dispatch, getState) => {
@@ -168,6 +176,8 @@ export var getPerm = () => {
   }
 }
 
+// Get admin perm deals...TODO: need to authenticate whether user is admin
+
 export var adminPerm = () => { 
   return (dispatch, getState) => {
     var permRef = firebaseRef.child('users/perm/');
@@ -233,6 +243,8 @@ export var endContract = (contractors) => {
 //////////////////////////////////
 
 export var login = (user) => {
+  console.log('user');
+  console.log('userinfo', user);
   return {
     type: 'LOGIN',
     uid: user.uid,
@@ -264,13 +276,6 @@ export var startLoginWithEmailAndPassword = (email, password) => {
     //handle error
     console.log('error', error);
   });
-  var user = firebase.auth().currentUser;
-  if (user) {
-    console.log('user signed in', user);
-  } else {
-    console.log('sign in failed');
-  }
-
 }
 
 export var startLogout = () => {

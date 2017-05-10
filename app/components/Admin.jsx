@@ -9,6 +9,7 @@ class Admin extends React.Component {
   }
 
   render() {
+    console.log('admin props', this.props);
     return (
       <div>
         <AddRecruiters/>

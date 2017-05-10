@@ -46,9 +46,10 @@ class Nav extends React.Component{
   }
 
   getPhoto() {
-    if (firebase.auth().currentUser) {
-      var photoURL = firebase.auth().currentUser.photoURL;
-      var userName = firebase.auth().currentUser.displayName;
+    var { auth } = this.props;
+    if (auth) {
+      var photoURL = auth.photo;
+      var userName = auth.name;
       return (
         <div>
           <div className="account__container valign-wrapper"><img src={photoURL} className="account__image responsive-img"/></div>
@@ -78,13 +79,13 @@ class Nav extends React.Component{
       <div>
         <nav className="white">
           <div className="nav-wrapper">
-            <a href="/" className="brand-logo center"><img style={{width:'50%',marginTop:'5px'}} src="https://assets.dice.com/external/images/empLogos/96125052f271581796a3f2a16c78d549.gif"/></a>
+            <a className="brand-logo center"><img style={{width:'50%',marginTop:'5px'}} src="https://assets.dice.com/external/images/empLogos/96125052f271581796a3f2a16c78d549.gif"/></a>
             <div className="sidenav" id="mySidenav">
             {this.getPhoto()}
               
             </div>
             <ul id="nav-mobile" className="left">
-              <li><a href="#" onClick={this.openNav} style={{color:'black'}}><i className="fa fa-bars fa-lg" aria-hidden="true"></i></a></li>
+              <li><a onClick={this.openNav} style={{color:'black'}}><i className="fa fa-bars fa-lg" aria-hidden="true"></i></a></li>
             </ul>
           </div>
         </nav>

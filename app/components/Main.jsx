@@ -7,14 +7,28 @@ import { connect } from 'react-redux';
 
 import Nav from 'Nav';
 
-var Main = (props) => {
-  return (
-      <div>
-        <div className="main">
-          {props.children}
+class Main extends React.Component {
+  constructor (props) {
+    super (props);
+  }
+
+  render() {
+    var { auth } = this.props;
+    console.log('main props', this.props);
+    var props = this.props;
+    return (
+        <div>
+          <Nav auth={auth}/>
+          <div className="main">
+            {props.children}
+          </div>
         </div>
-      </div>
-  )
+    )
+  }
 };
 
-export default connect()(Main);
+export default connect(
+  (state) => {
+    return state;
+  }
+)(Main);

@@ -131,17 +131,34 @@ class GetPerm extends React.Component {
         var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
         getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
       }
+      var deals = [];
+      getPerm.forEach((val) => {
+        var startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
+        var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
+        var salary = format({prefix: '$' })(val.salary);
+       
+        deals.push({
+          client: val.client,
+          fee: val.fee,
+          feeAmount: feeAmount,
+          id: val.id,
+          name: val.name,
+          recruiter: val.recruiter,
+          salary: salary,
+          sales: val.sales,
+          startDate: startDate
+        });
+      })
       
       for (var i = 0; i < getContract.length; i++) {
         if (typeof getContract[i].startDate === 'number') {
           getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
-      }
+        }
       }
      
      
       return (
        <div>
-        <Nav auth={auth} />
         <div className="dashboard__body">
           <div className="row">
             <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>
@@ -196,7 +213,7 @@ class GetPerm extends React.Component {
               <div className="divider"></div>
               <div className="perm__table">
                 <ReactTable
-                  data={getPerm}
+                  data={deals}
                   columns={columns}
                   resizable="true"
                   defaultPageSize="10"
