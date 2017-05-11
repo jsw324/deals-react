@@ -26,12 +26,12 @@ firebase.auth().onAuthStateChanged((user) => {
       store.dispatch(actions.login(user));
       hashHistory.push('/get-perm');
     } else {
-      var newUser = {
+      var nonGoogleUser = {
         displayName: user.email,
         photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
         uid: user.uid
       }
-      store.dispatch(actions.login(newUser));
+      store.dispatch(actions.login(nonGoogleUser));
       hashHistory.push('/get-perm');
     }
   } else {

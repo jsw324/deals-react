@@ -94,6 +94,7 @@ export var postPerm = (data) => {
 export var postRecruiter = (data) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
+    data.userId = uid;
     var recruiterRef = firebaseRef.child(`/recruiters`).push(data);
 
     return recruiterRef.then(() => {

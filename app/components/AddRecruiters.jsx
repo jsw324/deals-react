@@ -16,7 +16,7 @@ class AddRecruiters extends React.Component {
   submitRecruiter (e) {
     e.preventDefault();
     var { dispatch } = this.props;
-    var { name, email, isRecruiter } = this.refs;
+    var { name, email, isRecruiter, isAdmin } = this.refs;
     if ( name.value == '' || email.value == '' || isRecruiter.value == '' ) {
       console.log('error');
       document.getElementById('error').innerHTML = 'Error in field, please check your values';
@@ -58,6 +58,15 @@ class AddRecruiters extends React.Component {
                     <option value="recruiter">Recruiter</option>
                     <option value="sales">Sales</option>
                   </select>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="input-field col  s4 offset-s4">
+                  <p>
+                    <input type="checkbox" id="isAdmin" ref="isAdmin" />
+                    <label for="isAdmin">is Admin?</label>
+                  </p>
                 </div>
               </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import ShowRecruiters from 'ShowRecruiters';
 import AddRecruiters from 'AddRecruiters';
 
 class Admin extends React.Component {
@@ -13,6 +14,7 @@ class Admin extends React.Component {
     return (
       <div>
         <AddRecruiters/>
+        <ShowRecruiters/>
       </div>
     )
   }
