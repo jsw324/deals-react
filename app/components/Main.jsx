@@ -14,7 +14,6 @@ class Main extends React.Component {
 
   render() {
     var { auth } = this.props;
-    console.log('main props', this.props);
     var props = this.props;
     return (
         <div>

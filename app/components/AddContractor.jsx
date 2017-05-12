@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 const actions = require('actions');
 const moment = require('moment');
 
 class AddDeal extends React.Component {
   	constructor (props) {
   	super(props);
+		//bind submitDeal method to this keyword
 		this.submitDeal = this.submitDeal.bind(this);
 	}
 	
 	componentDidMount() {
+		//add materializeCSS jquery functionality to datepicker and dropdown 
 			$('.datepicker').pickadate({
 			selectMonths: true, // Creates a dropdown to control month
 			selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -24,9 +25,13 @@ class AddDeal extends React.Component {
 		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
 		console.log('name', name.value);
 	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '') {
+		//check for any blank values, if so throw error.
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
 	} else {
+		//TODO: change this to .map function
+		//format unix date to formatted date string and push data to new array.  This is done to 
+		//prevent mutation of redux objects for us with other components. 
 		var day = moment(startDate.value, "DD MMM, YYYY").unix();
 		console.log("DAY", startDate.value);
 			var data = {
@@ -45,13 +50,6 @@ class AddDeal extends React.Component {
 		}
 	};
 	render () {
-		const style = {
-			height: 'auto',
-			width: '95%',
-			margin: 20,
-			textAlign: 'center',
-  			display: 'inline-block',
-		}
 		var { dispatch } = this.props;
 		return (
 			<div>
@@ -67,8 +65,8 @@ class AddDeal extends React.Component {
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<select id="isW2" ref="isW2">
-										<option value="" disabled selected>Employment Type</option>
+									<select id="isW2" ref="isW2" defaultValue="Employment Type">
+										<option value="" disabled>Employment Type</option>
 										<option value="w2">W2</option>
 										<option value="1099">1099</option>
 									</select>

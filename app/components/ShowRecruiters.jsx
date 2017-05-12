@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
 
-import EachPerson from 'EachPerson';
+import EachEmployee from 'EachEmployee';
 
 class ShowRecruiters extends React.Component {
   constructor (props) {
@@ -20,12 +20,9 @@ class ShowRecruiters extends React.Component {
     console.log('show props', this.props);
     var { recruiters } = this.props;
     if (recruiters.length > 0) {
-      console.log('recruiters', recruiters);
       var items = recruiters.map((people) => {
         return (
-          <div>
-            <EachPerson key={people.id} recruiter={people}/>
-          </div>
+          <EachEmployee key={people.id} recruiter={people}/>
         )
       });
       return <div>{items}</div>

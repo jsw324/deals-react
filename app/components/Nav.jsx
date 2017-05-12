@@ -10,12 +10,12 @@ const actions = require('actions');
 class Nav extends React.Component{
   constructor (props) {
     super(props);
-    this.homePageClick = this.homePageClick.bind(this);
     this.getPhoto = this.getPhoto.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
 
   componentDidMount() {
+    //jquery to allow closing of sideNav by clicking anywhere on page.
     $('body').click(function(e) {
       document.getElementById("mySidenav").style.width = "0";
     })
@@ -26,10 +26,6 @@ class Nav extends React.Component{
 		var {dispatch} = this.props;
 		dispatch(actions.startLogout());
 	}
-
-  homePageClick() {
-    window.location.href = "/"
-  }
 
   openNav() {
     console.log('window size', window.innerWidth);
@@ -56,8 +52,8 @@ class Nav extends React.Component{
           <label className="name__text">Welcome, {userName}</label>
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
-            <Link className="flow-text" to="/get-perm">My Dashboard</Link>
-            <Link to="/admin" className="flow-text">My Commission</Link>
+            <Link className="flow-text" to="/dashboard">My Dashboard</Link>
+            <Link to="#" className="flow-text">My Commission</Link>
             <a href="#" className="flow-text">PTO Requests</a>
             <a onClick={this.onLogout} className="flow-text">Logout</a>
           </ul>

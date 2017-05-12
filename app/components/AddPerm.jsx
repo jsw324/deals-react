@@ -1,37 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 const actions = require('actions');
 const moment = require('moment');
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
 import AddContractor from 'AddContractor';
+import SelectRecruiter from 'SelectRecruiter';
 
-//const $ = require('jquery');
 
 class AddPerm extends React.Component {
   	constructor (props) {
   	super(props);
-		console.log('store', this.props);
 		this.submitDeal = this.submitDeal.bind(this);
-		this.state = { showModal: true };
 		this.renderPermSheet = this.renderPermSheet.bind(this);
+		this.renderSelectRecruiters = this.renderSelectRecruiters.bind(this);
 	};
 
 	submitDeal(e) {
 		e.preventDefault();
 		var { dispatch } = this.props;
 		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
-		console.log('refs', this.refs);
-		console.log('start date', startDate.value);
+		//check if values are empty and if not, mutate unix date value to formatted string and push to array.
 		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '') {
-			console.log('error');
-			document.getElementById('errorLabel').innerHTML = 'Error';
+			document.getElementById('errorLabel').innerHTML = 'Error in field, please check your values and try again.';
 		} else {
-			console.log("FEE TYPE", typeof fee.value);
 			var day = moment(startDate.value, "DD MMM, YYYY").unix();
-			console.log("DAY", startDate.value);
 			var data = {
 				name: name.value,
 				client: client.value,
@@ -44,24 +36,37 @@ class AddPerm extends React.Component {
 		
 			dispatch(actions.postPerm(data));
 			dispatch(actions.togglePermModal());
-			this.refs.name.value = '';
-			this.refs.client.value = '';
-			this.refs.salary.value = '';
-			this.refs.fee.value = '';
-			this.refs.startDate.value = '';
-			this.refs.recruiter.value = '';
-			this.refs.sales.value = '';
+		}
+	}
+
+	//TODO: get all recruiters and display dropdown of available employees
+	renderSelectRecruiters() {
+		var { recruiters } = this.props;
+		if (recruiters.length > 0) {
+			return (
+				<option>Hello, world</option>
+			)
+		} else {
+			return (
+				<div>
+					<p>Loading</p>
+				</div>
+			)
 		}
 	}
 
 	componentDidMount() {
+			//jquery for MaterializeCSS select and date picker
 			$('.datepicker').pickadate({
 			selectMonths: true, // Creates a dropdown to control month
 			selectYears: 15 // Creates a dropdown of 15 years to control year
 		});
+			$('select').material_select();
 	}
 		renderPermSheet() {
-			var { dispatch } = this.props;
+			var { dispatch, recruiters } = this.props;
+			//render only after recruiter object is retrieved from firebase
+			if (recruiters.length > 0) {
 				return (
 					<div>
 						
@@ -72,16 +77,14 @@ class AddPerm extends React.Component {
 										<input id="name" ref="name" type="text" className="validate"/>
 										<label for="name">Name</label>
 									</div>
-
-								
 								</div>
 
 								<div className="row">
 									<div className="input-field col s4 offset-s2">
 										<input id="recruiter" ref="recruiter" type="text" className="validate"/>
-										<label for="recruiter">Recruiter</label>
+										<label for="recruiter">Recruiter</label>				
 									</div>
-
+									
 									<div className="input-field col s4 offest-s2">
 										<input id="sales" ref="sales" type="text" className="validate"/>
 										<label for="sales">Sales</label>
@@ -95,7 +98,9 @@ class AddPerm extends React.Component {
 									</div>
 
 									<div className="input-field col s4 offest-s2">
-										<input id="fee" ref="fee" type="text" className="validate"/>
+										<p className="range-field">
+      								<input type="range" id="fee" ref="fee" min="10" max="25" />
+    								</p>
 										<label for="fee">Fee</label>
 									</div>
 								</div>
@@ -113,7 +118,7 @@ class AddPerm extends React.Component {
 								</div>
 								<div className="row">
 									<div className="col s4 offset-s2">
-										<label id='errorLabel' className="center-align"></label>
+										<label id='errorLabel' className="center-align" style={{color:'red'}}></label>
 										<button className="btn blue">Submit</button>
 									</div>
 									<div className="col s4">
@@ -122,9 +127,15 @@ class AddPerm extends React.Component {
 								</div>
 							</form>
 						</div>
-					)	
-			
-			};
+					)
+				} else {
+					return (
+						<div>
+							<p>Loading...</p>
+						</div>
+					)
+				}
+		};
 
 	render () {
 		return (

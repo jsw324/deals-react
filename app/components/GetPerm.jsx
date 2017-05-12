@@ -21,11 +21,10 @@ var format = require('format-number');
 class GetPerm extends React.Component {
   constructor (props) {
     super(props);
-    var { auth } = this.props;
+
+    //Bind all methods
     this.renderPerm = this.renderPerm.bind(this);
     this.onLogout = this.onLogout.bind(this);
-
-    this.state = { showPermModal: false, showContractModal: false };
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
     this.handleClosePermModal = this.handleClosePermModal.bind(this);
@@ -39,11 +38,11 @@ class GetPerm extends React.Component {
 		dispatch(actions.startLogout());
 	}
 
+  //when component loads, get all Perm and contract deals.
   componentWillMount () {
     var { dispatch } = this.props;
     dispatch(actions.getPerm());
     dispatch(actions.getContract());
-    dispatch(actions.adminPerm());
   }
 
   handleOpenPermModal () {
@@ -74,6 +73,7 @@ class GetPerm extends React.Component {
   renderContractList() {
     var {getContract} = this.props;
     if (getContract.length > 0) {
+      //call ContractList component and pass allContractor object as prop
       var items = getContract.map((contractors) => {
         if (contractors.completedDate === '') {
           return (
@@ -81,6 +81,7 @@ class GetPerm extends React.Component {
           )
         }
       });
+      //return items for rendering in JSX
       return <div>{items}</div>
     };
   };
@@ -89,13 +90,10 @@ class GetPerm extends React.Component {
   renderPerm () {
     var { getPerm, getContract, recruiters, permModal, contractModal, auth } = this.props;
 
-    if (getPerm.length > 0) {
-
-    }
-
+    //define columns of ReactTable component
     const columns = [{
     header: 'Name',
-    accessor: 'name' // String-based value accessors! 
+    accessor: 'name'  
   }, {
     header: 'Client',
     accessor: 'client'
@@ -132,8 +130,9 @@ class GetPerm extends React.Component {
         getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
       }
       var deals = [];
+      //TODO: change to .map
+      // add feeAmount to object and format to currency.  
       getPerm.forEach((val) => {
-        var startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
         var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
         var salary = format({prefix: '$' })(val.salary);
        
@@ -146,7 +145,7 @@ class GetPerm extends React.Component {
           recruiter: val.recruiter,
           salary: salary,
           sales: val.sales,
-          startDate: startDate
+          startDate: val.startDate
         });
       })
       
@@ -217,6 +216,7 @@ class GetPerm extends React.Component {
                   columns={columns}
                   resizable="true"
                   defaultPageSize="10"
+                  noDataText="No Deals yet. Better hit those phones!"
                   />
                 </div>
               </div>

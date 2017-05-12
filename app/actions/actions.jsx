@@ -1,5 +1,4 @@
 import firebase, { firebaseRef, googleProvider } from 'app/firebase/';
-const axios = require('axios');
 const moment = require('moment');
 
 
@@ -20,14 +19,8 @@ export var toggleContractModal = () => {
 }
 
 //////////////////////////////////
-//----CONTRACT DEALS-------///
+//---- POST CONTRACT DEALS-------///
 //////////////////////////////////
-
-export var startPostContract = () => {
-  return {
-    type: 'START_POST_CONTRACT'
-  }
-};
 
 export var completePostContract = (data) => {
   return {
@@ -54,14 +47,8 @@ export var postContract = (data) => {
 
 
 //////////////////////////////////
-//----PERM DEALS-------///
+//---- POST PERM DEALS-------///
 //////////////////////////////////
-
-export var startPostPerm = () => {
-  return {
-    type: 'START_POST_PERM'
-  }
-};
 
 export var completePostPerm = (data) => {
   return {
@@ -76,7 +63,6 @@ export var postPerm = (data) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var permRef = firebaseRef.child(`users/perm/${uid}`).push(data);
-
     return permRef.then(() => {
       dispatch(completePostPerm({
         ...data,
@@ -88,7 +74,7 @@ export var postPerm = (data) => {
 
 
 //////////////////////////////////
-//----ADD/GET EMPLOYEES-------///
+//----POST/GET EMPLOYEES-------///
 //////////////////////////////////
 
 export var postRecruiter = (data) => {
@@ -143,12 +129,6 @@ export var completeGetRecruiters = (data) => {
 //----GET PERM DEALS-------///
 //////////////////////////////////
 
-export var startGetPerm = () => {
-  return {
-    type: 'START_GET_PERM'
-  }
-};
-
 export var completeGetPerm = (data) => {
   return {
     type: 'COMPLETE_GET_PERM',
@@ -162,7 +142,6 @@ export var getPerm = () => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var permRef = firebaseRef.child(`users/perm/${uid}`)
-    dispatch(startGetPerm());
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
       var parsedDeals = [];
@@ -177,7 +156,7 @@ export var getPerm = () => {
   }
 }
 
-// Get admin perm deals...TODO: need to authenticate whether user is admin
+// TESTING: Get ALL perm deals as admin...TODO: need to authenticate whether user is admin
 
 export var adminPerm = () => { 
   return (dispatch, getState) => {
@@ -190,14 +169,8 @@ export var adminPerm = () => {
 
 
 //////////////////////////////////
-//----GET CONTRACT DEALS-------///
+//--- GET CONTRACT DEALS -------///
 //////////////////////////////////
-
-export var startGetContract = () => {
-  return {
-    type: 'START_GET_CONTRACT'
-  }
-};
 
 export var completeGetContract = (data) => {
   return {
@@ -210,7 +183,6 @@ export var getContract = () => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var contractRef = firebaseRef.child(`users/contract/${uid}`)
-    dispatch(startGetContract());
     return contractRef.once('value').then((snapshot) => {
       var contractDeals = snapshot.val() || {};
       var parsedDeals = [];
@@ -244,8 +216,6 @@ export var endContract = (contractors) => {
 //////////////////////////////////
 
 export var login = (user) => {
-  console.log('user');
-  console.log('userinfo', user);
   return {
     type: 'LOGIN',
     uid: user.uid,

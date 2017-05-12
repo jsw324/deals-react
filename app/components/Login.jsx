@@ -6,6 +6,7 @@ const actions = require('actions');
 class Login extends React.Component {
 	constructor (props) {
 		super(props);
+		//bind methods to this 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 	}

@@ -18,6 +18,7 @@ class ContractChart extends React.Component {
       var {spread} = this.props;
 
       // get 6 months of week ending dates
+      //TODO: change to trailing 6 months from the last Sunday from todays date.
       var dates = [];
       var startDateVar = moment().set({'year': 2017, 'month': 0, 'day': 7});
       for (var i = 0; i < 26; i++) {
@@ -29,6 +30,7 @@ class ContractChart extends React.Component {
       var weeklySpread;
       var today = new Date();
 
+      //calculate spread for each contractor 
       spread.forEach((val) => {
         if (val.isW2 === "1099") {
           val.spread = Math.floor((val.billRate - (val.hourly * 1.05)) * 40);
@@ -39,16 +41,19 @@ class ContractChart extends React.Component {
       if (dates.length > 0 && spread.length > 0) { 
         for (var i = 0; i < dates.length; i++) {
           for (var j = 0; j < spread.length; j++) {
+            // if contract is not completed, or the completed date is in the future and start date is in the past, add to
+            //weekly spread
             if ((spread[j].completedDate == "" || spread[j].completedDate > dates[i]) && spread[j].startDate < dates[i]) {
               weeklySpread += spread[j].spread
             } 
           }
+          //each week, push weeklySpread to contractorSpread array
             contractorSpread.push(weeklySpread);
             weeklySpread = 0;
           }
         }
       
-   
+   //user contractorSpread array to populate chartjs chart.
     var chartData = {
     labels: dates,
     datasets: [

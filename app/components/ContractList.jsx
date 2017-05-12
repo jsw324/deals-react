@@ -5,7 +5,6 @@
 
  import moment from 'moment';
  var format = require('format-number');
- import ReactTable from 'react-table';
  const actions = require('actions'); 
  var Modal = require('react-modal');
 
@@ -29,14 +28,13 @@
    handleOpenModal () {
     var { dispatch } = this.props;
     console.log('modal open');
-    this.setState({ showEndContractModal: true });
+    this.setState({ showEndContractModal: true });  //TODO: move this to a redux action generator
   }
 
    endContract(contractors) {
      var { dispatch, modal } = this.props;
      console.log('END', contractors);
      this.handleOpenModal();
-       //dispatch(actions.endContract(contractors));
    }
 
    renderContractor() {

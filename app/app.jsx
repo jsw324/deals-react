@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged((user) => {
     console.log('USER%', user);
     if (user.displayName) {
       store.dispatch(actions.login(user));
-      hashHistory.push('/get-perm');
+      hashHistory.push('/dashboard');
     } else {
       var nonGoogleUser = {
         displayName: user.email,
@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged((user) => {
         uid: user.uid
       }
       store.dispatch(actions.login(nonGoogleUser));
-      hashHistory.push('/get-perm');
+      hashHistory.push('/dashboard');
     }
   } else {
     store.dispatch(actions.logout());
@@ -53,7 +53,7 @@ var requireLogin = (nextState, replace, next) => {
 
 var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
-    replace('/get-perm');
+    replace('/dashboard');
   }
   next();
 };
@@ -65,7 +65,7 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
         <Route path="/" component={Main}>
           <IndexRoute component={Login} onEnter={redirectIfLoggedIn} />
           <Route path="/login" component={Login}/>
-          <route path="/get-perm" component={GetPerm} onEnter={requireLogin}/>
+          <route path="/dashboard" component={GetPerm} onEnter={requireLogin}/>
           <route path="/admin" component={Admin} onEnter={requireLogin}/>
         </Route>
       </Router>
