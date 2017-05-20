@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@material/drawer": "^0.3.1",
+    "axios": "^0.16.1",
     "body-parser": "^1.17.1",
     "chart.js": "^2.5.0",
     "cors": "^2.8.3",

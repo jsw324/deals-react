@@ -9,11 +9,12 @@ class SelectRecruiter extends React.Component {
   }
 
   render () {
-    var { recruiters } = this.props;
+    var { employee } = this.props;
+    console.log('employee', employee);
     return (
-      <option value={recruiters.userId}>{recruiters.name}</option>
+      <option value={employee.userId}>{employee.name}</option>
     )
   };
 };
 
-export default connect()(SelectRecruiter);
+export default SelectRecruiter;

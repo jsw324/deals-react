@@ -3,7 +3,7 @@ const moment = require('moment');
 
 
 //////////////////////////////////
-//----MODAL-------///
+//----MODALS-------///
 //////////////////////////////////
 
 export var togglePermModal = () => {
@@ -15,6 +15,21 @@ export var togglePermModal = () => {
 export var toggleContractModal = () => {
   return {
     type: 'TOGGLE_CONTRACT_MODAL'
+  }
+}
+
+export var showEndContractModal = (contractor) => {
+  return {
+    type: 'SHOW_END_CONTRACT_MODAL',
+    modalProps: {
+      contractor
+    }
+  }
+}
+
+export var hideEndContractModal = () => {
+  return {
+    type: 'HIDE_END_CONTRACT_MODAL'
   }
 }
 
@@ -56,8 +71,6 @@ export var completePostPerm = (data) => {
     data
   }
 };
-
-//firebase add perm start 
 
 export var postPerm = (data) => {
   return (dispatch, getState) => {

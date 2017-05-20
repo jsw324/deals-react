@@ -17,22 +17,30 @@ class EndContract extends React.Component {
 		$('select').material_select();
 	}
 
-	endContract(endDate) {
+	endContract(endDate, e) {
 		//pull contractor and end date off of props and refs, respectively.
 		var { contractor, dispatch } = this.props;
 		var { endDate } = this.refs;
-		//change date to usable format
-		var endedDay = moment(endDate.value, "DD MMM, YYYY").unix();
-		var day = moment.unix(endedDay).format('MM/DD/YYYY');
-		//push formatted enddate to object
-		contractor.completedDate = day;
-		//close modal and send off action 
-		this.setState({ showEndContractModal: false }); //TODO: move this to redux action generator
-		dispatch(actions.endContract(contractor));
+		e.preventDefault();
+		console.log('endDate', endDate.value);
+		if (endDate.value === '') {
+			console.log('error');
+			document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
+		} else {
+			console.log('noerror', endDate.value);
+			//change date to usable format
+			var endedDay = moment(endDate.value, "DD MMM, YYYY").unix();
+			var day = moment.unix(endedDay).format('MM/DD/YYYY');
+			//push formatted enddate to object
+			contractor.completedDate = day;
+			//close modal and send off action 
+			dispatch(actions.hideEndContractModal());
+			dispatch(actions.endContract(contractor));
+		}
 	}
 
 	render () {
-		var { contractor } = this.props;
+		var { contractor, dispatch } = this.props;
 		return (
 			<div>
 
@@ -40,7 +48,7 @@ class EndContract extends React.Component {
 			<div className="col s10 offset-s1 add__contractor">
 					<h5 className="center-align">End Contract for {contractor.name}</h5>
 					<p className="center-align">Please enter end date</p>
-						<form onSubmit={this.endContract}>
+						<form>
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<p>{contractor.name}</p>
@@ -91,11 +99,11 @@ class EndContract extends React.Component {
 								<div className="col s4 offset-s2">
 									<div id="error" style={{color:'red'}}></div>
 									<br/>
-									<button className="btn">Submit</button>
+									<button className="btn" onClick={this.endContract}>Submit</button>
 								</div>
 								<div className="col s4">
 									<br/>
-									<button className="btn red" onClick={() => this.setState({ showEndContractModal: false})}>Cancel</button>
+									<button className="btn red" onClick={() => dispatch(actions.hideEndContractModal())}>Cancel</button>
 								</div>
 							</div>
 						</form>

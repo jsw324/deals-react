@@ -12,6 +12,7 @@ import Nav from 'Nav';
 import AddPerm from 'AddPerm';
 import AddContractor from 'AddContractor';
 import ContractList from 'ContractList';
+import EndContractModal from 'EndContractModal';
 
 var Modal = require('react-modal');
 
@@ -43,6 +44,7 @@ class GetPerm extends React.Component {
     var { dispatch } = this.props;
     dispatch(actions.getPerm());
     dispatch(actions.getContract());
+    dispatch(actions.getRecruiters());
   }
 
   handleOpenPermModal () {
@@ -71,13 +73,13 @@ class GetPerm extends React.Component {
 
 
   renderContractList() {
-    var {getContract} = this.props;
+    var {getContract, endContractModal} = this.props;
     if (getContract.length > 0) {
       //call ContractList component and pass allContractor object as prop
       var items = getContract.map((contractors) => {
         if (contractors.completedDate === '') {
           return (
-            <div><ContractList key={contractors.id} allContractors={contractors}/></div>
+            <div><ContractList key={contractors.id} allContractors={contractors} endContractModal={endContractModal}/></div>
           )
         }
       });
@@ -85,6 +87,19 @@ class GetPerm extends React.Component {
       return <div>{items}</div>
     };
   };
+
+  getRecruiterName(id) {
+    var { recruiters } = this.props;
+    var result;
+    recruiters.forEach((val) => {
+      if (val.id === id) {
+        result = val.name;
+      } else {
+        result = id;
+      }
+    })
+    return result;
+  }
  
 
   renderPerm () {
@@ -135,19 +150,22 @@ class GetPerm extends React.Component {
       getPerm.forEach((val) => {
         var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
         var salary = format({prefix: '$' })(val.salary);
-       
+        //get recruiter name from ID number
+        var name = this.getRecruiterName(val.recruiter);
+        console.log('name', name);
         deals.push({
           client: val.client,
           fee: val.fee,
           feeAmount: feeAmount,
           id: val.id,
           name: val.name,
-          recruiter: val.recruiter,
+          recruiter: name,
           salary: salary,
-          sales: val.sales,
+          sales: name,
           startDate: val.startDate
         });
       })
+      console.log('deals', deals);
       
       for (var i = 0; i < getContract.length; i++) {
         if (typeof getContract[i].startDate === 'number') {
@@ -222,6 +240,8 @@ class GetPerm extends React.Component {
               </div>
           </div>
         </div>
+
+
         </div>
       )
     } else {

@@ -2,6 +2,7 @@
  import { connect } from 'react-redux';
 
  import EndContract from 'EndContract';
+ import EndContractModal from 'EndContractModal';
 
  import moment from 'moment';
  var format = require('format-number');
@@ -14,7 +15,6 @@
      this.state = {
        showEndContractModal: false
      }
-     this.endContract = this.endContract.bind(this);
      this.handleOpenModal = this.handleOpenModal.bind(this);
    }
 
@@ -26,19 +26,20 @@
    }
 
    handleOpenModal () {
-    var { dispatch } = this.props;
+    var { dispatch, allContractors } = this.props;
     console.log('modal open');
-    this.setState({ showEndContractModal: true });  //TODO: move this to a redux action generator
+    dispatch(actions.showEndContractModal(allContractors));
+    //this.setState({ showEndContractModal: true }); //TODO: move this to a redux action generator
   }
 
-   endContract(contractors) {
-     var { dispatch, modal } = this.props;
-     console.log('END', contractors);
-     this.handleOpenModal();
-   }
+  endContract(contractors) {
+    var { dispatch, modal } = this.props;
+    console.log('END', contractors);
+    this.handleOpenModal();
+  }
 
    renderContractor() {
-     var { contractor, allContractors, modal } = this.props;
+     var { allContractors, modal, endContractModal } = this.props;
      if (allContractors !== undefined) {
        if (typeof allContractors.startDate === 'number') {
           allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
@@ -72,20 +73,12 @@
               </div>
             
               <div className="col s1">
-                <li className="flow-text thumbs__down"><i onClick={() => this.endContract(allContractors)} className="small material-icons icon__color">not_interested</i></li>
+                <li className="flow-text thumbs__down"><i onClick={() => this.handleOpenModal()} className="small material-icons icon__color">not_interested</i></li>
               </div>
             </ul>
           </div>
           <div className=""></div>
-          <Modal
-            isOpen={this.state.showEndContractModal}
-            contentLabel="End Date"
-            shouldCloseOnOverlayClick={true}
-            >
-            <div className="container">
-             <EndContract contractor={allContractors} />
-            </div>
-          </Modal>
+          <EndContractModal endContractModal={endContractModal} />
         </div>
        )
      }

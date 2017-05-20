@@ -11,7 +11,6 @@ class AddPerm extends React.Component {
   	constructor (props) {
   	super(props);
 		this.submitDeal = this.submitDeal.bind(this);
-		this.renderPermSheet = this.renderPermSheet.bind(this);
 		this.renderSelectRecruiters = this.renderSelectRecruiters.bind(this);
 	};
 
@@ -21,6 +20,7 @@ class AddPerm extends React.Component {
 		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
 		//check if values are empty and if not, mutate unix date value to formatted string and push to array.
 		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '') {
+			console.log('refs', this.refs);
 			document.getElementById('errorLabel').innerHTML = 'Error in field, please check your values and try again.';
 		} else {
 			var day = moment(startDate.value, "DD MMM, YYYY").unix();
@@ -40,12 +40,17 @@ class AddPerm extends React.Component {
 	}
 
 	//TODO: get all recruiters and display dropdown of available employees
-	renderSelectRecruiters() {
+	renderSelectRecruiters(value) {
+		console.log('value', value);
 		var { recruiters } = this.props;
 		if (recruiters.length > 0) {
-			return (
-				<option>Hello, world</option>
-			)
+			var items = recruiters.map((recruiter) => {
+				console.log('recruiter', recruiter);
+				return (
+					<option value={recruiter.id}>{recruiter.name}</option>
+				)
+			});
+			return 	<select id={value} ref={value} defaultValue="Employee Name">{items}</select>
 		} else {
 			return (
 				<div>
@@ -53,55 +58,57 @@ class AddPerm extends React.Component {
 				</div>
 			)
 		}
-	}
+	};
 
 	componentDidMount() {
-			//jquery for MaterializeCSS select and date picker
+		//add materializeCSS jquery functionality to datepicker and dropdown 
 			$('.datepicker').pickadate({
 			selectMonths: true, // Creates a dropdown to control month
 			selectYears: 15 // Creates a dropdown of 15 years to control year
 		});
-			$('select').material_select();
-	}
-		renderPermSheet() {
+		$('select').material_select();
+	};
+
+	render() {
 			var { dispatch, recruiters } = this.props;
 			//render only after recruiter object is retrieved from firebase
 			if (recruiters.length > 0) {
 				return (
 					<div>
-						
 						<h3 className="center-align">Full-Time Placement Details</h3>
 							<form onSubmit={this.submitDeal}>
 								<div className="row">
 									<div className="input-field col s6 offset-s3">
 										<input id="name" ref="name" type="text" className="validate"/>
-										<label for="name">Name</label>
+										<label>Name</label>
 									</div>
 								</div>
 
 								<div className="row">
 									<div className="input-field col s4 offset-s2">
-										<input id="recruiter" ref="recruiter" type="text" className="validate"/>
-										<label for="recruiter">Recruiter</label>				
+											{this.renderSelectRecruiters('recruiter')}
+											<label>Recruiter</label>
 									</div>
-									
 									<div className="input-field col s4 offest-s2">
-										<input id="sales" ref="sales" type="text" className="validate"/>
-										<label for="sales">Sales</label>
+										{this.renderSelectRecruiters('sales')}
+										<label>Sales</label>
 									</div>
 								</div>
 
 								<div className="row">
 									<div className="input-field col s4 offset-s2">
 										<input id="salary" ref="salary" type="text" className="validate"/>
-										<label for="salary">Salary</label>
+										<label>Salary</label>
 									</div>
 
 									<div className="input-field col s4 offest-s2">
-										<p className="range-field">
-      								<input type="range" id="fee" ref="fee" min="10" max="25" />
-    								</p>
-										<label for="fee">Fee</label>
+										<select id="fee" ref="fee">
+											<option disabled default>Select Fee</option>
+											<option value="20">20%</option>
+											<option value="18">18%</option>
+											<option value="15">15%</option>
+										</select>
+										<label>Fee</label>
 									</div>
 								</div>
 
@@ -113,7 +120,7 @@ class AddPerm extends React.Component {
 
 									<div className="input-field col s4">
 										<input id="client" ref="client" type="text" className="#"/>
-										<label for="client">Client</label>
+										<label>Client</label>
 									</div>
 								</div>
 								<div className="row">
@@ -128,22 +135,8 @@ class AddPerm extends React.Component {
 							</form>
 						</div>
 					)
-				} else {
-					return (
-						<div>
-							<p>Loading...</p>
-						</div>
-					)
-				}
+				} 
 		};
-
-	render () {
-		return (
-			<div>
-				{this.renderPermSheet()}
-			</div>
-		)
-	}
 }
 
 export default connect()(AddPerm);
