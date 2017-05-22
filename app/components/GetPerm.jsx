@@ -93,12 +93,15 @@ class GetPerm extends React.Component {
     var result;
     recruiters.forEach((val) => {
       if (val.id === id) {
+        console.log('val.name', result);
         result = val.name;
-      } else {
-        result = id;
-      }
+      } 
     })
-    return result;
+    if (result) {
+      return result;
+    } else {
+      return id;
+    }
   }
  
 
@@ -152,7 +155,6 @@ class GetPerm extends React.Component {
         var salary = format({prefix: '$' })(val.salary);
         //get recruiter name from ID number
         var name = this.getRecruiterName(val.recruiter);
-        console.log('name', name);
         deals.push({
           client: val.client,
           fee: val.fee,
