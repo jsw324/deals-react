@@ -17,9 +17,9 @@ class AddPerm extends React.Component {
 	submitDeal(e) {
 		e.preventDefault();
 		var { dispatch } = this.props;
-		var { name, client, salary, fee, startDate, recruiter, sales } = this.refs;
+		var { name, client, salary, fee, startDate, recruiter, sales, title, source } = this.refs;
 		//check if values are empty and if not, mutate unix date value to formatted string and push to array.
-		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '') {
+		if (name.value == '' || client.value == '' || salary.value < 0 || fee.value < 0 || recruiter.value == '' || sales.value == '' || title.value == '' || source.value == '') {
 			console.log('refs', this.refs);
 			document.getElementById('errorLabel').innerHTML = 'Error in field, please check your values and try again.';
 		} else {
@@ -31,7 +31,9 @@ class AddPerm extends React.Component {
 				fee: parseInt(fee.value),
 				startDate: day,
 				recruiter: recruiter.value,
-				sales: sales.value
+				sales: sales.value,
+				title: title.value,
+				source: source.value
 			};
 		
 			dispatch(actions.postPerm(data));
@@ -78,9 +80,13 @@ class AddPerm extends React.Component {
 						<h3 className="center-align">Full-Time Placement Details</h3>
 							<form onSubmit={this.submitDeal}>
 								<div className="row">
-									<div className="input-field col s6 offset-s3">
+									<div className="input-field col s4 offset-s2">
 										<input id="name" ref="name" type="text" className="validate"/>
 										<label>Name</label>
+									</div>
+									<div className="input-field col s4">
+										<input id="title" ref="title" type="text"/>
+										<label>Job Title</label>
 									</div>
 								</div>
 
@@ -121,6 +127,22 @@ class AddPerm extends React.Component {
 									<div className="input-field col s4">
 										<input id="client" ref="client" type="text" className="#"/>
 										<label>Client</label>
+									</div>
+								</div>
+								<div className="row">
+									<div className="input-field col s6 offset-s3">
+										<select id="source" ref="source">
+											<option disabled defaultView>Source</option>
+											<option>Monster Search</option>
+											<option>Monster Posting</option>
+											<option>Dice Search</option>
+											<option>Dice Posting</option>
+											<option>LinkedIn Posting</option>
+											<option>LinkedIn INmail</option>
+											<option>Referral</option>
+											<option>Pass-through</option>
+											<option>Other</option>
+										</select>
 									</div>
 								</div>
 								<div className="row">
