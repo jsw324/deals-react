@@ -154,16 +154,17 @@ class GetPerm extends React.Component {
         var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
         var salary = format({prefix: '$' })(val.salary);
         //get recruiter name from ID number
-        var name = this.getRecruiterName(val.recruiter);
+        var recruiterName = this.getRecruiterName(val.recruiter);
+        var salesName = this.getRecruiterName(val.sales);
         deals.push({
           client: val.client,
           fee: val.fee,
           feeAmount: feeAmount,
           id: val.id,
           name: val.name,
-          recruiter: name,
+          recruiter: recruiterName,
           salary: salary,
-          sales: name,
+          sales: salesName,
           startDate: val.startDate
         });
       })
