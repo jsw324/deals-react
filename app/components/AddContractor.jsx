@@ -8,7 +8,32 @@ class AddDeal extends React.Component {
   	super(props);
 		//bind submitDeal method to this keyword
 		this.submitDeal = this.submitDeal.bind(this);
+		this.renderSelectRecruiters = this.renderSelectRecruiters.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.state = {
+			hourly: null,
+			billRate: null
+		}
 	}
+
+	renderSelectRecruiters(value) {
+		console.log('PROPS', this.props);
+		var { recruiters } = this.props;
+		if (recruiters.length > 0) {
+			var items = recruiters.map((recruiter) => {
+				return (
+					<option value={recruiter.id}>{recruiter.name}</option>
+				)
+			});
+			return 	<select id={value} ref={value} defaultValue="Employee Name">{items}</select>
+		} else {
+			return (
+				<div>
+					<p>Loading</p>
+				</div>
+			)
+		}
+	};
 	
 	componentDidMount() {
 		//add materializeCSS jquery functionality to datepicker and dropdown 
@@ -19,12 +44,36 @@ class AddDeal extends React.Component {
 		$('select').material_select();
 	}
 
+	//display spread in real-time as bill and payrate are entered.
+	handleChange(event) {
+		const target = event.target;
+		var value;
+		const name = target.id;
+		console.log('name', name);
+		console.log('target value', target.value);
+		if (target.id === 'billRate') {
+			value = target.value;
+		} else {
+			value = target.value;
+		}
+		console.log('value', value);
+		this.setState({
+			[name]:value
+		});
+	}
+
+	componentDidUpdate() {
+		console.log('state', this.state);
+		var spreads = (this.state.billRate - this.state.hourly) * 40;
+		document.getElementById('spreadAmount').innerHTML = 'SPREAD: ' +  '$' + spreads;
+	}
+
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
-		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales } = this.refs;
+		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales, source, state } = this.refs;
 		console.log('name', name.value);
-	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '') {
+	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '' || source == '' || state == '') {
 		//check for any blank values, if so throw error.
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
@@ -43,14 +92,16 @@ class AddDeal extends React.Component {
 				startDate: day,
 				recruiter: recruiter.value,
 				sales: sales.value,
-				completedDate: ""
+				completedDate: "",
+				source: source.value,
+				state: state.value
 			};
 			dispatch(actions.postContract(data));
 			dispatch(actions.toggleContractModal());
 		}
 	};
 	render () {
-		var { dispatch } = this.props;
+		var { dispatch, recruiters } = this.props;
 		return (
 			<div>
 
@@ -75,24 +126,23 @@ class AddDeal extends React.Component {
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<input id="recruiter" ref="recruiter" type="text" className="validate"/>
-									<label for="recruiter">Recruiter</label>
+										{this.renderSelectRecruiters('recruiter')}
+										<label>Recruiter</label>
 								</div>
-
 								<div className="input-field col s4 offest-s2">
-									<input id="sales" ref="sales" type="text" className="validate"/>
-									<label for="sales">Sales</label>
+									{this.renderSelectRecruiters('sales')}
+									<label>Sales</label>
 								</div>
-      				</div>
+							</div>
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<input id="hourly" ref="hourly" type="text" className="validate"/>
+									<input id="hourly" ref="hourly" type="text" className="validate" onChange={this.handleChange}/>
 									<label for="hourly">Pay Rate</label>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<input id="billRate" ref="billRate" type="text" className="validate"/>
+									<input id="billRate" ref="billRate" type="text" className="validate" onChange={this.handleChange}/>
 									<label for="bill-rate">Bill Rate</label>
 								</div>
       				</div>
@@ -107,6 +157,35 @@ class AddDeal extends React.Component {
 									<label for="client">Client</label>
 								</div>
       				</div>
+
+							<div className="row">
+								<div className="input-field col s4 offset-s2">
+									<select id="source" ref="source">
+											<option disabled defaultView>Source</option>
+											<option>Monster Search</option>
+											<option>Monster Posting</option>
+											<option>Dice Search</option>
+											<option>Dice Posting</option>
+											<option>LinkedIn Posting</option>
+											<option>LinkedIn INmail</option>
+											<option>Referral</option>
+											<option>Pass-through</option>
+											<option>Other</option>
+										</select>
+										<label>Source</label>
+								</div>
+								<div className="input-field col s4">
+									<input id="state" ref="state" type="text"/>
+									<label>State</label>
+								</div>
+							</div>
+
+							<div className="row">
+								<div className="input-field col s4 offset-s2">
+									<label id="spreadAmount">SPREAD: </label>
+								</div>
+							</div>
+
 							<div className="row">
 								<div className="col s4 offset-s2">
 									<div id="error" style={{color:'red'}}></div>
@@ -126,4 +205,8 @@ class AddDeal extends React.Component {
 	}
 };
 
-export default connect()(AddDeal);
+export default connect(
+	(state) => {
+		return state;
+	}
+)(AddDeal);

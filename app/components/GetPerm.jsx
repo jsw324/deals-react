@@ -48,7 +48,7 @@ class GetPerm extends React.Component {
   }
 
   handleOpenPermModal () {
-    var { dispatch, modal } = this.props;
+    var { dispatch } = this.props;
     console.log('modal open');
     dispatch(actions.getRecruiters());
     dispatch(actions.togglePermModal());
@@ -57,7 +57,7 @@ class GetPerm extends React.Component {
   handleOpenContractModal () {
     var { dispatch } = this.props;
     console.log('contract modal');
-
+    dispatch(actions.getRecruiters());
     dispatch(actions.toggleContractModal());
   }
 
