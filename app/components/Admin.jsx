@@ -6,20 +6,18 @@ import AddRecruiters from 'AddRecruiters';
 
 //This feature is not fully implemented.
 
-class Admin extends React.Component {
-  constructor (props) {
-    super(props);
-  }
-
-  render() {
-    console.log('admin props', this.props);
-    return (
-      <div>
-        <AddRecruiters/>
-        <ShowRecruiters/>
-      </div>
-    )
-  }
+const Admin = (props) => {
+  var { recruiters } = props;
+  return (
+    <div>
+      <AddRecruiters/>
+      <ShowRecruiters recruiters={recruiters}/>
+    </div>
+  )
 }
 
-export default connect()(Admin);
+var mapStateToProps = (state) => {
+  return { recruiters: state.recruiters }
+}
+
+export default connect(mapStateToProps)(Admin);

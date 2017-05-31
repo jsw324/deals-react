@@ -161,4 +161,8 @@ class AddPerm extends React.Component {
 		};
 }
 
-export default connect()(AddPerm);
+var mapStateToProps = (state) => {
+	return { recruiters: state.recruiters };
+}
+
+export default connect(mapStateToProps)(AddPerm);

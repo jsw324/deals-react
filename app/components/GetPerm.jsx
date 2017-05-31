@@ -8,14 +8,12 @@ import 'react-table/react-table.css'
 
 import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
-import Nav from 'Nav';
 import AddPerm from 'AddPerm';
 import AddContractor from 'AddContractor';
 import ContractList from 'ContractList';
 import EndContractModal from 'EndContractModal';
 
 var Modal = require('react-modal');
-
 var format = require('format-number');
 
 
@@ -28,8 +26,6 @@ class GetPerm extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
-    this.handleClosePermModal = this.handleClosePermModal.bind(this);
-    this.handleCloseContractModal = this.handleCloseContractModal.bind(this);
     this.renderContractList = this.renderContractList.bind(this);
   }
 
@@ -50,27 +46,14 @@ class GetPerm extends React.Component {
   handleOpenPermModal () {
     var { dispatch } = this.props;
     console.log('modal open');
-    dispatch(actions.getRecruiters());
     dispatch(actions.togglePermModal());
   }
 
   handleOpenContractModal () {
     var { dispatch } = this.props;
     console.log('contract modal');
-    dispatch(actions.getRecruiters());
     dispatch(actions.toggleContractModal());
   }
-
-  handleClosePermModal() {
-    var { dispatch } = this.props;
-    dispatch(actions.togglePermModal());
-  }
-
-  handleCloseContractModal() {
-    var { dispatch } = this.props;
-    dispatch(actions.toggleContractModal());
-  }
-
 
   renderContractList() {
     var {getContract, endContractModal} = this.props;
@@ -79,7 +62,7 @@ class GetPerm extends React.Component {
       var items = getContract.map((contractors) => {
         if (contractors.completedDate === '') {
           return (
-            <div><ContractList key={contractors.id} allContractors={contractors} endContractModal={endContractModal}/></div>
+            <div><ContractList key={contractors.id} allContractors={contractors} /></div>
           )
         }
       });
@@ -93,7 +76,6 @@ class GetPerm extends React.Component {
     var result;
     recruiters.forEach((val) => {
       if (val.id === id) {
-        console.log('val.name', result);
         result = val.name;
       } 
     })
@@ -168,7 +150,6 @@ class GetPerm extends React.Component {
           startDate: val.startDate
         });
       })
-      console.log('deals', deals);
       
       for (var i = 0; i < getContract.length; i++) {
         if (typeof getContract[i].startDate === 'number') {

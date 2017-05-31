@@ -19,6 +19,7 @@ class AddDeal extends React.Component {
 	renderSelectRecruiters(value) {
 		console.log('PROPS', this.props);
 		var { recruiters } = this.props;
+		console.log(typeof recruiters);
 		if (recruiters.length > 0) {
 			var items = recruiters.map((recruiter) => {
 				return (
@@ -205,8 +206,8 @@ class AddDeal extends React.Component {
 	}
 };
 
-export default connect(
-	(state) => {
-		return state;
-	}
-)(AddDeal);
+function mapStateToProps(state){
+	return { recruiters: state.recruiters } ;
+}
+
+export default connect(mapStateToProps)(AddDeal);

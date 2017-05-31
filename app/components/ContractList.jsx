@@ -12,10 +12,6 @@
  class ContractList extends React.Component {
    constructor (props) {
      super(props);
-     this.state = {
-       showEndContractModal: false
-     }
-     this.handleOpenModal = this.handleOpenModal.bind(this);
    }
 
    componentDidMount() {
@@ -25,21 +21,8 @@
       });
    }
 
-   handleOpenModal () {
-    var { dispatch, allContractors } = this.props;
-    console.log('modal open');
-    dispatch(actions.showEndContractModal(allContractors));
-    //this.setState({ showEndContractModal: true }); //TODO: move this to a redux action generator
-  }
-
-  endContract(contractors) {
-    var { dispatch, modal } = this.props;
-    console.log('END', contractors);
-    this.handleOpenModal();
-  }
-
    renderContractor() {
-     var { allContractors, modal, endContractModal } = this.props;
+     var { allContractors, endContractModal, dispatch } = this.props;
      if (allContractors !== undefined) {
        if (typeof allContractors.startDate === 'number') {
           allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
@@ -73,7 +56,7 @@
               </div>
             
               <div className="col s1">
-                <li className="flow-text thumbs__down"><i onClick={() => this.handleOpenModal()} className="small material-icons icon__color">not_interested</i></li>
+                <li className="flow-text thumbs__down"><i onClick={() => dispatch(actions.showEndContractModal(allContractors))} className="small material-icons icon__color">not_interested</i></li>
               </div>
             </ul>
           </div>
@@ -93,4 +76,8 @@
    }
  }
 
- export default connect()(ContractList);
+ var mapStateToProps = (state) => {
+   return { endContractModal: state.endContractModal }
+ }
+
+ export default connect(mapStateToProps)(ContractList);
