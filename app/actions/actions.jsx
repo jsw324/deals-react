@@ -21,9 +21,7 @@ export var toggleContractModal = () => {
 export var showEndContractModal = (contractor) => {
   return {
     type: 'SHOW_END_CONTRACT_MODAL',
-    modalProps: {
-      contractor
-    }
+    modalProps: { contractor }
   }
 }
 
@@ -125,7 +123,6 @@ export var getRecruiters = () => {
           ...rawRecruiters[recruiter]
         })
       });
-      console.log('recruiters', recruiters);
       dispatch(completeGetRecruiters(recruiters));
     })
   }
@@ -229,13 +226,23 @@ export var endContract = (contractors) => {
 //////////////////////////////////
 
 export var login = (user) => {
-  return {
-    type: 'LOGIN',
-    uid: user.uid,
-    photo: user.photoURL,
-    name: user.displayName,
-    isAdmin: user.isAdmin
-  };
+  if (!user.displayName) {
+    return {
+      type: 'LOGIN',
+      displayName: user.email,
+      photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
+      uid: user.uid,
+      isAdmin: false
+      } 
+  } else {
+    return {
+      type: 'LOGIN',
+      uid: user.uid,
+      photo: user.photoURL,
+      name: user.displayName,
+      isAdmin: user.isAdmin
+    };
+    }
 };
 
 export var startLogin = () => {
@@ -253,13 +260,16 @@ export var startLogin = () => {
 };
 
 export var startLoginWithEmailAndPassword = (email, password) => {
-  firebase.auth().signInWithEmailAndPassword(email, password).then((result) => {
-    //handle success
-    console.log('worked', result);
-  }).catch((error) => {
-    //handle error
-    console.log('error', error);
-  });
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password).then((result) => {
+      //handle success
+      console.log('worked', result);
+      dispatch(login(result));
+    }).catch((error) => {
+      //handle error
+      console.log('error', error);
+    });
+  }
 }
 
 export var startLogout = () => {

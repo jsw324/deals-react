@@ -17,7 +17,7 @@ class Login extends React.Component {
 
 	submitForm(e) {
 		e.preventDefault();
-		var {dispatch} = this.props;
+		var { dispatch } = this.props;
 		var { email, password } = this.refs;
 		dispatch(actions.startLoginWithEmailAndPassword(email.value, password.value));
 	};

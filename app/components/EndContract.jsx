@@ -64,7 +64,7 @@ class EndContract extends React.Component {
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<p>{contractor.recruiter}</p>
-									<small for="recruiter">Recruiter</small>
+									<small>Recruiter</small>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
@@ -114,4 +114,8 @@ class EndContract extends React.Component {
 	}
 };
 
-export default connect()(EndContract);
+var mapPropsToState = (state) => {
+	return { endContractModal: state.endContractModal }
+}
+
+export default connect(mapPropsToState)(EndContract);

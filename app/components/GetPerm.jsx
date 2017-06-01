@@ -56,7 +56,7 @@ class GetPerm extends React.Component {
   }
 
   renderContractList() {
-    var {getContract, endContractModal} = this.props;
+    var { getContract, endContractModal } = this.props;
     if (getContract.length > 0) {
       //call ContractList component and pass allContractor object as prop
       var items = getContract.map((contractors) => {
@@ -122,60 +122,73 @@ class GetPerm extends React.Component {
   }]
   
     if (getContract.length >= 0){
-      for (var i = 0; i < getPerm.length; i++) {
-        if (typeof getPerm[i].startDate === 'number') {
-          getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
-        }
-        var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
-        getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
-      }
-      var deals = [];
-      //TODO: change to .map
-      // add feeAmount to object and format to currency.  
-      getPerm.forEach((val) => {
-        var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
-        var salary = format({prefix: '$' })(val.salary);
-        //get recruiter name from ID number
-        var recruiterName = this.getRecruiterName(val.recruiter);
-        var salesName = this.getRecruiterName(val.sales);
-        deals.push({
+      // for (var i = 0; i < getPerm.length; i++) {
+      //   if (typeof getPerm[i].startDate === 'number') {
+      //     getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
+      //   }
+      //   var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
+      //   getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
+      // }
+      // var deals = [];
+      // //TODO: change to .map
+      // // add feeAmount to object and format to currency.  
+      // getPerm.forEach((val) => {
+      //   var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
+      //   var salary = format({prefix: '$' })(val.salary);
+      //   //get recruiter name from ID number
+      //   var recruiterName = this.getRecruiterName(val.recruiter);
+      //   var salesName = this.getRecruiterName(val.sales);
+      //   deals.push({
+      //     client: val.client,
+      //     fee: val.fee,
+      //     feeAmount: feeAmount,
+      //     id: val.id,
+      //     name: val.name,
+      //     recruiter: recruiterName,
+      //     salary: salary,
+      //     sales: salesName,
+      //     startDate: val.startDate
+      //   });
+      // })
+      
+      // for (var i = 0; i < getContract.length; i++) {
+      //   if (typeof getContract[i].startDate === 'number') {
+      //     getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
+      //   }
+      // }
+     
+      var deals = getPerm.map((val) => {
+        return {
           client: val.client,
           fee: val.fee,
-          feeAmount: feeAmount,
+          feeAmount: format({prefix: '$'})(val.salary * (val.fee/100)),
           id: val.id,
           name: val.name,
-          recruiter: recruiterName,
-          salary: salary,
-          sales: salesName,
-          startDate: val.startDate
-        });
-      })
-      
-      for (var i = 0; i < getContract.length; i++) {
-        if (typeof getContract[i].startDate === 'number') {
-          getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
+          recruiter: this.getRecruiterName(val.recruiter),
+          salary: format({prefix: '$' })(val.salary),
+          sales: this.getRecruiterName(val.sales),
+          startDate: moment.unix(val.startDate).format('MM/DD/YYYY')
         }
-      }
-     
+      });
      
       return (
        <div>
         <div className="dashboard__body">
           <div className="row">
-            <a href="#" onClick={this.onLogout} className="logout__link">Logout</a>
+            <a href="#" onClick={ this.onLogout } className="logout__link">Logout</a>
             <h2 className="center-align">Dashboard</h2>
             
             <div className="col s10 offset-s1 l6 contract__box">
               <div className="perm__chart z-depth-3">
                 <h5 className="center-align">Perm</h5>
-                <PermChart deals={getPerm}/>
+                <PermChart deals={ getPerm }/>
               </div>
             </div>
            
             <div className="col s10 offset-s1 l6">
               <div className="contract__chart z-depth-3">
                 <h5 className="center-align">Contract</h5>
-                <ContractChart spread={getContract}/>
+                <ContractChart spread={ getContract }/>
               </div>
             </div>
         </div>
@@ -184,8 +197,8 @@ class GetPerm extends React.Component {
             <i className="large material-icons">add</i>
           </a>
           <ul>
-            <li><a onClick={this.handleOpenPermModal} className="btn-floating blue">P</a></li>
-            <li><a onClick={this.handleOpenContractModal} className="btn-floating green">C</a></li>
+            <li><a onClick={ this.handleOpenPermModal } className="btn-floating blue">P</a></li>
+            <li><a onClick={ this.handleOpenContractModal } className="btn-floating green">C</a></li>
           </ul>
         </div>
         <Modal
@@ -193,7 +206,7 @@ class GetPerm extends React.Component {
           contentLabel="Add Full-Time"
           shouldCloseOnOverlayClick={true}
           >
-          <AddPerm recruiters={recruiters} />
+          <AddPerm recruiters={ recruiters } />
           </Modal>
 
           <Modal

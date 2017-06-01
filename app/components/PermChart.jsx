@@ -21,6 +21,7 @@ class PermChart extends React.Component {
       // iterate over each deal, pushing to the corresponding month.
       // End result is to create an array with the total amount of fees for each month.
         deals.map((val) => {
+          val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
           var month = getMonth(val.startDate);
           var fee = val.fee/100 * val.salary;
           
@@ -65,7 +66,7 @@ class PermChart extends React.Component {
 
 //chart options
 var chartOptions = {
-   scaleOverride: true,
+  scaleOverride: true,
   scaleSteps: 6,
   scaleStepWidth: 25000,
   scaleStartValue: 0,

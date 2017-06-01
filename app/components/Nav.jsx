@@ -1,9 +1,7 @@
 const React = require('react');
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-var {Link, IndexLink} = require('react-router');
-import $ from 'jquery';
-import firebase from 'firebase';
+var { Link } = require('react-router');
 const actions = require('actions');
 
 
@@ -23,7 +21,7 @@ class Nav extends React.Component{
 
   onLogout(e) {
 		e.preventDefault();
-		var {dispatch} = this.props;
+		var { dispatch } = this.props;
 		dispatch(actions.startLogout());
 	}
 
@@ -43,7 +41,8 @@ class Nav extends React.Component{
 
   getPhoto() {
     var { auth } = this.props;
-    if (auth) {
+    console.log('navauth', auth);
+    if (auth.name) {
       var photoURL = auth.photo;
       var userName = auth.name;
       return (

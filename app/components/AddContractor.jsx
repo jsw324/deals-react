@@ -62,7 +62,7 @@ class AddDeal extends React.Component {
 			[name]:value
 		});
 	}
-
+//TODO: calculate w/ 1099 vs w2
 	componentDidUpdate() {
 		console.log('state', this.state);
 		var spreads = (this.state.billRate - this.state.hourly) * 40;
