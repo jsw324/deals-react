@@ -73,7 +73,7 @@ export var completePostPerm = (data) => {
 export var postPerm = (data) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var permRef = firebaseRef.child(`users/perm/${uid}`).push(data);
+    var permRef = firebaseRef.child(`users/perm/`).push(data);
     return permRef.then(() => {
       dispatch(completePostPerm({
         ...data,
@@ -83,6 +83,51 @@ export var postPerm = (data) => {
   };
 };
 
+//////////////////////////////////
+//----GET PERM DEALS-------///
+//////////////////////////////////
+
+export var completeGetPerm = (data) => {
+  return {
+    type: 'COMPLETE_GET_PERM',
+    data: data
+  }
+};
+
+//firebase getPerm
+
+export var getPerm = () => {
+  return (dispatch, getState) => {
+    var email = getState().auth.email;
+    console.log('email', email);
+    var permRef = firebaseRef.child(`users/perm/`)
+    return permRef.once('value').then((snapshot) => {
+      var permDeals = snapshot.val() || {};
+      var parsedDeals = [];
+      Object.keys(permDeals).forEach((deal) => {
+        console.log("DATE", permDeals[deal].startDate);
+        parsedDeals.push({
+          id: deal,
+          ...permDeals[deal]
+        });
+      });
+      console.log('parsed deals', parsedDeals[0].startDate);
+      dispatch(completeGetPerm(parsedDeals));
+    })
+  }
+}
+
+// TESTING: Get ALL perm deals as admin...TODO: need to authenticate whether user is admin
+
+export var adminPerm = () => { 
+  return (dispatch, getState) => {
+    var permRef = firebaseRef.child('users/perm/');
+    return permRef.once('value').then((snapshot) => {
+      var permDeals = snapshot.val() || {};
+    });
+  }
+}
+
 
 //////////////////////////////////
 //----POST/GET EMPLOYEES-------///
@@ -91,7 +136,6 @@ export var postPerm = (data) => {
 export var postRecruiter = (data) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    data.userId = uid;
     var recruiterRef = firebaseRef.child(`/recruiters`).push(data);
 
     return recruiterRef.then(() => {
@@ -135,47 +179,7 @@ export var completeGetRecruiters = (data) => {
   }
 };
 
-//////////////////////////////////
-//----GET PERM DEALS-------///
-//////////////////////////////////
 
-export var completeGetPerm = (data) => {
-  return {
-    type: 'COMPLETE_GET_PERM',
-    data: data
-  }
-};
-
-//firebase getPerm
-
-export var getPerm = () => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var permRef = firebaseRef.child(`users/perm/${uid}`)
-    return permRef.once('value').then((snapshot) => {
-      var permDeals = snapshot.val() || {};
-      var parsedDeals = [];
-      Object.keys(permDeals).forEach((deal) => {
-        parsedDeals.push({
-          id: deal,
-          ...permDeals[deal]
-        });
-      });
-      dispatch(completeGetPerm(parsedDeals));
-    })
-  }
-}
-
-// TESTING: Get ALL perm deals as admin...TODO: need to authenticate whether user is admin
-
-export var adminPerm = () => { 
-  return (dispatch, getState) => {
-    var permRef = firebaseRef.child('users/perm/');
-    return permRef.once('value').then((snapshot) => {
-      var permDeals = snapshot.val() || {};
-    });
-  }
-}
 
 
 //////////////////////////////////
@@ -227,12 +231,15 @@ export var endContract = (contractors) => {
 
 export var login = (user) => {
   if (!user.displayName) {
+    console.log('UUUSER', user);
     return {
       type: 'LOGIN',
       displayName: user.email,
-      photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
+      name: user.email,
+      photo: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
       uid: user.uid,
-      isAdmin: false
+      isAdmin: false,
+      email: user.email
       } 
   } else {
     return {
@@ -240,7 +247,8 @@ export var login = (user) => {
       uid: user.uid,
       photo: user.photoURL,
       name: user.displayName,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
+      email: user.email
     };
     }
 };

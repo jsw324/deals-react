@@ -122,42 +122,12 @@ class GetPerm extends React.Component {
   }]
   
     if (getContract.length >= 0){
-      // for (var i = 0; i < getPerm.length; i++) {
-      //   if (typeof getPerm[i].startDate === 'number') {
-      //     getPerm[i].startDate = moment.unix(getPerm[i].startDate).format('MM/DD/YYYY');
-      //   }
-      //   var feeAmount = getPerm[i].salary * (getPerm[i].fee/100);
-      //   getPerm[i].feeAmount = format({prefix: '$' })(feeAmount);
-      // }
-      // var deals = [];
-      // //TODO: change to .map
-      // // add feeAmount to object and format to currency.  
-      // getPerm.forEach((val) => {
-      //   var feeAmount = format({prefix: '$'})(val.salary * (val.fee/100));
-      //   var salary = format({prefix: '$' })(val.salary);
-      //   //get recruiter name from ID number
-      //   var recruiterName = this.getRecruiterName(val.recruiter);
-      //   var salesName = this.getRecruiterName(val.sales);
-      //   deals.push({
-      //     client: val.client,
-      //     fee: val.fee,
-      //     feeAmount: feeAmount,
-      //     id: val.id,
-      //     name: val.name,
-      //     recruiter: recruiterName,
-      //     salary: salary,
-      //     sales: salesName,
-      //     startDate: val.startDate
-      //   });
-      // })
-      
-      // for (var i = 0; i < getContract.length; i++) {
-      //   if (typeof getContract[i].startDate === 'number') {
-      //     getContract[i].startDate = moment.unix(getContract[i].startDate).format('MM/DD/YYYY');
-      //   }
-      // }
-     
       var deals = getPerm.map((val) => {
+        console.log('TYPE', typeof val.startDate);
+        if (typeof val.startDate !== 'string') {
+          console.log('here', val.startDate);
+          val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
+        };
         return {
           client: val.client,
           fee: val.fee,
@@ -167,10 +137,10 @@ class GetPerm extends React.Component {
           recruiter: this.getRecruiterName(val.recruiter),
           salary: format({prefix: '$' })(val.salary),
           sales: this.getRecruiterName(val.sales),
-          startDate: moment.unix(val.startDate).format('MM/DD/YYYY')
+          startDate: val.startDate
         }
       });
-     
+      console.log('STDD', deals[0].startDate);
       return (
        <div>
         <div className="dashboard__body">

@@ -29,7 +29,8 @@ firebase.auth().onAuthStateChanged((user) => {
       var nonGoogleUser = {
         displayName: user.email,
         photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
-        uid: user.uid
+        uid: user.uid,
+        email: user.email
       }
       store.dispatch(actions.login(nonGoogleUser));
       hashHistory.push('/dashboard');

@@ -136,6 +136,7 @@ class AddPerm extends React.Component {
 											<option>Dice Posting</option>
 											<option>LinkedIn Posting</option>
 											<option>LinkedIn INmail</option>
+											<option>Clearance Jobs</option>
 											<option>Referral</option>
 											<option>Pass-through</option>
 											<option>Other</option>
