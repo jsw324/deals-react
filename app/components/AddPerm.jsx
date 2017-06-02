@@ -4,8 +4,6 @@ const actions = require('actions');
 const moment = require('moment');
 
 import AddContractor from 'AddContractor';
-import SelectRecruiter from 'SelectRecruiter';
-
 
 class AddPerm extends React.Component {
   	constructor (props) {
@@ -49,7 +47,7 @@ class AddPerm extends React.Component {
 		if (recruiters.length > 0) {
 			var items = recruiters.map((recruiter) => {
 				return (
-					<option value={recruiter.id}>{recruiter.name}</option>
+					<option key={recruiter.id} value={recruiter.id}>{recruiter.name}</option>
 				)
 			});
 			return 	<select id={value} ref={value} defaultValue="Employee Name">{items}</select>
@@ -120,8 +118,7 @@ class AddPerm extends React.Component {
 
 								<div className="row">
 									<div className="input-field col s4 offset-s2">
-										<input id="startDate" ref="startDate" type="date" className="datepicker" placeholder="Start Date"/>
-										
+										<input id="startDate" ref="startDate" type="date" className="datepicker" placeholder="Start Date"/>			
 									</div>
 
 									<div className="input-field col s4">
@@ -132,7 +129,7 @@ class AddPerm extends React.Component {
 								<div className="row">
 									<div className="input-field col s6 offset-s3">
 										<select id="source" ref="source">
-											<option disabled defaultView>Source</option>
+											<option disabled default>Source</option>
 											<option>Monster Search</option>
 											<option>Monster Posting</option>
 											<option>Dice Search</option>

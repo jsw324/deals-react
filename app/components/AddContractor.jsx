@@ -23,7 +23,7 @@ class AddDeal extends React.Component {
 		if (recruiters.length > 0) {
 			var items = recruiters.map((recruiter) => {
 				return (
-					<option value={recruiter.id}>{recruiter.name}</option>
+					<option key={recruiter.id} value={recruiter.id}>{recruiter.name}</option>
 				)
 			});
 			return 	<select id={value} ref={value} defaultValue="Employee Name">{items}</select>
@@ -113,7 +113,7 @@ class AddDeal extends React.Component {
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<input id="name" ref="name" type="text" className="validate"/>
-									<label for="name">Name</label>
+									<label>Name</label>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
@@ -139,12 +139,12 @@ class AddDeal extends React.Component {
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
 									<input id="hourly" ref="hourly" type="text" className="validate" onChange={this.handleChange}/>
-									<label for="hourly">Pay Rate</label>
+									<label>Pay Rate</label>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
 									<input id="billRate" ref="billRate" type="text" className="validate" onChange={this.handleChange}/>
-									<label for="bill-rate">Bill Rate</label>
+									<label>Bill Rate</label>
 								</div>
       				</div>
 
@@ -155,23 +155,23 @@ class AddDeal extends React.Component {
 
 								<div className="input-field col s4 offest-s2">
 									<input id="client" ref="client" type="text" className="validate"/>
-									<label for="client">Client</label>
+									<label>Client</label>
 								</div>
       				</div>
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<select id="source" ref="source">
-											<option disabled defaultView>Source</option>
-											<option>Monster Search</option>
-											<option>Monster Posting</option>
-											<option>Dice Search</option>
-											<option>Dice Posting</option>
-											<option>LinkedIn Posting</option>
-											<option>LinkedIn INmail</option>
-											<option>Referral</option>
-											<option>Pass-through</option>
-											<option>Other</option>
+									<select selected="source" id="source" ref="source">
+											<option value="" disabled default>Source</option>
+											<option value="Monster search">Monster Search</option>
+											<option value="Monster posting">Monster Posting</option>
+											<option value="Dice search">Dice Search</option>
+											<option value="Dice posting">Dice Posting</option>
+											<option value="LinkedIn Posting">LinkedIn Posting</option>
+											<option value="LinkedIn InMail">LinkedIn INmail</option>
+											<option value="referral">Referral</option>
+											<option value="pass-thru">Pass-through</option>
+											<option value="other">Other</option>
 										</select>
 										<label>Source</label>
 								</div>

@@ -1,28 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+const utils = require('./../utils/utils.js');
 const moment = require('moment');
-import {Bar} from 'react-chartjs-2';
-
-//get month as an array index, i.e. jan is 0, feb is 1
-var getMonth = (month) => {
-  var mom = moment(month, 'MM/DD/YYYY');
-  return  mom.month();
-}
+import { Bar } from 'react-chartjs-2';
 
 class PermChart extends React.Component {
   constructor (props) {
       super(props);
     }
   render () {
-      var {deals} = this.props;
+      var { deals } = this.props;
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
       // iterate over each deal, pushing to the corresponding month.
       // End result is to create an array with the total amount of fees for each month.
         deals.map((val) => {
           val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
-          var month = getMonth(val.startDate);
+          var month = utils.getMonth(val.startDate);
           var fee = val.fee/100 * val.salary;
           
           switch (month) {

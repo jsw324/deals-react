@@ -54,7 +54,7 @@ class AddRecruiters extends React.Component {
               <div className="row">
                 <div className="input-field col s4 offset-s4">
                   <select id="isRecruiter" ref="isRecruiter">
-                    <option value="" disabled>Recrutier or Sales?</option>
+                    <option value="" disabled>Recruiter or Sales?</option>
                     <option value="recruiter">Recruiter</option>
                     <option value="sales">Sales</option>
                   </select>
