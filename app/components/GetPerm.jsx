@@ -27,6 +27,7 @@ class GetPerm extends React.Component {
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
     this.renderContractList = this.renderContractList.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
   }
 
   onLogout(e) {
@@ -38,9 +39,15 @@ class GetPerm extends React.Component {
   //when component loads, get all Perm and contract deals.
   componentWillMount () {
     var { dispatch } = this.props;
-    dispatch(actions.getPerm());
-    dispatch(actions.getContract());
-    dispatch(actions.getRecruiters());
+    dispatch(actions.getRecruiters()).then((val) => {
+      dispatch(actions.getPerm());
+      dispatch(actions.getContract());
+    });
+  }
+
+  componentDidMount () {
+    var { dispatch } = this.props;
+   
   }
 
   handleOpenPermModal () {
@@ -55,12 +62,22 @@ class GetPerm extends React.Component {
     dispatch(actions.toggleContractModal());
   }
 
+  handleChecked (event) {
+    var { dispatch } = this.props;
+    console.log('hey');
+    event.preventDefault();
+    console.log('event', event);
+    const target = event.target;
+    dispatch(actions.toggleCompletedContracts());
+  //const value = target.type === 'checkbox' ? target.checked : target.value;
+  }
+
   renderContractList() {
-    var { getContract, endContractModal } = this.props;
+    var { getContract, toggleCompletedContracts } = this.props;
     if (getContract.length > 0) {
       //call ContractList component and pass allContractor object as prop
       var items = getContract.map((contractors) => {
-        if (contractors.completedDate === '') {
+        if (contractors.completedDate === '' || toggleCompletedContracts === true) {
           return (
             <div><ContractList key={contractors.id} allContractors={contractors} /></div>
           )
@@ -88,7 +105,7 @@ class GetPerm extends React.Component {
  
 
   renderPerm () {
-    var { getPerm, getContract, recruiters, permModal, contractModal, auth } = this.props;
+    var { getPerm, getContract, recruiters, permModal, contractModal, auth, toggleCompletedContracts } = this.props;
 
     //define columns of ReactTable component
     const columns = [{
@@ -122,10 +139,11 @@ class GetPerm extends React.Component {
   }]
   
     if (getContract.length >= 0){
+      var ytdPermFees = 0;
       var deals = getPerm.map((val) => {
-        console.log('TYPE', typeof val.startDate);
+        ytdPermFees += (val.salary * (val.fee/100));
+        console.log(ytdPermFees + ' ' + val.fee);
         if (typeof val.startDate !== 'string') {
-          console.log('here', val.startDate);
           val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
         };
         return {
@@ -140,7 +158,7 @@ class GetPerm extends React.Component {
           startDate: val.startDate
         }
       });
-      console.log('STDD', deals[0].startDate);
+      //console.log('STDD', deals[0].startDate);
       return (
        <div>
         <div className="dashboard__body">
@@ -158,10 +176,26 @@ class GetPerm extends React.Component {
             <div className="col s10 offset-s1 l6">
               <div className="contract__chart z-depth-3">
                 <h5 className="center-align">Contract</h5>
-                <ContractChart spread={ getContract }/>
+                <ContractChart spread={ getContract } />
               </div>
             </div>
         </div>
+
+        <div className="row">
+          <div className="col s10 offset-s1 l6 contract__box">
+            <div className="perm__chart z-depth-3">
+              <h5 className="center-align"><b>Year to Date Perm</b></h5>
+              <h4 className="center-align">{format({prefix: '$'})(ytdPermFees)}</h4>
+            </div>
+          </div>
+          <div className="col s10 offset-s1 l6 contract__box">
+            <div className="perm__chart z-depth-3">
+              <h5 className="center-align"><b>Year to Date Contract Spread</b></h5>
+              <h4 className="center-align">{format({prefix: '$'})(ytdPermFees)}</h4>
+            </div>
+          </div>
+        </div>
+
         <div className="fixed-action-btn">
           <a className="btn-floating btn-large red">
             <i className="large material-icons">add</i>
@@ -188,7 +222,7 @@ class GetPerm extends React.Component {
           </Modal>
         <div className="row">
           <div className="content__container">
-            <h5 className="center-align">Active Contractors</h5> 
+            <h5 className="center-align">Active Contractors <button className="btn center-align blue" onClick={ this.handleChecked }>Show Completed?</button></h5>
             <div className="divider"></div>
           </div>
              {this.renderContractList()}

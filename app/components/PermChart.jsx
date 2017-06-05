@@ -11,15 +11,15 @@ class PermChart extends React.Component {
     }
   render () {
       var { deals } = this.props;
+      console.log('deals', deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
       // iterate over each deal, pushing to the corresponding month.
       // End result is to create an array with the total amount of fees for each month.
         deals.map((val) => {
-          val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
+         // val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
           var month = utils.getMonth(val.startDate);
           var fee = val.fee/100 * val.salary;
-          
           switch (month) {
             case 0:
               jan += fee;
@@ -43,7 +43,6 @@ class PermChart extends React.Component {
         });
     
       obj.push(jan, feb, march, april, may, jun);
-
     var chartData = {
     labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [

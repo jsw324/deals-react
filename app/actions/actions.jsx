@@ -46,7 +46,7 @@ export var postContract = (data) => {
   console.log('CONTRACT DATA', data);
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var contractRef = firebaseRef.child(`users/contract/${uid}`).push(data);
+    var contractRef = firebaseRef.child(`users/contract/`).push(data);
 
     return contractRef.then(() => {
       dispatch(completePostContract({
@@ -56,6 +56,73 @@ export var postContract = (data) => {
     });
   };
 };
+
+export var toggleCompletedContracts = (data) => {
+  return {
+    type: 'TOGGLE_COMPLETED_CONTRACTS'
+  };
+};
+
+//////////////////////////////////
+//--- GET CONTRACT DEALS -------///
+//////////////////////////////////
+
+export var completeGetContract = (data) => {
+  return {
+    type: 'COMPLETE_GET_CONTRACT',
+    data: data
+  }
+};
+
+export var getContract = () => {
+  return (dispatch, getState) => {
+    var email = getState().auth.email;
+    var recruiters = getState().recruiters;
+    //match logged in users email to email from FB to get Id
+    var userId;
+    recruiters.forEach((recruiter) => {
+      if (email === recruiter.email) {
+        userId = recruiter.id;
+        console.log('CID', userId);
+      }
+    });
+
+    var contractRef = firebaseRef.child(`users/contract/`)
+    return contractRef.once('value').then((snapshot) => {
+      var contractDeals = snapshot.val() || {};
+      var parsedDeals = [];
+      Object.keys(contractDeals).forEach((deal) => {
+        parsedDeals.push({
+          id: deal,
+          ...contractDeals[deal]
+          
+        });
+      });
+      // only push deals that belong to logged in users recruiter.Id
+      var byRecruiter = [];
+      parsedDeals.forEach((deal) => {
+        if (userId === deal.recruiter || userId === deal.sales) {
+          byRecruiter.push(deal);
+        }
+      });
+      console.log('byR Contract', byRecruiter);
+      dispatch(completeGetContract(byRecruiter));
+    })
+  }
+}
+
+export var endContract = (contractors) => {
+  return (dispatch, getState) => {
+    console.log("ACTION", contractors);
+    var uid = getState().auth.uid;
+    firebaseRef.child(`users/contract/${contractors.id}`).set({
+      ...contractors
+    })
+    dispatch(getContract());
+  };
+}
+
+
 
 
 
@@ -99,20 +166,35 @@ export var completeGetPerm = (data) => {
 export var getPerm = () => {
   return (dispatch, getState) => {
     var email = getState().auth.email;
-    console.log('email', email);
+    var recruiters = getState().recruiters;
+    // match logged in users email to email from FB to get ID
+    var userId;
+    recruiters.forEach((recruiter) => {
+      if (email === recruiter.email) {
+        userId = recruiter.id;
+        console.log('ID', userId);
+      }
+    })
+    // get all Perm Deals from FB
     var permRef = firebaseRef.child(`users/perm/`)
     return permRef.once('value').then((snapshot) => {
       var permDeals = snapshot.val() || {};
       var parsedDeals = [];
       Object.keys(permDeals).forEach((deal) => {
-        console.log("DATE", permDeals[deal].startDate);
         parsedDeals.push({
           id: deal,
           ...permDeals[deal]
         });
       });
-      console.log('parsed deals', parsedDeals[0].startDate);
-      dispatch(completeGetPerm(parsedDeals));
+      // only push deals that belong to logged in users recruiter.Id
+      var byRecruiter = [];
+      parsedDeals.forEach((deal) => {
+        if (userId === deal.recruiter || userId === deal.sales) {
+          byRecruiter.push(deal);
+        }
+      });
+      console.log('byRecruiter', byRecruiter);
+      dispatch(completeGetPerm(byRecruiter));
     })
   }
 }
@@ -178,52 +260,6 @@ export var completeGetRecruiters = (data) => {
     data: data
   }
 };
-
-
-
-
-//////////////////////////////////
-//--- GET CONTRACT DEALS -------///
-//////////////////////////////////
-
-export var completeGetContract = (data) => {
-  return {
-    type: 'COMPLETE_GET_CONTRACT',
-    data: data
-  }
-};
-
-export var getContract = () => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var contractRef = firebaseRef.child(`users/contract/${uid}`)
-    return contractRef.once('value').then((snapshot) => {
-      var contractDeals = snapshot.val() || {};
-      var parsedDeals = [];
-      Object.keys(contractDeals).forEach((deal) => {
-        parsedDeals.push({
-          id: deal,
-          ...contractDeals[deal]
-          
-        });
-      });
-      dispatch(completeGetContract(parsedDeals));
-    })
-  }
-}
-
-export var endContract = (contractors) => {
-  return (dispatch, getState) => {
-    console.log("ACTION", contractors);
-    var uid = getState().auth.uid;
-    firebaseRef.child(`users/contract/${uid}/${contractors.id}`).set({
-      ...contractors
-    })
-    dispatch(getContract());
-  };
-}
-
-
 
 //////////////////////////////////
 //----USER ACTIONS-------///
