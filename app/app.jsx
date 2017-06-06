@@ -21,6 +21,10 @@ store.subscribe(() => {
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
+    var isAdmin = false;
+    if (user.email === 'jwalkow@tallience.com') {
+      isAdmin = true;
+    }
     if (user.displayName) {
       store.dispatch(actions.login(user));
       hashHistory.push('/dashboard');
@@ -29,7 +33,8 @@ firebase.auth().onAuthStateChanged((user) => {
         displayName: user.email,
         photoURL: 'http://lcta.ie/wp-content/uploads/2016/02/avatar-blank-icon.png',
         uid: user.uid,
-        email: user.email
+        email: user.email,
+        isAdmin: isAdmin
       }
       store.dispatch(actions.login(nonGoogleUser));
       hashHistory.push('/dashboard');

@@ -5,7 +5,8 @@ export var authReducer = (state = {}, action) => {
         uid: action.uid,
         photo: action.photo,
         name: action.name,
-        email: action.email
+        email: action.email,
+        isAdmin: action.isAdmin
       };
     case 'LOGOUT':
       return {};

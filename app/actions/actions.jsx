@@ -164,6 +164,7 @@ export var getPerm = () => {
   return (dispatch, getState) => {
     var email = getState().auth.email;
     var recruiters = getState().recruiters;
+    var isAdmin = getState().auth.isAdmin;
     // match logged in users email to email from FB to get ID
     var userId;
     recruiters.forEach((recruiter) => {
@@ -189,7 +190,11 @@ export var getPerm = () => {
           byRecruiter.push(deal);
         }
       });
-      dispatch(completeGetPerm(byRecruiter));
+      if (isAdmin === true) {
+        dispatch(completeGetPerm(parsedDeals));
+      } else {
+        dispatch(completeGetPerm(byRecruiter));
+      }
     })
   }
 }
@@ -262,6 +267,10 @@ export var completeGetRecruiters = (data) => {
 
 export var login = (user) => {
   if (!user.displayName) {
+    var isAdmin = false;
+    if (user.email === 'jwalkow@tallience.com') {
+      isAdmin = true;
+    }
     return {
       type: 'LOGIN',
       displayName: user.email,

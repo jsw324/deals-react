@@ -191,7 +191,7 @@ class GetPerm extends React.Component {
           <div className="col s6 l6 contract__box">
             <div className="perm__chart z-depth-3">
               <h5 className="center-align"><b>Year to Date Contract Spread</b></h5>
-              <h4 className="center-align">{format({prefix: '$'})(ytdPermFees)}</h4>
+              <h4 className="center-align">{format({prefix: '$'})(0)}</h4>
             </div>
           </div>
         </div>
