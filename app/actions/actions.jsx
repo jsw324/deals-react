@@ -83,7 +83,6 @@ export var getContract = () => {
     recruiters.forEach((recruiter) => {
       if (email === recruiter.email) {
         userId = recruiter.id;
-        console.log('CID', userId);
       }
     });
 
@@ -105,7 +104,6 @@ export var getContract = () => {
           byRecruiter.push(deal);
         }
       });
-      console.log('byR Contract', byRecruiter);
       dispatch(completeGetContract(byRecruiter));
     })
   }
@@ -113,7 +111,6 @@ export var getContract = () => {
 
 export var endContract = (contractors) => {
   return (dispatch, getState) => {
-    console.log("ACTION", contractors);
     var uid = getState().auth.uid;
     firebaseRef.child(`users/contract/${contractors.id}`).set({
       ...contractors
@@ -172,7 +169,6 @@ export var getPerm = () => {
     recruiters.forEach((recruiter) => {
       if (email === recruiter.email) {
         userId = recruiter.id;
-        console.log('ID', userId);
       }
     })
     // get all Perm Deals from FB
@@ -193,7 +189,6 @@ export var getPerm = () => {
           byRecruiter.push(deal);
         }
       });
-      console.log('byRecruiter', byRecruiter);
       dispatch(completeGetPerm(byRecruiter));
     })
   }
@@ -267,7 +262,6 @@ export var completeGetRecruiters = (data) => {
 
 export var login = (user) => {
   if (!user.displayName) {
-    console.log('UUUSER', user);
     return {
       type: 'LOGIN',
       displayName: user.email,

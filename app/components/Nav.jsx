@@ -41,7 +41,6 @@ class Nav extends React.Component{
 
   getPhoto() {
     var { auth } = this.props;
-    console.log('navauth', auth);
     if (auth.name) {
       var photoURL = auth.photo;
       var userName = auth.name;
@@ -52,7 +51,7 @@ class Nav extends React.Component{
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
             <Link className="flow-text" to="/dashboard">My Dashboard</Link>
-            <Link to="/admin" className="flow-text">My Commission</Link>
+            <Link to="#" className="flow-text">My Commission</Link>
             <a href="#" className="flow-text">PTO Requests</a>
             <a onClick={this.onLogout} className="flow-text">Logout</a>
           </ul>

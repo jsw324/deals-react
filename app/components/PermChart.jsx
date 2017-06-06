@@ -11,7 +11,6 @@ class PermChart extends React.Component {
     }
   render () {
       var { deals } = this.props;
-      console.log('deals', deals);
       var obj = [];
       var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
       // iterate over each deal, pushing to the corresponding month.

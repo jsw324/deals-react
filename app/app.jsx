@@ -21,7 +21,6 @@ store.subscribe(() => {
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('USER%', user);
     if (user.displayName) {
       store.dispatch(actions.login(user));
       hashHistory.push('/dashboard');

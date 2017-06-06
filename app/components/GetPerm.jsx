@@ -64,12 +64,9 @@ class GetPerm extends React.Component {
 
   handleChecked (event) {
     var { dispatch } = this.props;
-    console.log('hey');
     event.preventDefault();
-    console.log('event', event);
     const target = event.target;
     dispatch(actions.toggleCompletedContracts());
-  //const value = target.type === 'checkbox' ? target.checked : target.value;
   }
 
   renderContractList() {
@@ -79,7 +76,11 @@ class GetPerm extends React.Component {
       var items = getContract.map((contractors) => {
         if (contractors.completedDate === '' || toggleCompletedContracts === true) {
           return (
-            <div><ContractList key={contractors.id} allContractors={contractors} /></div>
+            <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
+          )
+        } else {
+          return (
+            <h6 key="4" className="center-align">No Contractors on billing <i className="fa fa-frown-o" aria-hidden="true"></i></h6>
           )
         }
       });
@@ -142,7 +143,6 @@ class GetPerm extends React.Component {
       var ytdPermFees = 0;
       var deals = getPerm.map((val) => {
         ytdPermFees += (val.salary * (val.fee/100));
-        console.log(ytdPermFees + ' ' + val.fee);
         if (typeof val.startDate !== 'string') {
           val.startDate = moment.unix(val.startDate).format('MM/DD/YYYY');
         };
@@ -182,13 +182,13 @@ class GetPerm extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col s10 offset-s1 l6 contract__box">
+          <div className="col s6 l6 contract__box">
             <div className="perm__chart z-depth-3">
               <h5 className="center-align"><b>Year to Date Perm</b></h5>
               <h4 className="center-align">{format({prefix: '$'})(ytdPermFees)}</h4>
             </div>
           </div>
-          <div className="col s10 offset-s1 l6 contract__box">
+          <div className="col s6 l6 contract__box">
             <div className="perm__chart z-depth-3">
               <h5 className="center-align"><b>Year to Date Contract Spread</b></h5>
               <h4 className="center-align">{format({prefix: '$'})(ytdPermFees)}</h4>
