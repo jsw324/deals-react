@@ -3,3 +3,4 @@ public/bundle.js
 config/
 fonts/
 .chrome/
+.vscode/
