@@ -30,9 +30,9 @@ class EndContract extends React.Component {
 			console.log('noerror', endDate.value);
 			//change date to usable format
 			var endedDay = moment(endDate.value, "DD MMM, YYYY").unix();
-			var day = moment.unix(endedDay).format('MM/DD/YYYY');
+			//var day = moment.unix(endedDay).format('MM/DD/YYYY');
 			//push formatted enddate to object
-			contractor.completedDate = day;
+			contractor.completedDate = endedDay;
 			//close modal and send off action 
 			dispatch(actions.hideEndContractModal());
 			dispatch(actions.endContract(contractor));

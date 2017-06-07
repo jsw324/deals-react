@@ -8,6 +8,7 @@
  var format = require('format-number');
  const actions = require('actions'); 
  var Modal = require('react-modal');
+ const utils = require('./utils/utils.js');
 
  class ContractList extends React.Component {
    constructor (props) {
@@ -25,7 +26,8 @@
      var { allContractors, endContractModal, dispatch } = this.props;
      if (allContractors !== undefined) {
        if (typeof allContractors.startDate === 'number') {
-          allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
+
+         // allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
         }
        return (
          <div className="contractor__container">
@@ -40,7 +42,7 @@
               </div>
 
               <div className="col s2">
-                <li className="flow-text">{allContractors.startDate}</li>
+                <li className="flow-text">{utils.formatDate(allContractors.startDate)}</li>
               </div>
 
               <div className="col s2">

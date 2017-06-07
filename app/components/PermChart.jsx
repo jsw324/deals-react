@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const utils = require('./../utils/utils.js');
+const utils = require('./utils/utils.js');
 const moment = require('moment');
 import { Bar } from 'react-chartjs-2';
 

@@ -1,18 +1,14 @@
 import React from 'react';
+const utils = require('./utils/utils.js');
 
 var format = require('format-number');
 const moment = require('moment');
 import { Line } from 'react-chartjs-2';
 
-//TODO: function - move to utils
-var getMonth = (month) => {
-  var mom = moment.unix(month);
-  return  mom.month();
-}
-
 const ContractChart = (props) => {
   var { spread } = props;
-
+  //TODO: write utility function to store spread as an object, by contractor for easy access.
+  utils.getSpread(spread);
   // get 6 months of week ending dates
   //TODO: change to trailing 6 months from the last Sunday from todays date.
   var dates = [];
