@@ -11,8 +11,8 @@ import PermChart from 'PermChart';
 import ContractChart from 'ContractChart';
 import AddPerm from 'AddPerm';
 import AddContractor from 'AddContractor';
-import ContractList from 'ContractList';
 import EndContractModal from 'EndContractModal';
+import ContractorContainer from 'ContractorContainer';
 
 var Modal = require('react-modal');
 var format = require('format-number');
@@ -27,8 +27,6 @@ class GetPerm extends React.Component {
     this.onLogout = this.onLogout.bind(this);
     this.handleOpenPermModal = this.handleOpenPermModal.bind(this);
     this.handleOpenContractModal = this.handleOpenContractModal.bind(this);
-    this.renderContractList = this.renderContractList.bind(this);
-    this.handleChecked = this.handleChecked.bind(this);
   }
 
   onLogout(e) {
@@ -64,33 +62,6 @@ class GetPerm extends React.Component {
     console.log('contract modal');
     dispatch(actions.toggleContractModal());
   }
-
-  handleChecked (event) {
-    var { dispatch } = this.props;
-    event.preventDefault();
-    const target = event.target;
-    dispatch(actions.toggleCompletedContracts());
-  }
-
-  renderContractList() {
-    var { getContract, toggleCompletedContracts } = this.props;
-    if (getContract.length > 0) {
-      //call ContractList component and pass allContractor object as prop
-      var items = getContract.map((contractors) => {
-        if (contractors.completedDate === '' || toggleCompletedContracts === true) {
-          return (
-            <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
-          )
-        }
-      });
-      //return items for rendering in JSX
-      return <div>{items}</div>
-    } else {
-      return (
-            <h6 key="4" className="center-align">No Contractors on billing <i className="fa fa-frown-o" aria-hidden="true"></i></h6>
-          )
-      }
-  };
 
   getRecruiterName(id) {
     var { recruiters } = this.props;
@@ -223,12 +194,7 @@ class GetPerm extends React.Component {
           >
           <AddContractor/>
           </Modal>
-        <div className="row">
-          <div className="content__container">
-            <h5 className="center-align">Active Contractors <button className="btn center-align blue" onClick={ this.handleChecked }>Show Completed?</button></h5>
-            <div className="divider"></div>
-          </div>
-             {this.renderContractList()}
+          <ContractorContainer contractors={getContract} toggleCompleted={toggleCompletedContracts}/>
             <div className="content__container"> 
               <h5 className="center-align">Perm Placements</h5>
               <div className="divider"></div>
@@ -243,9 +209,6 @@ class GetPerm extends React.Component {
                 </div>
               </div>
           </div>
-        </div>
-
-
         </div>
       )
     } else {
