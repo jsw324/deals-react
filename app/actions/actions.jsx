@@ -43,7 +43,11 @@ export var completePostContract = (data) => {
 };
 
 export var postContract = (data) => {
-  console.log('CONTRACT DATA', data);
+  if (data.isW2 === "1099") {
+    data.spread = Math.floor((data.billRate - (data.hourly * 1.05)) * 40);
+  } else {
+     data.spread = Math.floor((data.billRate - (data.hourly * 1.15)) * 40);
+  }
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var contractRef = firebaseRef.child(`users/contract/`).push(data);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
+const utils = require('./utils/utils.js');
 
 import moment from 'moment';
 import ReactTable from 'react-table';
@@ -43,6 +44,8 @@ class GetPerm extends React.Component {
       dispatch(actions.getPerm());
       dispatch(actions.getContract());
     });
+    // TODO: break YTD Perm and Contract boxes out to their own component
+
   }
 
   componentDidMount () {
@@ -78,15 +81,15 @@ class GetPerm extends React.Component {
           return (
             <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
           )
-        } else {
-          return (
-            <h6 key="4" className="center-align">No Contractors on billing <i className="fa fa-frown-o" aria-hidden="true"></i></h6>
-          )
         }
       });
       //return items for rendering in JSX
       return <div>{items}</div>
-    };
+    } else {
+      return (
+            <h6 key="4" className="center-align">No Contractors on billing <i className="fa fa-frown-o" aria-hidden="true"></i></h6>
+          )
+      }
   };
 
   getRecruiterName(id) {
@@ -158,7 +161,7 @@ class GetPerm extends React.Component {
           startDate: val.startDate
         }
       });
-      //console.log('STDD', deals[0].startDate);
+      var ytdSpread = utils.ytdSpread(getContract);
       return (
        <div>
         <div className="dashboard__body">
@@ -191,7 +194,7 @@ class GetPerm extends React.Component {
           <div className="col s6 l6 contract__box">
             <div className="perm__chart z-depth-3">
               <h5 className="center-align"><b>Year to Date Contract Spread</b></h5>
-              <h4 className="center-align">{format({prefix: '$'})(0)}</h4>
+              <h4 className="center-align">{format({prefix: '$'})(ytdSpread)}</h4>
             </div>
           </div>
         </div>

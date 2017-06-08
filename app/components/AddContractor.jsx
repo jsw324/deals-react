@@ -54,6 +54,8 @@ class AddDeal extends React.Component {
 		console.log('target value', target.value);
 		if (target.id === 'billRate') {
 			value = target.value;
+		} else if (target.id === 'hourly') {
+			value = target.value;
 		} else {
 			value = target.value;
 		}
@@ -64,7 +66,13 @@ class AddDeal extends React.Component {
 	}
 //TODO: calculate w/ 1099 vs w2
 	componentDidUpdate() {
-		console.log('state', this.state);
+		var { billRate, hourly, isW2 } = this.refs;
+		console.log('BR', billRate.value);
+		console.log('STTE', this.state.billRate);
+		console.log('W2', isW2.value);
+		if (isW2 === true) { 
+			
+		}
 		var spreads = (this.state.billRate - this.state.hourly) * 40;
 		document.getElementById('spreadAmount').innerHTML = 'SPREAD: ' +  '$' + spreads;
 	}
@@ -119,7 +127,7 @@ class AddDeal extends React.Component {
 								<div className="input-field col s4 offest-s2">
 									<select id="isW2" ref="isW2" defaultValue="Employment Type">
 										<option value="" disabled>Employment Type</option>
-										<option value="w2">W2</option>
+										<option value="w2" onChange={this.handleChange}>W2</option>
 										<option value="1099">1099</option>
 									</select>
 								</div>

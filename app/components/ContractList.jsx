@@ -25,10 +25,6 @@
    renderContractor() {
      var { allContractors, endContractModal, dispatch } = this.props;
      if (allContractors !== undefined) {
-       if (typeof allContractors.startDate === 'number') {
-
-         // allContractors.startDate = moment.unix(allContractors.startDate).format('MM/DD/YYYY');
-        }
        return (
          <div className="contractor__container">
           <div className="collection z-depth-2 contractor__list">

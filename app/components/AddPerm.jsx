@@ -41,8 +41,6 @@ class AddPerm extends React.Component {
 
 	//TODO: get all recruiters and display dropdown of available employees
 	renderSelectRecruiters(value) {
-		console.log('value', value);
-		console.log('PPROPS', this.props);
 		var { recruiters } = this.props;
 		if (recruiters.length > 0) {
 			var items = recruiters.map((recruiter) => {

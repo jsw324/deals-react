@@ -12,7 +12,6 @@ export var formatDate = (unixDate) => {
 }
 
 export var getSpread = (spread) => {
-    console.log('sp', spread);
     var spreadByDate = [];
     var weeklySpread = 0;
     var sprd = 0;
@@ -23,28 +22,17 @@ export var getSpread = (spread) => {
         sundays.push(startDateVar.format("MM/DD/YYYY"));
         startDateVar = startDateVar.add(7, 'days')
     }
-    console.log('sundays', sundays);
     sundays.forEach((date) => {
         spread.forEach((contractor) => {
-            var spread;
-            if (contractor.isW2 === "1099") {
-                sprd = Math.floor((contractor.billRate - (contractor.hourly * 1.05)) * 40);
-            } else {
-                sprd = Math.floor((contractor.billRate - (contractor.hourly * 1.15)) * 40);
-            }
             if (contractor.completedDate === '') {
-                var completedDate = "01/01/2100";
+                var completedDate = moment().set({ 'year': 2100, 'month': 0, 'day': 1 });;
             } else {
                 completedDate = formatDate(contractor.completedDate);
             }
             var startDate = formatDate(contractor.startDate);
-            if (moment(date).isBefore(completedDate) && moment(date).isAfter(startDate)) {
-                console.log(moment(date).isBefore(completedDate));
-                console.log(moment(date).isAfter(startDate));
-                console.log('sprd', sprd);
-                console.log('---');
-                weeklySpread += sprd;
-            }
+            if (moment(date).isBefore(moment(completedDate)) && moment(date).isAfter(moment(startDate))) {
+                weeklySpread += contractor.spread;
+            };
         });
         spreadByDate.push({
             date: date,
@@ -52,5 +40,17 @@ export var getSpread = (spread) => {
         });
         weeklySpread = 0;
     });
-    console.log('BYDATE', spreadByDate);
+    return spreadByDate;
+};
+
+export var ytdSpread = (spread) => {
+    var total = 0;
+    var now = moment();
+    var spreadArr = getSpread(spread);
+    spreadArr.forEach((contractor) => {
+        if (moment(contractor.date).isBefore(now)) {
+            total += contractor.spread;
+        }
+    });
+    return total;
 }
