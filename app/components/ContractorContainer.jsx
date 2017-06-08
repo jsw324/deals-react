@@ -74,4 +74,4 @@ class ContractorContainer extends React.Component {
   }
 };
 
-export default ContractorContainer
+export default connect()(ContractorContainer);
