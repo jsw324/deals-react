@@ -132,6 +132,7 @@ class GetPerm extends React.Component {
           startDate: val.startDate
         }
       });
+      var currentSpread = utils.currentSpread(getContract);
       var ytdSpread = utils.ytdSpread(getContract);
       return (
        <div>
@@ -166,6 +167,15 @@ class GetPerm extends React.Component {
             <div className="perm__chart z-depth-3">
               <h5 className="center-align"><b>Year to Date Contract Spread</b></h5>
               <h4 className="center-align">{format({prefix: '$'})(ytdSpread)}</h4>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col s6 l6 offset-s3 offset-l3 contract__box">
+            <div className="perm__chart z-depth-3">
+              <h5 className="center-align"><b>Current Spread</b></h5>
+              <h4 className="center-align">{format({prefix: '$'})(currentSpread)}/week</h4>
             </div>
           </div>
         </div>

@@ -54,3 +54,13 @@ export var ytdSpread = (spread) => {
     });
     return total;
 }
+
+export var currentSpread = (spread) => {
+    var currentSpread = 0;
+    spread.forEach((contractor) => {
+        if (contractor.completedDate === '') {
+            currentSpread += contractor.spread;
+        }
+    });
+    return currentSpread;
+}

@@ -15,6 +15,11 @@ class ContractorContainer extends React.Component {
   renderContractList() {
     var { contractors, toggleCompleted } = this.props;
     if (contractors.length > 0) {
+      console.log('CONTRACTORS', contractors);
+      contractors.sort((a, b) => {
+        return a.completedDate - b.completedDate;
+      });
+      console.log('SORTED', contractors);
       //call ContractList component and pass allContractor object as prop
       var items = contractors.map((contractors) => {
         if (contractors.completedDate === '' || toggleCompleted === true) {
