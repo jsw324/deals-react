@@ -82,6 +82,7 @@ export var getContract = () => {
   return (dispatch, getState) => {
     var email = getState().auth.email;
     var recruiters = getState().recruiters;
+    var isAdmin = getState().auth.isAdmin;
     //match logged in users email to email from FB to get Id
     var userId;
     recruiters.forEach((recruiter) => {
@@ -108,7 +109,11 @@ export var getContract = () => {
           byRecruiter.push(deal);
         }
       });
-      dispatch(completeGetContract(byRecruiter));
+      if (isAdmin === true) {
+        dispatch(completeGetContract(parsedDeals));
+      } else {
+        dispatch(completeGetContract(byRecruiter));
+      }
     })
   }
 }
