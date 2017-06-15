@@ -22,7 +22,7 @@ store.subscribe(() => {
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     var isAdmin = false;
-    if (user.email === 'jwalkow@tallience.com') {
+    if (user.email === 'jwalkow@tallience.com' || user.email === 'gnacron@tallience.com') {
       isAdmin = true;
     }
     if (user.displayName) {
