@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 const actions = require('actions');
 const moment = require('moment');
 
-import AddContractor from 'AddContractor';
 
 class AddPerm extends React.Component {
   	constructor (props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ShowRecruiters from 'ShowRecruiters';
-import AddRecruiters from 'AddRecruiters';
+import ShowRecruiters from './ShowRecruiters';
+import AddRecruiters from './AddRecruiters';
 
 //This feature is not fully implemented.
 

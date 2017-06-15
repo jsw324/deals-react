@@ -24,12 +24,27 @@ class ContractorContainer extends React.Component {
       });
       console.log('now ' + now);
       console.log('SORTED', contractors);
+      const divStyle = {
+        WebKitTransition: 'all',
+        msTransition: 'all',
+        color: 'red'
+      };
       //call ContractList component and pass allContractor object as prop
       var items = contractors.map((contractors) => {
-        if ((contractors.completedDate === '' || contractors.completedDate >  now || toggleCompleted === true) && contractors.startDate < now) {
-          return (
-            <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
-          )
+        if (contractors.completedDate === '' || contractors.completedDate >  now || toggleCompleted === true) {
+          if (contractors.completedDate > now) {
+            return (
+              <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} color={'red'} /></div>
+            )
+          } else if (contractors.startDate > now) {
+            return (
+              <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} color={'green'} /></div>
+            )
+          } else {
+            return (
+              <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
+            )
+          }
         }
       });
       //return items for rendering in JSX

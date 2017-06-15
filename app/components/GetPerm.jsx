@@ -7,11 +7,11 @@ import moment from 'moment';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 
-import PermChart from 'PermChart';
-import ContractChart from 'ContractChart';
-import AddPerm from 'AddPerm';
-import AddContractor from 'AddContractor';
-import EndContractModal from 'EndContractModal';
+import PermChart from './charts/PermChart';
+import ContractChart from './charts/ContractChart';
+import AddPerm from './modals/AddPerm';
+import AddContractor from './modals/AddContractor';
+import EndContractModal from './modals/EndContractModal';
 import ContractorContainer from 'ContractorContainer';
 
 var Modal = require('react-modal');

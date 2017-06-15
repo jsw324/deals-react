@@ -7,7 +7,7 @@ import firebase from 'app/firebase/';
 import Main from 'Main';
 import Login from 'Login';
 import GetPerm from 'GetPerm';
-import Admin from 'Admin';
+import Admin from './components/admin/Admin';
 
 const actions = require('actions');
 const store = require('configureStore').configure();

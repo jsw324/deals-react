@@ -2,7 +2,7 @@
  import { connect } from 'react-redux';
 
  import EndContract from 'EndContract';
- import EndContractModal from 'EndContractModal';
+ import EndContractModal from './modals/EndContractModal';
 
  import moment from 'moment';
  var format = require('format-number');
@@ -23,14 +23,14 @@
    }
 
    renderContractor() {
-     var { allContractors, endContractModal, dispatch } = this.props;
+     var { allContractors, endContractModal, color, dispatch } = this.props;
      if (allContractors !== undefined) {
        return (
          <div className="contractor__container">
-          <div className="collection z-depth-2 contractor__list">
+          <div className="collection z-depth-2 contractor__list" style={{backgroundColor: color}}>
             <ul>
               <div className="col s2">
-                <li className="flow-text collection-item">{allContractors.name}</li>
+                <li className="flow-text">{allContractors.name}</li>
               </div>
 
               <div className="col s2">

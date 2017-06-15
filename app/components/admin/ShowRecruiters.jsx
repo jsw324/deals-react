@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EachEmployee from 'EachEmployee';
+import EachEmployee from './EachEmployee';
 
 const ShowRecruiters = (props) => {
     var { recruiters } = props;

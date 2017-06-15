@@ -1,5 +1,5 @@
 import React from 'react';
-const utils = require('./utils/utils.js');
+const utils = require('./../utils/utils.js');
 
 var format = require('format-number');
 const moment = require('moment');
