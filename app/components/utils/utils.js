@@ -56,9 +56,10 @@ export var ytdSpread = (spread) => {
 }
 
 export var currentSpread = (spread) => {
+    var now = moment().unix();
     var currentSpread = 0;
     spread.forEach((contractor) => {
-        if (contractor.completedDate === '') {
+        if ((contractor.completedDate === '' || contractor.completedDate > now) && contractor.startDate < now) {
             currentSpread += contractor.spread;
         }
     });

@@ -9,11 +9,15 @@ const {toggleContractModalReducer} = require('./../reducers/toggleContractModalR
 const {toggleEndContractReducer} = require('./../reducers/toggleEndContractReducer');
 const {recruiterReducer} = require('./../reducers/recruiterReducer');
 const {toggleCompletedContractsReducer} = require('./../reducers/toggleCompletedContractsReducer');
+const {allContractorsReducer} = require('./../reducers/allContractorsReducer');
+const {leaderboardReducer} = require('./../reducers/leaderboardReducer');
 
 export var configure = () => {
   var reducer = redux.combineReducers({
     getPerm: dealReducer,
     getContract: getContractReducer,
+    allContractors: allContractorsReducer,
+    leaderboard: leaderboardReducer,
     auth: authReducer,
     permModal: toggleModalReducer,
     contractModal: toggleContractModalReducer,

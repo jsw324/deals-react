@@ -78,6 +78,20 @@ export var completeGetContract = (data) => {
   }
 };
 
+export var allContractors = (data) => {
+  return {
+    type: 'COMPLETE_GET_ALL_CONTRACTORS',
+    data
+  }
+}
+
+export var completeGetLeaderboard = (data) => {
+  return {
+    type: 'COMPLETE_GET_LEADERBOARD',
+    data
+  }
+}
+
 export var getContract = () => {
   return (dispatch, getState) => {
     var email = getState().auth.email;
@@ -109,10 +123,34 @@ export var getContract = () => {
           byRecruiter.push(deal);
         }
       });
+      // //get spread leaderboard
+      var leaderboard = [];
+      var recruiterSpread = 0;
+      var salesSpread = 0;
+      var now = moment().unix();
+      recruiters.forEach((recruiter) => {
+        parsedDeals.forEach((deal) => {
+          if (recruiter.id === deal.recruiter && (deal.completedDate === '' || deal.completedDate >  now) && deal.startDate < now) {
+            recruiterSpread += deal.spread;
+          } else if (recruiter.id === deal.sales && (deal.completedDate === '' || deal.completedDate >  now) && deal.startDate < now) {
+            salesSpread += deal.spread;
+          }
+        })
+        leaderboard.push({
+          name: recruiter.name,
+          salesSpread: salesSpread,
+          recruiterSpread: recruiterSpread
+        });
+        recruiterSpread = 0;
+        salesSpread = 0;
+      });
       if (isAdmin === true) {
         dispatch(completeGetContract(parsedDeals));
+        dispatch(completeGetLeaderboard(leaderboard));
       } else {
         dispatch(completeGetContract(byRecruiter));
+        dispatch(allContractors(parsedDeals));
+        dispatch(completeGetLeaderboard(leaderboard));
       }
     })
   }

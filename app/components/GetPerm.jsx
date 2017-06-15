@@ -80,7 +80,7 @@ class GetPerm extends React.Component {
  
 
   renderPerm () {
-    var { getPerm, getContract, recruiters, permModal, contractModal, auth, toggleCompletedContracts } = this.props;
+    var { getPerm, getContract, recruiters, permModal, contractModal, auth, toggleCompletedContracts, allContractors } = this.props;
 
     //define columns of ReactTable component
     const columns = [{

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
 
+import moment from 'moment';
+
 import ContractList from 'ContractList';
 
 class ContractorContainer extends React.Component {
@@ -14,15 +16,17 @@ class ContractorContainer extends React.Component {
 
   renderContractList() {
     var { contractors, toggleCompleted } = this.props;
+    var now = moment().unix();
     if (contractors.length > 0) {
       console.log('CONTRACTORS', contractors);
       contractors.sort((a, b) => {
         return a.completedDate - b.completedDate;
       });
+      console.log('now ' + now);
       console.log('SORTED', contractors);
       //call ContractList component and pass allContractor object as prop
       var items = contractors.map((contractors) => {
-        if (contractors.completedDate === '' || toggleCompleted === true) {
+        if ((contractors.completedDate === '' || contractors.completedDate >  now || toggleCompleted === true) && contractors.startDate < now) {
           return (
             <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} /></div>
           )
