@@ -105,6 +105,7 @@ class AddDeal extends React.Component {
 				source: source.value,
 				state: state.value
 			};
+			Materialize.toast('Contractor Successfully Added!', 4000);
 			dispatch(actions.postContract(data));
 			dispatch(actions.toggleContractModal());
 		}

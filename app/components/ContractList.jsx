@@ -3,6 +3,7 @@
 
  import EndContract from 'EndContract';
  import EndContractModal from './modals/EndContractModal';
+ import ContractorProfileModal from './modals/ContractorProfileModal';
 
  import moment from 'moment';
  var format = require('format-number');
@@ -23,14 +24,15 @@
    }
 
    renderContractor() {
-     var { allContractors, endContractModal, color, dispatch } = this.props;
+     var { allContractors, endContractModal, color, profileModal, recruiters, dispatch } = this.props;
+     console.log('PROFILEMODAL', profileModal);
      if (allContractors !== undefined) {
        return (
          <div className="contractor__container">
           <div className="collection z-depth-2 contractor__list" style={{backgroundColor: color}}>
             <ul>
               <div className="col s2">
-                <li className="flow-text">{allContractors.name}</li>
+                <li className="flow-text thumbs__down name__color" onClick={() => dispatch(actions.showContractorProfile(allContractors))}>{allContractors.name}</li>
               </div>
 
               <div className="col s2">
@@ -60,6 +62,7 @@
           </div>
           <div className=""></div>
           <EndContractModal endContractModal={endContractModal} />
+          <ContractorProfileModal profileModal={profileModal} recruiters={recruiters} />
         </div>
        )
      }
@@ -75,7 +78,13 @@
  }
 
  var mapStateToProps = (state) => {
-   return { endContractModal: state.endContractModal }
+   return (
+     { 
+      endContractModal: state.endContractModal,
+      profileModal: state.profileModal,
+      recruiters: state.recruiters
+    }
+   )
  }
 
  export default connect(mapStateToProps)(ContractList);

@@ -32,7 +32,7 @@ class AddPerm extends React.Component {
 				title: title.value,
 				source: source.value
 			};
-		
+			Materialize.toast('Deal Successfully Added!', 4000);
 			dispatch(actions.postPerm(data));
 			dispatch(actions.togglePermModal());
 		}

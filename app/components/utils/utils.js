@@ -65,3 +65,17 @@ export var currentSpread = (spread) => {
     });
     return currentSpread;
 }
+
+export var getRecruiterName = (id, recruiters) => {
+    var result;
+    recruiters.forEach((val) => {
+        if (val.id === id) {
+            result = val.name;
+        }
+    })
+    if (result) {
+        return result;
+    } else {
+        return id;
+    }
+}

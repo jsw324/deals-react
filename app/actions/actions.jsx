@@ -31,6 +31,19 @@ export var hideEndContractModal = () => {
   }
 }
 
+export var showContractorProfile = (contractor) => {
+  return {
+    type: 'SHOW_CONTRACTOR_PROFILE',
+    modalProps: { contractor }
+  }
+}
+
+export var hideContractorProfile = () => {
+  return {
+    type: 'HIDE_CONTRACTOR_PROFILE'
+  }
+}
+
 //////////////////////////////////
 //---- POST CONTRACT DEALS-------///
 //////////////////////////////////
