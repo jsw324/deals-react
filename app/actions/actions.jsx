@@ -140,22 +140,28 @@ export var getContract = () => {
       var leaderboard = [];
       var recruiterSpread = 0;
       var salesSpread = 0;
+      var dealCount = 0;
       var now = moment().unix();
       recruiters.forEach((recruiter) => {
         parsedDeals.forEach((deal) => {
           if (recruiter.id === deal.recruiter && (deal.completedDate === '' || deal.completedDate >  now) && deal.startDate < now) {
             recruiterSpread += deal.spread;
-          } else if (recruiter.id === deal.sales && (deal.completedDate === '' || deal.completedDate >  now) && deal.startDate < now) {
+            dealCount++;
+          } 
+          if (recruiter.id === deal.sales && (deal.completedDate === '' || deal.completedDate >  now) && deal.startDate < now) {
             salesSpread += deal.spread;
+            dealCount++;
           }
         })
         leaderboard.push({
           name: recruiter.name,
-          salesSpread: salesSpread,
-          recruiterSpread: recruiterSpread
+          salesSpread,
+          recruiterSpread,
+          dealCount
         });
         recruiterSpread = 0;
         salesSpread = 0;
+        dealCount = 0;
       });
       if (isAdmin === true) {
         dispatch(completeGetContract(parsedDeals));
@@ -218,6 +224,13 @@ export var completeGetPerm = (data) => {
   }
 };
 
+export var completePermLeaderboard = (data) => {
+  return {
+    type: 'COMPLETE_PERM_LEADERBOARD',
+    data
+  }
+}
+
 //firebase getPerm
 
 export var getPerm = () => {
@@ -250,10 +263,40 @@ export var getPerm = () => {
           byRecruiter.push(deal);
         }
       });
+       var permLeaderboard = [];
+       var salesFeeTotal = 0; 
+       var recruiterFeeTotal = 0;
+       var permDealCount = 0;
+       recruiters.forEach((recruiter) => {
+        parsedDeals.forEach((deal) => {
+          var fee = deal.salary * (deal.fee/100);
+          if (recruiter.id === deal.recruiter) {
+            recruiterFeeTotal += fee;
+            permDealCount++;
+          } 
+          if (recruiter.id === deal.sales) {
+            salesFeeTotal += fee;
+            permDealCount++;
+          }
+        })
+        permLeaderboard.push({
+          name: recruiter.name,
+          salesFees: salesFeeTotal,
+          recruiterFees: recruiterFeeTotal,
+          permDealCount: permDealCount
+        });
+        salesFeeTotal = 0;
+        recruiterFeeTotal = 0;
+        permDealCount = 0;
+      });
+      console.log('FEEEEES', permLeaderboard);
+
       if (isAdmin === true) {
         dispatch(completeGetPerm(parsedDeals));
+        dispatch(completePermLeaderboard(permLeaderboard));
       } else {
         dispatch(completeGetPerm(byRecruiter));
+        dispatch(completePermLeaderboard(permLeaderboard));
       }
     })
   }

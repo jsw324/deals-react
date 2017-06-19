@@ -6,7 +6,6 @@ const utils = require('./../utils/utils.js');
 
 const ContractorProfile = (props) => {
   var { contractor, recruiters, dispatch } = props;
-  console.log("EFF", contractor);
   var recruiter = utils.getRecruiterName(contractor.recruiter, recruiters);
   var sales = utils.getRecruiterName(contractor.sales, recruiters);
   var startDate = utils.formatDate(contractor.startDate);
@@ -14,7 +13,7 @@ const ContractorProfile = (props) => {
     <div className="row">
       <div className="col s3">
         <img src="wallpaper.png" className="responsive-img"/>
-        <h5 className="center-align">{contractor.name}</h5>
+        <h5>{contractor.name}</h5>
         <h6><b>client: </b>{contractor.client}</h6>
         <h6><b>Start Date: </b>{startDate}</h6>
       </div>

@@ -5,7 +5,6 @@ import ContractorProfile from './ContractorProfile';
 
 const ContractorProfileModal = (props) => {
 	var { profileModal, recruiters } = props;
-	console.log('PROFDSF', profileModal);
 	if (profileModal === false) {
 		return (
 			<span></span>

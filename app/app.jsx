@@ -8,6 +8,7 @@ import Main from 'Main';
 import Login from 'Login';
 import GetPerm from 'GetPerm';
 import Admin from './components/admin/Admin';
+import Leaderboard from './components/leaderboard/Leaderboard';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -64,12 +65,14 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
 };
 
 
+
   ReactDOM.render(
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Main}>
           <IndexRoute component={Login} onEnter={redirectIfLoggedIn} />
           <Route path="/login" component={Login}/>
+          <route path="/leaderboard" component={Leaderboard} onEnter={requireLogin}/>
           <route path="/dashboard" component={GetPerm} onEnter={requireLogin}/>
           <route path="/admin" component={Admin} onEnter={requireLogin}/>
         </Route>

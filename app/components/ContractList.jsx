@@ -25,7 +25,6 @@
 
    renderContractor() {
      var { allContractors, endContractModal, color, profileModal, recruiters, dispatch } = this.props;
-     console.log('PROFILEMODAL', profileModal);
      if (allContractors !== undefined) {
        return (
          <div className="contractor__container">

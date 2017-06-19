@@ -11,6 +11,7 @@ const {recruiterReducer} = require('./../reducers/recruiterReducer');
 const {toggleCompletedContractsReducer} = require('./../reducers/toggleCompletedContractsReducer');
 const {allContractorsReducer} = require('./../reducers/allContractorsReducer');
 const {leaderboardReducer} = require('./../reducers/leaderboardReducer');
+const {permLeaderboardReducer} = require('./../reducers/permLeaderboardReducer');
 const {toggleContractorProfile} = require('./../reducers/toggleContractorProfile');
 
 export var configure = () => {
@@ -19,6 +20,7 @@ export var configure = () => {
     getContract: getContractReducer,
     allContractors: allContractorsReducer,
     leaderboard: leaderboardReducer,
+    permLeaderboard: permLeaderboardReducer,
     auth: authReducer,
     permModal: toggleModalReducer,
     contractModal: toggleContractModalReducer,

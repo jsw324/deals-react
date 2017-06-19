@@ -20,8 +20,11 @@ class ContractorContainer extends React.Component {
     if (contractors.length > 0) {
       console.log('CONTRACTORS', contractors);
       contractors.sort((a, b) => {
-        return a.completedDate - b.completedDate;
+        return a.startDate - b.startDate;
       });
+      // contractors.sort((a, b) => {
+      //   return a.completedDate - b.completedDate;
+      // });
       console.log('now ' + now);
       console.log('SORTED', contractors);
       const divStyle = {
@@ -32,7 +35,7 @@ class ContractorContainer extends React.Component {
       //call ContractList component and pass allContractor object as prop
       var items = contractors.map((contractors) => {
         if (contractors.completedDate === '' || contractors.completedDate >  now || toggleCompleted === true) {
-          if (contractors.completedDate > now) {
+          if (contractors.completedDate > now || contractors.completedDate < now && contractors.completedDate !== '') {
             return (
               <div key={contractors.id}><ContractList key={contractors.id} allContractors={contractors} color={'red'} /></div>
             )
