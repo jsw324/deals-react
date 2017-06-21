@@ -10,6 +10,7 @@ class Nav extends React.Component{
     super(props);
     this.getPhoto = this.getPhoto.bind(this);
     this.onLogout = this.onLogout.bind(this);
+    this.isAdmin = this.isAdmin.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +27,6 @@ class Nav extends React.Component{
 	}
 
   openNav() {
-    console.log('window size', window.innerWidth);
     if (window.innerWidth <= 800) {
       document.getElementById("mySidenav").style.width = "40%";
     } else {
@@ -37,6 +37,15 @@ class Nav extends React.Component{
   /* Set the width of the side navigation to 0 */
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+  }
+
+  isAdmin() {
+    var { auth } = this.props;
+    if (auth.isAdmin === true) { 
+      return (
+        <Link to="/admin" className="flow-text">Admin</Link>
+      )
+    }
   }
 
   getPhoto() {
@@ -51,6 +60,7 @@ class Nav extends React.Component{
           <ul>
             <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
             <Link className="flow-text" to="/dashboard">My Dashboard</Link>
+            {this.isAdmin()}
             <Link to ="/leaderboard" className="flow-text">Leaderboard</Link>
             <Link to="#" className="flow-text">My Commission</Link>
             <a href="#" className="flow-text">PTO Requests</a>

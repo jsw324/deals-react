@@ -84,9 +84,9 @@ class AddDeal extends React.Component {
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
-		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales, source, stateLive, stateWork } = this.refs;
+		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales, source, stateLive, stateWork, approver } = this.refs;
 		console.log('name', name.value);
-	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '' || source == '' || state == '' || stateLive == '' || stateWork == '') {
+	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales.value == '' || source.value == '' || stateLive.value == '' || stateWork.value == '' || approver.value == '') {
 		//check for any blank values, if so throw error.
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
@@ -108,7 +108,8 @@ class AddDeal extends React.Component {
 				completedDate: "",
 				source: source.value,
 				stateLive: stateLive.value,
-				stateWork: stateWork.value
+				stateWork: stateWork.value,
+				approver: approver.value
 			};
 			Materialize.toast('Contractor Successfully Added!', 4000);
 			dispatch(actions.postContract(data));
@@ -190,15 +191,19 @@ class AddDeal extends React.Component {
 										<label>Source</label>
 								</div>
 								<div className="input-field col s4">
-									<input id="stateLive" ref="stateLive" type="text"/>
-									<label>State he/she Lives</label>
+									<input id="approver" ref="approver" type="text"/>
+									<label>Timecard Approver (email)</label>
 								</div>
 							</div>
 
 							<div className="row">
-								<div className="input-field col s4 offset-s4">
+								<div className="input-field col s4 offset-s2">
 									<input id="stateWork" ref="stateWork" type="text"/>
 									<label>State he/she Works</label>
+								</div>
+								<div className="input-field col s4">
+									<input id="stateLive" ref="stateLive" type="text"/>
+									<label>State he/she Lives</label>
 								</div>
 							</div>
 

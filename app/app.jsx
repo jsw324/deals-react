@@ -64,7 +64,15 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
   next();
 };
 
-
+var redirectIfIsAdmin = (nextState, replace, next) => {
+  var admin = store.getState().auth.isAdmin;
+  if (admin === true) {
+   next()
+  } else {
+    replace('/dashboard');
+  }
+  next();
+}
 
   ReactDOM.render(
     <Provider store={store}>
@@ -74,7 +82,7 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
           <Route path="/login" component={Login}/>
           <route path="/leaderboard" component={Leaderboard} onEnter={requireLogin}/>
           <route path="/dashboard" component={GetPerm} onEnter={requireLogin}/>
-          <route path="/admin" component={Admin} onEnter={requireLogin}/>
+          <route path="/admin" component={Admin} onEnter={redirectIfIsAdmin}/>
         </Route>
       </Router>
     </Provider>,
