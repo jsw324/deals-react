@@ -4,7 +4,7 @@ const actions = require('actions');
 
 import moment from 'moment';
 
-import ContractList from 'ContractList';
+import ContractList from './ContractList';
 
 class ContractorContainer extends React.Component {
   constructor (props) {

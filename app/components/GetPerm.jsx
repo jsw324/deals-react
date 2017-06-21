@@ -12,7 +12,7 @@ import ContractChart from './charts/ContractChart';
 import AddPerm from './modals/AddPerm';
 import AddContractor from './modals/AddContractor';
 import EndContractModal from './modals/EndContractModal';
-import ContractorContainer from 'ContractorContainer';
+import ContractorContainer from './contractorList/ContractorContainer';
 
 var Modal = require('react-modal');
 var format = require('format-number');

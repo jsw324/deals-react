@@ -1,15 +1,15 @@
  import React from 'react';
  import { connect } from 'react-redux';
 
- import EndContract from 'EndContract';
- import EndContractModal from './modals/EndContractModal';
- import ContractorProfileModal from './modals/ContractorProfileModal';
+ import EndContract from './../modals/EndContract';
+ import EndContractModal from './../modals/EndContractModal';
+ import ContractorProfileModal from './../modals/ContractorProfileModal';
 
  import moment from 'moment';
  var format = require('format-number');
  const actions = require('actions'); 
  var Modal = require('react-modal');
- const utils = require('./utils/utils.js');
+ const utils = require('./../utils/utils.js');
 
  class ContractList extends React.Component {
    constructor (props) {
