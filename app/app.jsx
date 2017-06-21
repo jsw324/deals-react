@@ -4,9 +4,9 @@ const {Provider} = require('react-redux');
 const {Route, Router, IndexRoute, hashHistory} = require('react-router');
 import firebase from 'app/firebase/';
 
-import Main from 'Main';
-import Login from 'Login';
-import GetPerm from 'GetPerm';
+import Main from './components/main/Main';
+import Login from './components/main/Login';
+import GetPerm from './components/main/GetPerm';
 import Admin from './components/admin/Admin';
 import Leaderboard from './components/leaderboard/Leaderboard';
 

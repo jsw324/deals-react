@@ -70,19 +70,23 @@ class AddDeal extends React.Component {
 		console.log('BR', billRate.value);
 		console.log('STTE', this.state.billRate);
 		console.log('W2', isW2.value);
-		if (isW2 === true) { 
-			
+		var spreads;
+		if (isW2.value === 'w2') { 
+			spreads = ((this.state.billRate - (this.state.hourly * 1.15)) * 40);
+		} else if (isW2 === '1099') {
+			spreads = ((this.state.billrate - (this.state.hourly * 1.05)) * 40);
+		} else {
+			spreads = 0;
 		}
-		var spreads = (this.state.billRate - this.state.hourly) * 40;
-		document.getElementById('spreadAmount').innerHTML = 'SPREAD: ' +  '$' + spreads;
+		document.getElementById('spreadAmount').innerHTML = 'SPREAD: ' +  '$' + Math.floor(spreads);
 	}
 
 	submitDeal(e) {
 		e.preventDefault();
 		var {dispatch} = this.props;
-		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales, source, state } = this.refs;
+		var { name, isW2, client, billRate, hourly, startDate, recruiter, sales, source, stateLive, stateWork } = this.refs;
 		console.log('name', name.value);
-	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '' || source == '' || state == '') {
+	if (name.value == '' || isW2.value == '' || client.value == '' || billRate.value <= 0 || hourly.value <= 0 || startDate.value <= 0 || recruiter.value == '' || sales == '' || source == '' || state == '' || stateLive == '' || stateWork == '') {
 		//check for any blank values, if so throw error.
 		console.log('error');
 		document.getElementById('error').innerHTML = 'Error in field, please check your values and try again.';
@@ -103,7 +107,8 @@ class AddDeal extends React.Component {
 				sales: sales.value,
 				completedDate: "",
 				source: source.value,
-				state: state.value
+				stateLive: stateLive.value,
+				stateWork: stateWork.value
 			};
 			Materialize.toast('Contractor Successfully Added!', 4000);
 			dispatch(actions.postContract(data));
@@ -185,8 +190,15 @@ class AddDeal extends React.Component {
 										<label>Source</label>
 								</div>
 								<div className="input-field col s4">
-									<input id="state" ref="state" type="text"/>
-									<label>State</label>
+									<input id="stateLive" ref="stateLive" type="text"/>
+									<label>State he/she Lives</label>
+								</div>
+							</div>
+
+							<div className="row">
+								<div className="input-field col s4 offset-s4">
+									<input id="stateWork" ref="stateWork" type="text"/>
+									<label>State he/she Works</label>
 								</div>
 							</div>
 

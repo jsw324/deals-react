@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 const actions = require('actions');
-const utils = require('./utils/utils.js');
+const utils = require('./../utils/utils.js');
 
 import moment from 'moment';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 
-import PermChart from './charts/PermChart';
-import ContractChart from './charts/ContractChart';
-import AddPerm from './modals/AddPerm';
-import AddContractor from './modals/AddContractor';
-import EndContractModal from './modals/EndContractModal';
-import ContractorContainer from './contractorList/ContractorContainer';
+import PermChart from './../charts/PermChart';
+import ContractChart from './../charts/ContractChart';
+import AddPerm from './../modals/AddPerm';
+import AddContractor from './../modals/AddContractor';
+import EndContractModal from './../modals/EndContractModal';
+import ContractorContainer from './../contractorList/ContractorContainer';
 
 var Modal = require('react-modal');
 var format = require('format-number');

@@ -5,7 +5,7 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { connect } from 'react-redux';
 
-import Nav from 'Nav';
+import Nav from './Nav';
 
 const Main = (props) => {
   var { auth } = props;
