@@ -1,7 +1,7 @@
 import React from 'react';
 var Modal = require('react-modal');
 
-import ContractorProfile from './ContractorProfile';
+import ContractorProfile from 'ContractorProfile';
 
 const ContractorProfileModal = (props) => {
 	var { profileModal, recruiters } = props;

@@ -9,6 +9,12 @@ const ContractorProfile = (props) => {
   var recruiter = utils.getRecruiterName(contractor.recruiter, recruiters);
   var sales = utils.getRecruiterName(contractor.sales, recruiters);
   var startDate = utils.formatDate(contractor.startDate);
+  var completedDate;
+  if (contractor.completedDate === '') {
+    completedDate = 'Currently Active';
+  } else {
+    completedDate = utils.formatDate(contractor.completedDate);
+  }
   return (
     <div className="row">
       <div className="col s3">
@@ -16,6 +22,7 @@ const ContractorProfile = (props) => {
         <h5>{contractor.name}</h5>
         <h6><b>client: </b>{contractor.client}</h6>
         <h6><b>Start Date: </b>{startDate}</h6>
+        <h6><b>End Date: </b>{completedDate}</h6>
       </div>
       <div className="col s9">
         <h2 className="center-align">{contractor.name} Profile</h2>

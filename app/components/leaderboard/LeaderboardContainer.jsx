@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LeaderboardPure from './LeaderboardPure';
+import LeaderboardPure from 'LeaderboardPure';
 
 class LeaderboardContainer extends React.Component {
   constructor (props) {

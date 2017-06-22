@@ -4,7 +4,7 @@ const actions = require('actions');
 
 import moment from 'moment';
 
-import ContractList from './ContractList';
+import ContractList from 'ContractList';
 
 class ContractorContainer extends React.Component {
   constructor (props) {
@@ -22,11 +22,6 @@ class ContractorContainer extends React.Component {
       contractors.sort((a, b) => {
         return a.startDate - b.startDate;
       });
-      // contractors.sort((a, b) => {
-      //   return a.completedDate - b.completedDate;
-      // });
-      console.log('now ' + now);
-      console.log('SORTED', contractors);
       const divStyle = {
         WebKitTransition: 'all',
         msTransition: 'all',

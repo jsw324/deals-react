@@ -1,9 +1,9 @@
  import React from 'react';
  import { connect } from 'react-redux';
 
- import EndContract from './../modals/EndContract';
- import EndContractModal from './../modals/EndContractModal';
- import ContractorProfileModal from './../modals/ContractorProfileModal';
+ import EndContract from 'EndContract';
+ import EndContractModal from 'EndContractModal';
+ import ContractorProfileModal from 'ContractorProfileModal';
 
  import moment from 'moment';
  var format = require('format-number');

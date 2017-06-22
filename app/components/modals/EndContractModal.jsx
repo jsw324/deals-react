@@ -1,7 +1,7 @@
 import React from 'react';
 var Modal = require('react-modal');
 
-import EndContract from './EndContract';
+import EndContract from 'EndContract';
 
 const EndContractModal = (props) => {
   var { endContractModal } = props;

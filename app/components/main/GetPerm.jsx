@@ -4,15 +4,14 @@ const actions = require('actions');
 const utils = require('./../utils/utils.js');
 
 import moment from 'moment';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css'
 
-import PermChart from './../charts/PermChart';
-import ContractChart from './../charts/ContractChart';
-import AddPerm from './../modals/AddPerm';
-import AddContractor from './../modals/AddContractor';
-import EndContractModal from './../modals/EndContractModal';
-import ContractorContainer from './../contractorList/ContractorContainer';
+import PermChart from 'PermChart';
+import ContractChart from 'ContractChart';
+import AddPerm from 'AddPerm';
+import AddContractor from 'AddContractor';
+import EndContractModal from 'EndContractModal';
+import ContractorContainer from 'ContractorContainer';
+import PermTable from 'PermTable';
 
 var Modal = require('react-modal');
 var format = require('format-number');
@@ -81,38 +80,6 @@ class GetPerm extends React.Component {
 
   renderPerm () {
     var { getPerm, getContract, recruiters, permModal, contractModal, auth, toggleCompletedContracts, allContractors } = this.props;
-
-    //define columns of ReactTable component
-    const columns = [{
-    header: 'Name',
-    accessor: 'name'  
-  }, {
-    header: 'Client',
-    accessor: 'client'
-  }, {
-    id: 'startDate', // Required because our accessor is not a string 
-    header: 'Start Date',
-    accessor: 'startDate'
-  }, {
-    header: 'Recruiter',
-    accessor: 'recruiter'
-  }, {
-    header: 'Sales',
-    accessor: 'sales'
-  }, {
-    header: 'Salary',
-    accessor: 'salary',
-    id: 'salary'
-  }, {
-    header: 'Fee %',
-    accessor: 'fee',
-    id: 'fee'
-  }, {
-    header: 'Fee',
-    accessor: 'feeAmount',
-    id: 'feeAmount'
-  }]
-  
     if (getContract.length >= 0){
       var ytdPermFees = 0;
       var deals = getPerm.map((val) => {
@@ -205,19 +172,7 @@ class GetPerm extends React.Component {
           <AddContractor/>
           </Modal>
           <ContractorContainer contractors={getContract} toggleCompleted={toggleCompletedContracts}/>
-            <div className="content__container"> 
-              <h5 className="center-align">Perm Placements</h5>
-              <div className="divider"></div>
-              <div className="perm__table">
-                <ReactTable
-                  data={deals}
-                  columns={columns}
-                  resizable="true"
-                  defaultPageSize="10"
-                  noDataText="No Deals yet. Better hit those phones!"
-                  />
-                </div>
-              </div>
+          <PermTable deals={deals}/>
           </div>
         </div>
       )

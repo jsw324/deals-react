@@ -4,7 +4,7 @@ const actions = require('actions');
 const moment = require('moment');
 
 
-class AddPerm extends React.Component {
+export class AddPerm extends React.Component {
   	constructor (props) {
   	super(props);
 		this.submitDeal = this.submitDeal.bind(this);

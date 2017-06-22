@@ -45,14 +45,19 @@ module.exports = {
         modulesDirectories: [
             'node_modules',
             './app/components',
-            './app/components/*',
-            './app/api'
+            './app/components/admin',
+            './app/components/charts',
+            './app/components/contractorList',
+            './app/components/leaderboard',
+            './app/components/main',
+            './app/components/modals',
+            './app/components/permTable'
         ],
         alias: {
             app: 'app',
             applicationStyles: 'app/styles/app.scss',
             actions: 'app/actions/actions.jsx',
-            reducers: 'app/reducers/fightr.jsx',
+            reducers: 'app/reducers/*',
             configureStore: 'app/store/configureStore.jsx'
         },
         extensions: ['', '.js', '.jsx', '.coffee']

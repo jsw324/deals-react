@@ -4,3 +4,4 @@ config/
 fonts/
 .chrome/
 .vscode/
+app/tests
