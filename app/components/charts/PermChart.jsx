@@ -11,8 +11,11 @@ class PermChart extends React.Component {
     }
   render () {
       var { deals } = this.props;
-      var obj = [];
-      var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0;
+      var firstObj = [];
+      var secondObj = [];
+      var jan= 0, feb = 0, march = 0, april = 0, may = 0, jun = 0, jul = 0, aug = 0, sept = 0, oct = 0, nov = 0, dec = 0;
+      var firstHalf = ["January", "February", "March", "April", "May", "June"];
+      var secondHalf = ["July", "August", "September", "October", "November", "December"]
       // iterate over each deal, pushing to the corresponding month.
       // End result is to create an array with the total amount of fees for each month.
         deals.map((val) => {
@@ -38,12 +41,40 @@ class PermChart extends React.Component {
             case 5: 
               jun += fee;
               break;
+            case 6: 
+              jul += fee;
+              break;
+            case 7:
+              aug += fee;
+              break;
+            case 8:
+              sept += fee;
+              break;
+            case 9:
+              oct += fee;
+              break;
+            case 10:
+              nov += fee;
+              break;
+            case 11:
+              dec += fee;
+              break;
           };
         });
     
-      obj.push(jan, feb, march, april, may, jun);
+      firstObj.push(jan, feb, march, april, may, jun);
+      secondObj.push(jul, aug, sept, oct, nov, dec);
+      var data, smartLabel;
+    if (moment().isBefore(moment('7/1/2017'))) {
+      data = firstObj;
+      smartLabel = firstHalf;
+    } else {
+      data = secondObj;
+      smartLabel = secondHalf;
+    }
+  
     var chartData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: smartLabel,
     datasets: [
         {
             label: "Full-Time",
@@ -52,7 +83,7 @@ class PermChart extends React.Component {
             hoverBackgroundColor: 'rgb(253, 177, 2)',
             hoverBorderColor: 'rgb(253, 177, 2)',
             borderWidth: 1,
-            data: obj
+            data: data
         }
     ]
 };

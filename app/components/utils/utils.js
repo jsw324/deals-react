@@ -17,11 +17,13 @@ export var getSpread = (spread) => {
     var sprd = 0;
     var sundays = [];
     //push 26 Sundays into array, starting with the first Sunday of January, 2017;
-    var startDateVar = moment().set({ 'year': 2017, 'month': 0, 'day': 7 });
+    console.log("SUNDAY", moment().startOf('week'));
+    var startDateVar = moment().startOf('week');
     for (var i = 0; i < 26; i++) {
         sundays.push(startDateVar.format("MM/DD/YYYY"));
-        startDateVar = startDateVar.add(7, 'days')
+        startDateVar = startDateVar.subtract(7, 'days')
     }
+    sundays.reverse();
     sundays.forEach((date) => {
         spread.forEach((contractor) => {
             if (contractor.completedDate === '') {

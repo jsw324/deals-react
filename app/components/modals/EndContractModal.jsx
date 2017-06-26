@@ -4,7 +4,7 @@ var Modal = require('react-modal');
 import EndContract from 'EndContract';
 
 const EndContractModal = (props) => {
-  var { endContractModal } = props;
+  var { endContractModal, recruiters } = props;
   if (endContractModal === false) {
   return <span />
   } else {
@@ -17,7 +17,7 @@ const EndContractModal = (props) => {
                 shouldCloseOnOverlayClick={true}
                 >
                 <div className="container">
-                <EndContract contractor={endContractModal.modalProps.contractor} />
+                <EndContract contractor={endContractModal.modalProps.contractor} recruiters={recruiters} />
                 </div>
               </Modal>
         </div>

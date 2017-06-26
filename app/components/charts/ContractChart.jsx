@@ -12,7 +12,7 @@ const ContractChart = (props) => {
   var spd = weeklySpread.map((week) => week.spread);
   //user contractorSpread array to populate chartjs chart.
   var chartData = {
-  labels: dates,
+  labels: dates, 
   datasets: [
       {
           label: "Contract",

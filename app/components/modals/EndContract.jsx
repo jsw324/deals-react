@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 const actions = require('actions');
 const moment = require('moment');
 
+const utils = require('./../utils/utils');
+
 class EndContract extends React.Component {
   	constructor (props) {
   	super(props);
 		this.endContract = this.endContract.bind(this);
+		this.getRecruiterName = this.getRecruiterName.bind(this);
 	}
 	
 	componentDidMount() {
@@ -16,6 +19,22 @@ class EndContract extends React.Component {
 		});
 		$('select').material_select();
 	}
+
+
+  getRecruiterName(id) {
+    var { recruiters } = this.props;
+    var result;
+    recruiters.forEach((val) => {
+      if (val.id === id) {
+        result = val.name;
+      } 
+    })
+    if (result) {
+      return result;
+    } else {
+      return id;
+    }
+  }
 
 	endContract(endDate, e) {
 		//pull contractor and end date off of props and refs, respectively.
@@ -63,12 +82,12 @@ class EndContract extends React.Component {
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<p>{contractor.recruiter}</p>
+									<p>{this.getRecruiterName(contractor.recruiter)}</p>
 									<small>Recruiter</small>
 								</div>
 
 								<div className="input-field col s4 offest-s2">
-									<p>{contractor.sales}</p>
+									<p>{this.getRecruiterName(contractor.sales)}</p>
 									<small>Sales</small>
 								</div>
       				</div>
@@ -87,7 +106,7 @@ class EndContract extends React.Component {
 
 							<div className="row">
 								<div className="input-field col s4 offset-s2">
-									<p>{contractor.startDate}</p>
+									<p>{utils.formatDate(contractor.startDate)}</p>
 									<small>Start Date</small>
 								</div>
 

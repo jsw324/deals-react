@@ -60,7 +60,7 @@
             </ul>
           </div>
           <div className=""></div>
-          <EndContractModal endContractModal={endContractModal} />
+          <EndContractModal endContractModal={endContractModal} recruiters={recruiters} />
           <ContractorProfileModal profileModal={profileModal} recruiters={recruiters} />
         </div>
        )

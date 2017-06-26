@@ -11,7 +11,7 @@ const ContractorProfile = (props) => {
   var startDate = utils.formatDate(contractor.startDate);
   var completedDate;
   if (contractor.completedDate === '') {
-    completedDate = 'Currently Active';
+    completedDate = 'ACTIVE';
   } else {
     completedDate = utils.formatDate(contractor.completedDate);
   }
