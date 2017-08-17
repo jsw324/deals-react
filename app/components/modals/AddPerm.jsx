@@ -108,6 +108,7 @@ export class AddPerm extends React.Component {
 											<option value="20">20%</option>
 											<option value="18">18%</option>
 											<option value="15">15%</option>
+											<option value="10">10%</option>
 										</select>
 										<label>Fee</label>
 									</div>

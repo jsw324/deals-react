@@ -30,7 +30,7 @@ class GetPerm extends React.Component {
 
   onLogout(e) {
 		e.preventDefault();
-		var {dispatch} = this.props;
+		var { dispatch } = this.props;
 		dispatch(actions.startLogout());
 	}
 
