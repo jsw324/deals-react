@@ -51,7 +51,8 @@ module.exports = {
             './app/components/leaderboard',
             './app/components/main',
             './app/components/modals',
-            './app/components/permTable'
+            './app/components/permTable',
+            './app/components/pto',
         ],
         alias: {
             app: 'app',

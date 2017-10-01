@@ -9,6 +9,7 @@ import Login from 'Login';
 import GetPerm from 'GetPerm';
 import Admin from 'Admin';
 import Leaderboard from 'Leaderboard';
+import PtoContainer from 'PtoContainer';
 
 const actions = require('actions');
 const store = require('configureStore').configure();
@@ -83,6 +84,7 @@ var redirectIfIsAdmin = (nextState, replace, next) => {
           <route path="/leaderboard" component={Leaderboard} onEnter={requireLogin}/>
           <route path="/dashboard" component={GetPerm} onEnter={requireLogin}/>
           <route path="/admin" component={Admin} onEnter={redirectIfIsAdmin}/>
+          <route path="/pto" component={PtoContainer} onEnter={requireLogin} />
         </Route>
       </Router>
     </Provider>,

@@ -63,7 +63,7 @@ class Nav extends React.Component{
             {this.isAdmin()}
             <Link to ="/leaderboard" className="flow-text">Leaderboard</Link>
             <Link to="#" className="flow-text">My Commission</Link>
-            <a href="#" className="flow-text">PTO Requests</a>
+            <Link to="/pto" className="flow-text">Vacation Days</Link>
             <a onClick={this.onLogout} className="flow-text">Logout</a>
           </ul>
         </div>
