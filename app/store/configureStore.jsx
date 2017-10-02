@@ -13,6 +13,7 @@ const {allContractorsReducer} = require('./../reducers/allContractorsReducer');
 const {leaderboardReducer} = require('./../reducers/leaderboardReducer');
 const {permLeaderboardReducer} = require('./../reducers/permLeaderboardReducer');
 const {toggleContractorProfile} = require('./../reducers/toggleContractorProfile');
+const { subtractPtoDaysReducer } = require('./../reducers/subtractPtoDaysReducer');
 
 export var configure = () => {
   var reducer = redux.combineReducers({
